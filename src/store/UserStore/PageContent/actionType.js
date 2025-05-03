@@ -1,0 +1,6 @@
+// PAGE
+
+export const GET_PAGE_BY_ID = "GET_PAGE_BY_ID";
+export const GET_PAGE_BY_ID_BEGIN = "GET_PAGE_BY_ID_BEGIN";
+export const GET_PAGE_BY_ID_SUCCESS = "GET_PAGE_BY_ID_SUCCESS";
+export const GET_PAGE_BY_ID_FAIL = "GET_PAGE_BY_ID_FAIL";

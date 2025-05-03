@@ -1,0 +1,371 @@
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useLocation, useParams } from "react-router";
+import SessionExpiredAlert from "../../components/sessionExpiredAlert";
+import Loader from "../../components/UI/Loader";
+import { getLocalStorage, getMid, getWebPayTm } from "../../helpers/utils";
+import { getAddressDetails } from "../../store/UserStore/Address//action";
+import {
+  getClinicBookingFee,
+  getClinicPayment,
+  initiateClinicPayment,
+} from "../../store/UserStore/Clinic/action";
+import { getPersonalDetails } from "../../store/UserStore/Profile/action";
+import {
+  addClinicCouponDetails,
+  removeClinicCouponDetails,
+} from "../../store/UserStore/Coupon/action";
+import Login from "../Login";
+import logo from "../../assets/images/logo.jpg";
+import { resetErrors } from "../../store/UserStore/Login/action";
+
+const BookingPayment = () => {
+  const dispatch = useDispatch();
+  const [modal, setModal] = useState(false);
+  const toggle = () => {
+    setModal(!modal);
+    dispatch(resetErrors());
+    setCustError("");
+  };
+
+  const params = useParams();
+
+  const [checkoutModal, setCheckoutModal] = useState(false);
+  const [phone, setPhone] = useState("");
+  let [custError, setCustError] = useState("");
+
+  const [useCoupon, setuseCoupon] = useState(false);
+  const [removeCoupon, setremoveCoupon] = useState(false);
+  const [couponamt, setcouponamt] = useState();
+  const [couponname, setcouponname] = useState();
+  const [couponcode, setcouponcode] = useState();
+
+  const Clinic = useSelector((state) => state.Clinic);
+  const profileDetails = useSelector((state) => state.Profile);
+
+  const auth = getLocalStorage("AUTH_DETAILS");
+  useEffect(() => {
+    auth?.user?.role == "pet_owner" &&
+      dispatch(getAddressDetails({ data: { address_use: "shipping" } }));
+    auth?.user?.role == "pet_owner" && dispatch(getPersonalDetails());
+    dispatch(getClinicBookingFee());
+    dispatch(getClinicPayment({ data: { payment_id: params?.id } }));
+  }, []);
+
+  const location = useLocation();
+
+  const makePayment = () => {
+    var config = {
+      root: "",
+      style: {
+        bodyBackgroundColor: "#fafafb",
+        bodyColor: "",
+        themeBackgroundColor: "#0FB8C9",
+        themeColor: "#ffffff",
+        headerBackgroundColor: "#284055",
+        headerColor: "#ffffff",
+        errorColor: "",
+        successColor: "",
+        card: {
+          padding: "",
+          backgroundColor: "",
+        },
+      },
+      data: {
+        orderId: params?.id,
+        token: Clinic?.paymentData?.paytm_token,
+        tokenType: "TXN_TOKEN",
+        amount: Clinic?.paymentData?.amount,
+      },
+      payMode: {
+        labels: {},
+        filter: {
+          exclude: [],
+        },
+        order: ["CC", "DC", "NB", "UPI", "PPBL", "PPI", "BALANCE"],
+      },
+      website: getWebPayTm(),
+      flow: "DEFAULT",
+      merchant: {
+        mid: getMid(),
+        redirect: false,
+      },
+      handler: {
+        transactionStatus: function transactionStatus(response) {
+          dispatch(
+            initiateClinicPayment(
+              response,
+              params?.id,
+              history,
+              window.Paytm.CheckoutJS.close(),
+              window.scrollTo({ top: 0, behavior: "smooth" })
+            )
+          );
+        },
+        notifyMerchant: function notifyMerchant(eventName, data) {
+          console.log("Closed");
+        },
+      },
+    };
+
+    if (window.Paytm && window.Paytm.CheckoutJS) {
+      window.Paytm.CheckoutJS.init(config)
+        .then(function onSuccess() {
+          window.Paytm.CheckoutJS.invoke();
+        })
+        .catch(function onError(error) {
+          console.log("Error => ", error);
+        });
+    }
+  };
+
+  const handlePrePaidPayment = (e) => {
+    // const paymentObject = new window.Razorpay(options);
+    e.preventDefault();
+    // paymentObject.open();
+    makePayment();
+  };
+
+  useEffect(() => {
+    profileDetails?.user?.phone && setPhone(profileDetails?.user?.phone);
+  }, [profileDetails?.user]);
+
+  const history = useHistory();
+
+  return (
+    <div className="main-content">
+      <div>
+        {Clinic?.paymentData?.status == "prepaid" ? (
+          <div className="mt-60 pb-100 text-center">
+            {/* <img src={logo} width="100px" /> */}
+
+            <h2 className="text-center">Oops! Something went wrong</h2>
+            <p>Please try again or report an issue to support</p>
+            <a href="/clinic" className="orange-font font-weight-bold">
+              Go Back To Clinic Section
+            </a>
+          </div>
+        ) : (
+          <div className="container payement-container pt-30 pb-60">
+            {Clinic?.paymentData ? (
+              <>
+                <div className="col-lg-9 mt-">
+                  {getLocalStorage("AUTH_DETAILS") &&
+                  getLocalStorage("AUTH_DETAILS")?.user?.role == "pet_owner" ? (
+                    <div className=" approve-content-header">
+                      <h4 className="">
+                        <span className="approve-number ml-4">1</span>
+                        <span className="approve-heading">Login</span>
+                        <span className="text-success"> ✔</span>
+                      </h4>
+                      <div className="d-flex">
+                        <h5 className="font-weight-500 text-dark ml-50 margin-right">
+                          {profileDetails?.user?.first_name}{" "}
+                          {profileDetails?.user?.last_name}
+                        </h5>
+                        <h5 className="font-weight-500 text-dark ml-50 margin-right">
+                          {profileDetails?.user?.phone}
+                        </h5>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className=" approve-content-header">
+                      <h4 className="">
+                        <span className="approve-number ml-4">1</span>
+                        <span className="approve-heading">Login</span>
+                        <span className="text-success "> ✔</span>
+                      </h4>
+                    </div>
+                  )}
+                </div>
+
+                {/* Address  */}
+
+                <div className="col-lg-9">
+                  <h4 className="content-header">
+                    <span className="number ml-4">2</span>
+                    <span className="heading">Booking Details</span>
+                  </h4>
+                  <div className="">
+                    <div className="inner row">
+                      <div className="col col-5 mt-3">
+                        <div className="d-flex">
+                          <p className="col-md-6 col-xs-5">Parent Name:</p>
+                          <p className="col-md-6 col-xs-5">
+                            {" "}
+                            {auth?.first_name || auth?.user?.first_name}{" "}
+                            {auth?.last_name || auth?.user?.last_name}
+                          </p>
+                        </div>
+                        <div className="d-flex">
+                          <p className="col-md-6 col-xs-5">Pet Name:</p>
+                          <p className="col-md-6 col-xs-5">
+                            {" "}
+                            {Clinic?.paymentData?.appointment_details?.pet_name}
+                          </p>
+                        </div>
+                        <div className="d-flex">
+                          <p className="col-md-6 col-xs-5">Pet Age:</p>
+                          <p className="col-md-6 col-xs-5">
+                            {" "}
+                            {Clinic?.paymentData?.appointment_details?.pet_age}
+                          </p>
+                        </div>
+                        {Clinic?.paymentData?.appointment_details?.pet_breed ? (
+                          <div className="d-flex">
+                            <p className="col-md-6 col-xs-5">Breed Type :</p>
+                            <p className="col-md-6 col-xs-5">
+                              {" "}
+                              {
+                                Clinic?.paymentData?.appointment_details
+                                  ?.pet_breed
+                              }
+                            </p>
+                          </div>
+                        ) : null}
+                        <div className="d-flex">
+                          <p className="col-md-6 col-xs-5">
+                            Medical Description:
+                          </p>
+                          <p className="col-md-6 col-xs-5">
+                            {Clinic?.paymentData?.appointment_details?.service}
+                          </p>
+                        </div>
+                        <div className="d-flex">
+                          <p className="col-md-6 col-xs-5">Doctor Name:</p>
+                          <p className="col-md-6 col-xs-5">
+                            {" "}
+                            {Clinic?.paymentData?.appointment_details?.doctor}
+                          </p>
+                        </div>
+                        <div className="d-flex">
+                          <p className="col-md-6 col-xs-5">Clinic Name:</p>
+                          <p className="col-md-6 col-xs-5">
+                            {" "}
+                            {Clinic?.paymentData?.clinic_details?.clinic_name}
+                          </p>
+                        </div>
+                        <div className="d-flex">
+                          <p className="col-md-6 col-xs-5">Clinic Address:</p>
+                          <p className="col-md-6 col-xs-5">
+                            {" "}
+                            {
+                              Clinic?.paymentData?.clinic_details
+                                ?.clinic_address_line_1
+                            }
+                            ,
+                            {
+                              Clinic?.paymentData?.clinic_details
+                                ?.clinic_address_line_2
+                            }
+                            ,
+                            <p className="col-md-6 col-xs-5 pl-0">
+                              {" "}
+                              {Clinic?.paymentData?.clinic_details?.clinic_city}
+                              ,
+                              {
+                                Clinic?.paymentData?.clinic_details
+                                  ?.clinic_state
+                              }
+                              ,
+                              {
+                                Clinic?.paymentData?.clinic_details
+                                  ?.clinic_pincode
+                              }
+                            </p>
+                          </p>
+                        </div>
+                        <div className="d-flex">
+                          <p className="col-md-6 col-xs-5">Visited Clinic:</p>
+                          <p className="col-md-6 col-xs-5">
+                            {Clinic?.paymentData?.appointment_details
+                              ?.visited === true
+                              ? "Yes"
+                              : "No"}
+                          </p>
+                        </div>
+                        <div className="d-flex">
+                          <p className="col-md-6 col-xs-5">Appointment Date:</p>
+                          <p className="col-md-6 col-xs-5">
+                            {
+                              Clinic?.paymentData?.appointment_details
+                                ?.appointment_date
+                            }
+                          </p>
+                        </div>
+                        <div className="d-flex">
+                          <p className="col-md-6 col-xs-5">Appointment Time:</p>
+                          <p className="col-md-6 col-xs-5">
+                            {" "}
+                            {
+                              Clinic?.paymentData?.appointment_details
+                                ?.start_time
+                            }
+                            {/* {Clinic?.paymentData?.appointment_details?.end_time}{" "} */}
+                          </p>
+                        </div>
+                        <div className="d-flex">
+                          <p className="col-md-6 col-xs-5">Consultation Fee:</p>
+                          <p className="col-md-6 col-xs-5">
+                            ₹ {Clinic?.paymentData?.consultation_fee}
+                          </p>
+                        </div>
+
+                        {/* <div className="d-flex">
+                          <p className="col-md-6 col-xs-5">Booking Fee:</p>
+                          <p className="col-md-6 col-xs-5">
+                            ₹ {Clinic?.bookingFee?.Booking_fee}
+                          </p>
+                        </div> */}
+
+                        <div className="d-flex">
+                          <h4 className="col-md-6 col-xs-5">Total Amount:</h4>
+                          <h4 className="col-md-6 col-xs-5">
+                            ₹ {Clinic?.paymentData?.amount}
+                          </h4>
+                        </div>
+
+                        {/* <p className="ml-3 my-2 font-weight-bold pl-2">
+                          To make convenient yet affordable pet care services a
+                          reality, the booking fee is just ₹{""}
+                          {Clinic?.bookingFee?.Booking_fee}.
+                        </p> */}
+
+                        <div className="text-right">
+                          <button
+                            className=" btn btn-default font-weight-bold px-5 py-3 mr-4 ml-3 my-4 "
+                            type="submit"
+                            onClick={handlePrePaidPayment}
+                            style={{
+                              background: "#138496",
+                              color: "#fff",
+                              fontSize: "14px",
+                            }}
+                          >
+                            PAY NOW
+                          </button>{" "}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
+            ) : null}
+          </div>
+        )}
+      </div>
+      <Login
+        modal_center={modal}
+        setmodal_center={setModal}
+        toggle={toggle}
+        setCustError={setCustError}
+        custError={custError}
+      />
+      {Clinic?.loading && <Loader />}
+
+      <SessionExpiredAlert modal_center={checkoutModal} />
+    </div>
+  );
+};
+
+export default BookingPayment;

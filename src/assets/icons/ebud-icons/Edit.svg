@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>edit</title>
+    <g id="messej-UI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="25f_Profile_image" transform="translate(-174.000000, -504.000000)">
+            <g id="Account-details" transform="translate(0.000000, 434.000000)">
+                <g id="email" transform="translate(20.000000, 46.000000)">
+                    <g id="edit" transform="translate(154.000000, 24.000000)">
+                        <rect id="bounding" x="0" y="0" width="20" height="20"></rect>
+                        <path d="M15.8050271,6.69462575 C16.064991,6.43466185 16.064991,6.0013887 15.8050271,5.75475628 L14.2452437,4.19497292 C13.9986113,3.93500903 13.5653381,3.93500903 13.3053743,4.19497292 L12.0788779,5.4148035 L14.5785308,7.91445633 L15.8050271,6.69462575 Z M4,13.5003472 L4,16 L6.49965283,16 L13.8719622,8.62102486 L11.3723094,6.12137203 L4,13.5003472 Z" id="Shape" fill="#747D87"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

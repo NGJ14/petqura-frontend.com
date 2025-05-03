@@ -1,0 +1,4 @@
+export const GET_AD_IMAGE = "GET_AD_IMAGE";
+export const GET_AD_IMAGE_BEGIN = "GET_AD_IMAGE_BEGIN";
+export const GET_AD_IMAGE_SUCCESS = "GET_AD_IMAGE_SUCCESS";
+export const GET_AD_IMAGE_FAIL = "GET_AD_IMAGE_FAIL";

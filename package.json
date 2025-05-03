@@ -1,0 +1,70 @@
+{
+  "name": "paw-walker",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "availity-reactstrap-validation": "^2.7.0",
+    "axios": "^0.23.0",
+    "bootstrap": "^3.4.1",
+    "date-fns": "^2.28.0",
+    "file-saver": "^2.0.5",
+    "flux": "^4.0.3",
+    "moment": "^2.29.3",
+    "node-sass": "^7.0.3",
+    "photoswipe": "^5.3.2",
+    "rc-slider": "^10.0.0",
+    "react": "^17.0.2",
+    "react-bootstrap": "^2.0.2",
+    "react-data-table-component": "^7.4.5",
+    "react-date-range": "^1.4.0",
+    "react-dom": "^17.0.2",
+    "react-google-recaptcha": "^2.1.0",
+    "react-helmet": "^6.1.0",
+    "react-js-pagination": "^3.0.3",
+    "react-nvd3": "^0.5.7",
+    "react-owl-carousel": "^2.3.3",
+    "react-phone-number-input": "^3.1.52",
+    "react-photoswipe-gallery": "^2.2.2",
+    "react-redux": "^7.2.5",
+    "react-router-dom": "^5.3.0",
+    "react-scripts": "^5.0.1",
+    "react-slick": "^0.28.1",
+    "react-slideshow-image": "^3.7.0",
+    "reactstrap": "^8.10.0",
+    "redux": "^4.1.1",
+    "redux-logger": "^3.0.6",
+    "redux-saga": "^1.1.3",
+    "rsuite": "^5.33.1",
+    "rsuite-daterangepicker": "^3.0.5",
+    "slick-carousel": "^1.8.1",
+    "styled-components": "^6.0.7",
+    "web-vitals": "^1.1.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
