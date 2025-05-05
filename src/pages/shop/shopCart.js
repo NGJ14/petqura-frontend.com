@@ -962,7 +962,7 @@ const ShopCart = () => {
                   <div className="col-md-9 col-lg-9 col-sm-6">
                     <div className="accordian">
                       <details id="cart" open={isCartOpen}>
-                        <summary>1. Cart</summary>
+                        <summary className="bg-theme-colored text-white">1. Cart</summary>
                         <div className="acc-content">
                           <div className="row">
                             <div className="col-md-12 col-lg-12 col-sm-12">
@@ -1088,7 +1088,7 @@ const ShopCart = () => {
                                                     -
                                                   </span>
                                                   <input
-                                                    className="add-qty"
+                                                    className="add-qty bg-theme-colored text-white font-weight-bold"
                                                     type="text"
                                                     value={item?.quantity}
                                                     onChange={(e) =>
@@ -1159,7 +1159,7 @@ const ShopCart = () => {
                             <div className="col-md-12 col-lg-12 col-sm-12">
                               <div className="pull-right">
                                 <a
-                                  className=" btn btn-default cust-payment-btn font-weight-bold mr-4 mb-4 "
+                                  className=" btn btn-default btn-theme-colored cust-payment-btn font-weight-bold mr-4 mb-4 "
                                   onClick={(e) => {
                                     setIsCartOpen((prev) => !prev);
                                     if (isShipOpen === false)
@@ -1186,7 +1186,7 @@ const ShopCart = () => {
                         //   setIsShipOpen(!isShipOpen);
                         // }}
                       >
-                        <summary
+                        <summary className="bg-theme-colored text-white"
                         // onClick={(e) => {
                         //   setIsShipOpen(!isShipOpen);
                         // }}
@@ -2099,7 +2099,7 @@ const ShopCart = () => {
                   <div className="col-md-3 col-lg-3 col-sm-6">
                     <div className="accordian">
                       <details open>
-                        <summary>Payment Summary</summary>
+                        <summary className="bg-theme-colored text-white" >Payment Summary</summary>
                         <div className="acc-content">
                           <div className="row">
                             <div className="col-md-12 mt-5 mx-4">
