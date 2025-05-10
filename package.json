@@ -13,7 +13,6 @@
     "file-saver": "^2.0.5",
     "flux": "^4.0.3",
     "moment": "^2.29.3",
-    "node-sass": "^7.0.3",
     "photoswipe": "^5.3.2",
     "rc-slider": "^10.0.0",
     "react": "^17.0.2",
@@ -66,5 +65,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "sass": "^1.87.0"
   }
 }
