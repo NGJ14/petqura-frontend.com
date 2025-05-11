@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router";
-import logo from "../../assets/images/logo_172.png";
+import logo from "../../assets/images/petqura-logo/PetQuraSQ.svg";
 import { getLocalStorage } from "../../helpers/utils";
 import { getCarerPersonalDetails } from "../../store/carer/action";
 // import logo from "../../assets/images/logo.jpg";
@@ -17,7 +17,7 @@ const Sidenav = ({ open }) => {
       {auth?.user?.admin_approved && auth?.user?.profile_completed ? (
         <nav className={`pcoded-navbar ${open ? "mob-open" : ""}`}>
           {/* <nav className="pcoded-navbar mob-open"> */}
-          <div className="navbar-wrapper">
+          <div className="navbar-wrapper ">
             <div className=" header-logo mb-3 mt-3">
               <a
                 href={`${

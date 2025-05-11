@@ -5,6 +5,7 @@ import HomeSlider from "./homeSlider";
 import Services from "./services";
 import WhyChoseUsNew from "./whychoseusnew";
 import WhatClientSays from "./whatclientsays";
+import Products from "./products";
 import OurBlogPost from "./ourblogpost";
 import { Helmet } from "react-helmet";
 
@@ -43,12 +44,12 @@ const Home = () => {
           <div className="container-fluid p-0">
             <HomeSlider />
             <Services />
+            <Products />
             {/* <WhyChoseUsNew /> */}
-            <WhatClientSays />
+            {/* <WhatClientSays /> */}
             <OurBlogPost />
             {/* <About /> */}
             {/* <Doctors /> */}
-            {/* <Products /> */}
             {/* <History contactRef={contactRef} /> */}
           </div>
         </section>

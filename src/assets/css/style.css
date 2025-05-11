@@ -1246,16 +1246,18 @@ input:checked + label:after {
 }
 
 .ok-button {
-  background: #f37121;
+  background: #00419d;
   color: #fff;
   font-size: 15px;
   padding: 8px 18px;
-  border-radius: 5%;
+  border-radius: 5px;
   font-weight: bold;
+  border: #00419d 4px solid;
 }
 .ok-button:hover {
-  color: #fff;
-  background: #f36121;
+  color: #00419d;
+  background: white;
+  border: #00419d 4px solid;
 }
 
 .custom-personal {

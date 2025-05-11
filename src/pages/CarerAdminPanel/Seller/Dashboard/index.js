@@ -54,7 +54,7 @@ const CarerDashboard = () => {
     <Redirect to="/carer/under-verification" />
   ) : auth?.user?.role == "seller" ? (
     <>
-      <div className="pcoded-main-container ">
+      <div className="pcoded-main-container">
         <div className="pcoded-wrapper">
           <div className="pcoded-content">
             <div className="pcoded-inner-content">

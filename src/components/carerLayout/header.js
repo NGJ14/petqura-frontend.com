@@ -70,7 +70,7 @@ const CarerHeader = ({ setNavopen, navopen }) => {
               >
                 <span
                   className="fa fa-user"
-                  style={{ fontSize: "25px", color: "#37bc9b" }}
+                  style={{ fontSize: "25px", color: "white" }}
                 ></span>
                 <p className="ml-2 mt-2">Hi {auth?.user?.first_name}</p>
                 <span className="indicator mt-2 ml-2">
@@ -80,7 +80,7 @@ const CarerHeader = ({ setNavopen, navopen }) => {
               <ul className={`dropdown ${profileshow ? "show" : ""}`}>
                 <li>
                   <a
-                    className="pt-2 pr-0"
+                    className="pt-2 pr-0 lgbtnlnk"
                     style={{ cursor: "pointer" }}
                     onClick={() => logout()}
                   >

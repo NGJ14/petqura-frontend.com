@@ -182,7 +182,7 @@ const CarerProfile = () => {
                     <div className="col-lg-9 d-flex justify-content-between">
                       <h3 className="mb-0 ml-3 mt-3">Edit Profile</h3>
                       <button
-                        className="btn mt-3 orange-background text-white"
+                        className="btn mt-3 ok-button"
                         onClick={modalPopuptoggle}
                       >
                         Change Password
@@ -514,7 +514,7 @@ const CarerProfile = () => {
 
                     <button
                       type="submit"
-                      className="btn ok-button mt-4 ml-4 mb-5"
+                      className="btn ok-button btn-theme-colored mt-4 ml-4 mb-5"
                     >
                       Save Changes
                     </button>

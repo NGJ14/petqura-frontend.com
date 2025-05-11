@@ -20,7 +20,7 @@ const DashboardCards = ({ item }) => {
                   } mx-3`}
                   style={{
                     fontSize: "35px",
-                    color: "#36BC9B",
+                    color: "#04a9f5",
                   }}
                 ></i>{" "}
                 {item?.value}

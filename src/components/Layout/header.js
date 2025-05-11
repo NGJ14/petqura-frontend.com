@@ -144,7 +144,7 @@ const Header = () => {
                       </Link>
                     </li>
 
-                    {getLocalStorage("AUTH_DETAILS") &&
+                    {/* {getLocalStorage("AUTH_DETAILS") &&
                     (auth?.user?.role == "seller" ||
                       auth?.user?.role == "clinic" ||
                       auth?.user?.role == "carer") ? (
@@ -158,7 +158,7 @@ const Header = () => {
                           Dashboard
                         </a>
                       </li>
-                    ) : null}
+                    ) : null} */}
 
                     {auth && auth?.user?.role == "pet_owner" ? null : (
                       <li>
@@ -194,7 +194,7 @@ const Header = () => {
                               className="cursor-pointer dropdown-user"
                               onClick={() => setModal(true)}
                             >
-                              PawWalkers
+                              PetQura
                             </a>
                           </li>
                           <li>
@@ -239,13 +239,12 @@ const Header = () => {
                           onMouseLeave={() => setprofileContentshow(false)}
                         >
                           <li>
-                            <a href="/profile">Profile</a>
+                            <a className="dropdownlnk" href="/profile">
+                              Profile
+                            </a>
                           </li>
                           <li>
-                            <a
-                              style={{ cursor: "pointer" }}
-                              onClick={() => logout()}
-                            >
+                            <a className="dropdownlnk" onClick={() => logout()}>
                               Logout
                             </a>
                           </li>

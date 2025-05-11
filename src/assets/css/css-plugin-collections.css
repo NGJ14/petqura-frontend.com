@@ -6427,7 +6427,8 @@ License: http://codecanyon.net/licenses
   z-index: 99;
   min-width: 180px;
   white-space: nowrap;
-  background: #fff;
+  background: rgb(32, 132, 182);
+  text-decoration: underline;
 }
 .menuzord-menu ul.dropdown li ul.dropdown {
   left: 100%;
@@ -6441,9 +6442,9 @@ License: http://codecanyon.net/licenses
 }
 .menuzord-menu ul.dropdown li a {
   width: 100%;
-  background: none;
+  background: #fff;
   padding: 10px 25px 10px 22px;
-  color: #888;
+  color: #00419d;
   text-decoration: none;
   display: inline-block;
   float: left;
@@ -6454,6 +6455,7 @@ License: http://codecanyon.net/licenses
   -moz-transition: padding 0.2s linear;
   -webkit-transition: padding 0.2s linear;
   transition: padding 0.2s linear;
+  font-weight: bold;
 } /* Hover state (dropdown items) */
 .menuzord-menu ul.dropdown li:hover > a {
   padding-left: 28px;
@@ -8395,7 +8397,7 @@ a.fc-more:hover {
   color: #078;
 }
 .m {
-  color: #f60;
+  color: #00419d;
 }
 .s {
   color: #d44950;
@@ -8443,16 +8445,16 @@ a.fc-more:hover {
   color: #bbb;
 }
 .mf {
-  color: #f60;
+  color: #00419d;
 }
 .mh {
-  color: #f60;
+  color: #00419d;
 }
 .mi {
-  color: #f60;
+  color: #00419d;
 }
 .mo {
-  color: #f60;
+  color: #00419d;
 }
 .sb {
   color: #c30;
@@ -8501,7 +8503,7 @@ a.fc-more:hover {
   color: #033;
 }
 .il {
-  color: #f60;
+  color: #00419d;
 }
 .css .nt + .nt,
 .css .o,

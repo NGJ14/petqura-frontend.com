@@ -1003,7 +1003,7 @@ const ShopCart = () => {
                                                   </span>
 
                                                   <p className="my-1">
-                                                    variant:{" "}
+                                                    Variant:{" "}
                                                     {
                                                       item?.product_variant
                                                         .variant_name
@@ -2261,7 +2261,7 @@ const ShopCart = () => {
               style={{ alignSelf: "center", justifyContent: "center" }}
             >
               <h3 className="mb-4">Cart is empty</h3>
-              <a className="cart-empty-btn " href="/store">
+              <a className="cart-empty-btn" href="/store">
                 Go back to shop page
               </a>
             </div>

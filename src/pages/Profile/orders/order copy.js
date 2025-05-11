@@ -81,7 +81,7 @@ const Order = () => {
                               ? `${order?.brand_name?.slice(0, 40)} ...`
                               : order?.brand_name}
                           </p>
-                          <p className="">variant: {order?.variant_name}</p>
+                          <p className="">Variant: {order?.variant_name}</p>
                         </div>
                       </div>
                       <button

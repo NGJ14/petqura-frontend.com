@@ -212,8 +212,7 @@ input[type="number"]::-webkit-outer-spin-button {
   color: #00419d;
 
   &:hover {
-    color: #ff5e00;
-    text-decoration: none;
+    text-decoration:underline;
   }
 }
 
@@ -289,13 +288,14 @@ pt-140 pb-30 pl-50 .card-address-cust {
   content: attr(data-count);
   font-size: 36%;
   padding: 0.6em;
+  font-weight: bold;
   border-radius: 999px;
   line-height: 0.75em;
-  color: #fff;
+  color: #00419d;
   text-align: center;
   min-width: 2em;
   // font-weight:bold;
-  background: #f06204;
+  background: #b5f1fa;
   margin-top: 5px;
   // border-style:solid;
 }
@@ -304,12 +304,13 @@ pt-140 pb-30 pl-50 .card-address-cust {
   padding: 7px 20px;
   font-size: 15px;
   color: #fff;
-  background-color: #f60;
-  border: 1px solid #f60 !important;
+  background-color: #00419d;
+  border: 1px solid #00419d !important;
+  border-radius: 5px;
   text-decoration: none;
   &:hover {
-    background-color: #f60;
-    border: 1px solid #f60 !important;
+    background-color: #00419d;
+    border: 1px solid #00419d !important;
 
     color: #fff;
   }
@@ -1988,8 +1989,8 @@ pt-140 pb-30 pl-50 .card-address-cust {
 }
 
 .active-sm[petwalker] {
-  color: #f60 !important;
-  border-bottom: 3px solid #f60 !important;
+  color: #00419d !important;
+  border-bottom: 3px solid #00419d !important;
 }
 
 .active-donation-type {
