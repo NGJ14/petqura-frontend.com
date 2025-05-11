@@ -250,7 +250,7 @@ export const BannerWrapper = styled.div`
   justify-content: space-between;
   gap: 1rem;
   padding: 2rem 5rem;
-  background: #faf5f2;
+  background: #f2f8fa;
   height: 65vh;
   position: relative;
 
