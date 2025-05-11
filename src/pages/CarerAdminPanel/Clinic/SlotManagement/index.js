@@ -171,7 +171,7 @@ const Slots = () => {
       ref={pageWrapRef}
     >
       <Container fluid>
-        <Row className="my-5">
+        <Row className="">
           <div className="d-flex justify-content-between">
             <Breadcrumbs title="Tables" breadcrumbItem="Slots" />
             {slot?.slotPrice?.slot_price ? (

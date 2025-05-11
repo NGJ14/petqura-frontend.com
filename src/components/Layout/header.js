@@ -244,7 +244,7 @@ const Header = () => {
                             </a>
                           </li>
                           <li>
-                            <a className="dropdownlnk" onClick={() => logout()}>
+                            <a onClick={() => logout()}>
                               Logout
                             </a>
                           </li>

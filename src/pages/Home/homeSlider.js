@@ -17,7 +17,7 @@ const HomeSlider = () => {
           Where Exceptional Care Meets Peace of Mind! Your Furry Friend Deserves
           The Best .
         </p>
-        <SecondaryBtn>Book an Appointment</SecondaryBtn>
+        <SecondaryBtn className="bg-theme-colored">Book an Appointment</SecondaryBtn>
         <img className="mobileTextImg" src={bannerImg} alt="Banner Image" />
       </BannerText>
       <BannerImg>

@@ -1160,6 +1160,8 @@ pt-140 pb-30 pl-50 .card-address-cust {
 }
 
 .cust-page {
+  position: absolute;
+  top: 20px;
   margin-left: 280px;
 }
 @media only screen and (max-width: 890px) {

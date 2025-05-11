@@ -129,7 +129,7 @@ const Product = () => {
       ref={pageWrapRef}
     >
       <Container fluid>
-        <Row className="my-5">
+        <Row className="my-0">
           <Breadcrumbs title="Tables" breadcrumbItem="Products" />
           {((productData?.error &&
             !productData?.error?.includes(

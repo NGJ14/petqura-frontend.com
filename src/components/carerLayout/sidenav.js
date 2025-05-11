@@ -1,16 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import logo from "../../assets/images/petqura-logo/PetQuraSQ.svg";
-import { getLocalStorage } from "../../helpers/utils";
+import { getLocalStorage, removeItem } from "../../helpers/utils";
 import { getCarerPersonalDetails } from "../../store/carer/action";
 // import logo from "../../assets/images/logo.jpg";
+import { logoutUser } from "../../store/UserStore/Login/action";
 
 const Sidenav = ({ open }) => {
   const dispatch = useDispatch();
   const [show, setshow] = useState(false);
   const location = useLocation();
   const auth = getLocalStorage("AUTH_DETAILS");
+  const logout = () => {
+    dispatch(
+      logoutUser({
+        data: { access_token: auth?.access_token },
+        callback: () => {
+          removeItem("AUTH_DETAILS");
+          history.push("/home");
+        },
+      })
+    );
+  };
+
+  const history = useHistory();
 
   return (
     <>
@@ -55,7 +69,7 @@ const Sidenav = ({ open }) => {
                   >
                     <span className="pcoded-micon">
                       <i
-                        className="fa fa-home text-white"
+                        className="fa fa-home text-theme-colored"
                         style={{ fontSize: "20px" }}
                       ></i>
                     </span>
@@ -74,7 +88,7 @@ const Sidenav = ({ open }) => {
                   <a href="/carer/profile" className="nav-link ">
                     <span className="pcoded-micon">
                       <i
-                        className="fa fa-user text-white"
+                        className="fa fa-user text-theme-colored"
                         style={{ fontSize: "20px" }}
                       ></i>{" "}
                     </span>
@@ -114,7 +128,7 @@ const Sidenav = ({ open }) => {
                       >
                         <span className="pcoded-micon">
                           <i
-                            className="fa fa-shopping-cart text-white"
+                            className="fa fa-shopping-cart text-theme-colored"
                             style={{ fontSize: "20px" }}
                           ></i>{" "}
                         </span>
@@ -135,11 +149,29 @@ const Sidenav = ({ open }) => {
                       >
                         <span className="pcoded-micon">
                           <i
-                            className="fas fa-shopping-bag text-white"
+                            className="fas fa-shopping-bag text-theme-colored"
                             style={{ fontSize: "20px" }}
                           ></i>{" "}
                         </span>
                         <span className="pcoded-mtext">Order Management</span>
+                      </a>
+                    </li>
+
+                    <li
+                      className={`nav-item ${
+                        location.pathname.includes("/logout")
+                          ? "active"
+                          : "pcoded-hasmenu"
+                      } `}
+                    >
+                      <a onClick={() => logout()} className="cursor-pointer">
+                        <span className="pcoded-micon">
+                          <i
+                            className="fas fa-arrow-right text-theme-colored"
+                            style={{ fontSize: "20px" }}
+                          ></i>{" "}
+                        </span>
+                        <span className="pcoded-mtext">Logout</span>
                       </a>
                     </li>
                   </>
@@ -160,7 +192,7 @@ const Sidenav = ({ open }) => {
                       >
                         <span className="pcoded-micon">
                           <i
-                            className="fa fa-clock text-white"
+                            className="fa fa-clock text-theme-colored"
                             style={{ fontSize: "20px" }}
                           ></i>{" "}
                         </span>
@@ -182,7 +214,7 @@ const Sidenav = ({ open }) => {
                       >
                         <span className="pcoded-micon">
                           <i
-                            className="fa fa-calendar text-white"
+                            className="fa fa-calendar text-theme-colored"
                             aria-hidden="true"
                             style={{ fontSize: "20px" }}
                           ></i>
@@ -208,7 +240,7 @@ const Sidenav = ({ open }) => {
                       >
                         <span className="pcoded-micon">
                           <i
-                            className="fa fa-user-md text-white"
+                            className="fa fa-user-md text-theme-colored"
                             aria-hidden="true"
                             style={{ fontSize: "20px" }}
                           ></i>
@@ -232,12 +264,29 @@ const Sidenav = ({ open }) => {
                       >
                         <span className="pcoded-micon">
                           <i
-                            className="flaticon-pet-play text-white"
+                            className="flaticon-pet-play text-theme-colored"
                             aria-hidden="true"
                             style={{ fontSize: "24px" }}
                           ></i>
                         </span>
                         <span className="pcoded-mtext">Service Management</span>
+                      </a>
+                    </li>
+                    <li
+                      className={`nav-item ${
+                        location.pathname.includes("/logout")
+                          ? "active"
+                          : "pcoded-hasmenu"
+                      } `}
+                    >
+                      <a onClick={() => logout()} className="cursor-pointer">
+                        <span className="pcoded-micon">
+                          <i
+                            className="fas fa-arrow-right text-theme-colored"
+                            style={{ fontSize: "20px" }}
+                          ></i>{" "}
+                        </span>
+                        <span className="pcoded-mtext">Logout</span>
                       </a>
                     </li>
                   </>

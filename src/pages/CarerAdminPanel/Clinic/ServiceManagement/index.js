@@ -117,7 +117,7 @@ const Services = () => {
       ref={pageWrapRef}
     >
       <Container fluid>
-        <Row className="my-5">
+        <Row className="">
           <Breadcrumbs title="Tables" breadcrumbItem="Services" />
           {(slot?.error || slot?.success) && (
             <div>
