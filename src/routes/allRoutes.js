@@ -99,6 +99,15 @@ const userRoutes = [
   { path: "/clinic/success/:id", component: SuccessPage },
   { path: "/", exact: true, component: () => <Redirect to="/home" /> },
 
+  // Shop
+  { path: "/store", exact: true, component: Shop },
+  { path: "/store-cart", exact: true, component: ShopCart },
+  { path: "/product/:id", exact: true, component: ProductDetails },
+
+  // Clinic
+  { path: "/clinic", exact: true, component: Clinics },
+  { path: "/clinic/:id", component: ClinicDetail },
+
   { path: "/page-not-found", component: PageNotFound },
 ];
 
@@ -120,13 +129,13 @@ const authRoutes = [
   },
 
   // Shop
-  { path: "/store", exact: true, component: Shop },
-  { path: "/store-cart", exact: true, component: ShopCart },
-  { path: "/product/:id", exact: true, component: ProductDetails },
+  // { path: "/store", exact: true, component: Shop },
+  // { path: "/store-cart", exact: true, component: ShopCart },
+  // { path: "/product/:id", exact: true, component: ProductDetails },
 
-  // Clinic
-  { path: "/clinic", exact: true, component: Clinics },
-  { path: "/clinic/:id", component: ClinicDetail },
+  // // Clinic
+  // { path: "/clinic", exact: true, component: Clinics },
+  // { path: "/clinic/:id", component: ClinicDetail },
 
   // Service
   // { path: "/services", exact: true, component: ComingSoon },
