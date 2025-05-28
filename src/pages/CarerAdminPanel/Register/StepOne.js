@@ -168,7 +168,7 @@ const StepOne = ({ nextStep, haldleFormDataVal, values }) => {
       <div className="row">
         <div className="col-md-12">
           <h5 className="mt-1 ml-1 text-muted">
-            Step 1. Enter Personnal Details
+            Step 1. Enter Personal Details
           </h5>
         </div>
         <div className="col-sm-6 col-md-6">

@@ -6,7 +6,7 @@ import {
   sendCarerOtp,
   verifyCarerOtp,
 } from "../../../store/CarerRegister/actions";
-import logo from "../../../assets/images/logo.jpg";
+import logo from "../../../assets/images/petqura-logo/logo-2.png";
 import Footer from "../../../components/Layout/footer";
 import { Redirect, useHistory } from "react-router";
 import {
@@ -164,9 +164,9 @@ const CarerRegister = () => {
     <Redirect to="/carer/seller/dashboard" />
   ) : (
     <>
-      <header className=" header-container  d-flex justify-content-between">
+      <header className=" header-container d-flex justify-content-between">
         <a href="/">
-          <img src={logo} />{" "}
+          <img className="headerLogo" src={logo} />{" "}
         </a>
 
         <a href="/" className="text-dark mt-4 mr-4 pt-2">

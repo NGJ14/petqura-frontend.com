@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Redirect, useHistory } from "react-router";
 import { getLocalStorage } from "../../../helpers/utils";
 import logo from "../../../assets/images/logo.jpg";
-import logoImg from "../../../assets/images/pawwalker_white_text.png";
+import logoImg from "../../../assets/images/petqura-logo/logo-2.png";
 import { useDispatch, useSelector } from "react-redux";
 import { carerLoginUser } from "../../../store/carer/action";
 const CarerLogin = () => {
@@ -158,7 +158,7 @@ const CarerLogin = () => {
                           Login
                         </button>
                         <h5 className="mt-4">
-                          New to PawWalker?{" "}
+                          New to PetQura?{" "}
                           <a
                             href="/carer/register"
                             className="text-info"

@@ -124,7 +124,7 @@ const StepOne = ({ nextStep, haldleFormDataVal, values }) => {
             SUBMIT
           </button>
           <h5 className="mt-4">
-            New to PawWalker?{" "}
+            New to PetQura?{" "}
             <a
               href="/carer/register"
               className="text-info"

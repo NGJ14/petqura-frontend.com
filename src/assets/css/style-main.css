@@ -895,7 +895,7 @@ section > .container-fluid {
   /* overlay-white */
 }
 .layer-overlay::before {
-  background: #ff6b00;
+  background: #00419d;
   /* background: -webkit-linear-gradient(right, #ff7701, #ff6201);
   background: -moz-linear-gradient(right, #ff7701, #ff6201);
   background: linear-gradient(to left, #ff7701, #ff6201); */
