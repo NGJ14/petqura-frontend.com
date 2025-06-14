@@ -99,7 +99,27 @@ const Doctors = () => {
     slot?.Doctor?.doctors?.map((doctor, index) => ({
       no: (request?.page - 1) * request?.page_count + index + 1,
 
-      name: <div title={doctor.doctor_name}>{doctor.doctor_name}</div>,
+      name: (
+        <div className="flex items-center gap-2" title={doctor.doctor_name}>
+          <img
+          src={
+            doctor.profile_photo
+              ? doctor.profile_photo
+              : "https://cdn-icons-png.flaticon.com/512/847/847969.png" // fallback
+          }
+            // src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=1024x1024&w=is&k=20&c=-mUWsTSENkugJ3qs5covpaj-bhYpxXY-v9RDpzsw504="
+            alt="Doctor Avatar"
+            style={{
+              width: "40px",
+              height: "40px",
+              borderRadius: "50%",
+              objectFit: "cover",
+              marginRight:"10px"
+            }}
+          />
+          <span>{doctor.doctor_name}</span>
+        </div>
+      ),
       qualifications: (
         <div title={doctor.qualifications}>{doctor.qualifications}</div>
       ),

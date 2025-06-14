@@ -228,6 +228,11 @@ export const DoctorData = [
     selector: "name",
     width: 330 + "px",
   },
+  // {
+  //   name: "Profile Photo",
+  //   selector: "profile_photo",
+  //   width: "60px",
+  // },
   {
     name: "Qualifications",
     selector: "qualifications",
