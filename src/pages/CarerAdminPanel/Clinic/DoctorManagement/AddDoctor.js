@@ -25,6 +25,7 @@ import {
 const AddDoctor = () => {
   const [qualification, setQualification] = useState("");
   const [position, setPosition] = useState("");
+  const [photo, setPhoto] = useState(null);
   const [name, setName] = useState("");
   const [modal, setModal] = useState(false);
   const [formChanged, setFormChanged] = useState(false);
@@ -45,14 +46,14 @@ const AddDoctor = () => {
 
   const handleValidSubmit = (event, values) => {
     event.preventDefault();
-    const doc = {
-      doctor_name: name,
-      qualification: qualification,
-      description: position,
-    };
+    const formData = new FormData();
+    formData.append("doctor_name", name);
+    formData.append("qualification", qualification);
+    formData.append("description", position);
+    if (photo) formData.append("icon", photo);
     dispatch(
       addDoctorDetails({
-        Doctor: doc,
+        Doctor: formData,
         callback: () => {
           toggle();
           history.push("/carer/clinic/doctors");
@@ -197,7 +198,25 @@ const AddDoctor = () => {
                 </div>
               </div>
             </Row>
-
+            <Row className="col-md-8 col-lg-12  addUsernameFieldWrap">
+              <div className="checkAvailabilityWrap  col-lg-10 col-md-8">
+                <label className="cust-label text-left">
+                  Upload Photo
+                  <span className="mandatory">*</span>
+                </label>
+                <div className="d-flex col-lg-4 pl-0 col-sm-6">
+                  <Input
+                    type="file"
+                    name="icon"
+                    className="col-lg-10 col-sm-10"
+                    onChange={(e) => {
+                      setFormChanged(true);
+                      setPhoto(e.target.files[0]);
+                    }}
+                  />
+                </div>
+              </div>
+            </Row>
             <div className="mt-4 text-center">
               <a href="/carer/clinic/doctors">
                 <button
