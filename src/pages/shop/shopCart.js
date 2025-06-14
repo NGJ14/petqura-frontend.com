@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import Loader from "../../components/UI/Loader";
-
+import { cashfree } from "../../file/cashfree/util";
 import {
   getLocalStorage,
   getMid,
@@ -55,6 +55,8 @@ import {
   removeCouponDetails,
 } from "../../store/UserStore/Coupon/action";
 import Login from "../Login";
+
+
 
 const ShopCart = () => {
   const [qty, setQty] = useState(1);
@@ -168,7 +170,7 @@ const ShopCart = () => {
             (Cart?.ShopCart?.order_amount -
               (Checkout?.rewardPoints?.usable_reward +
                 couponDetails?.couponamount)) *
-              100
+            100
           ) / 100
         );
   }, [couponDetails?.couponamount, couponDetails?.payableamount]);
@@ -184,7 +186,7 @@ const ShopCart = () => {
         Math.round(
           (Cart?.ShopCart?.order_amount -
             (Checkout?.rewardPoints?.usable_reward + coupon_discount)) *
-            100
+          100
         ) / 100
       );
 
@@ -302,7 +304,7 @@ const ShopCart = () => {
             (Cart?.ShopCart?.order_amount -
               (Checkout?.rewardPoints?.usable_reward +
                 couponDetails?.couponamount)) *
-              100
+            100
           ) / 100
         );
   }, [couponDetails?.couponamount, couponDetails?.payableamount]);
@@ -402,14 +404,16 @@ const ShopCart = () => {
     }
 
     if (profileDetails.user?.active) {
+      // launchCashfreeCheckout('session_cK6tBVnP9ud8Vszz0mRiRVP9A6G8UpoWSrps5QVrIlSuN3k8ljpBDpA9udjrhzxObOz-nr1e7AaYDK12Z88ljZRPM6fdzBVVjjlsD_V55oMZyMQOFWnRG_LQQXV4iApaymentpayment');
+      
       dispatch(
         getCheckoutPrepaidOrder({
           data,
-          callback: (payment_id, paytm_token, amount) => {
+          callback: (sessionId) => {
             setShowPayment(true);
             setShowRewardCheck(false);
             setShowPlaceOrder(false);
-            makePayment(payment_id, paytm_token, amount);
+            launchCashfreeCheckout(sessionId);
           },
         })
       );
@@ -420,15 +424,23 @@ const ShopCart = () => {
             guest_id: auth?.guest_id,
             delivery_mode: history?.location?.state?.deliveryMode,
           },
-          callback: (payment_id, paytm_token, amount) => {
+          callback: (paymentSessionId) => {
             setShowPayment(true);
             setShowPlaceOrder(false);
-            makePayment(payment_id, paytm_token, amount);
+            launchCashfreeCheckout(paymentSessionId);
           },
         })
       );
     }
+
   };
+const launchCashfreeCheckout = (paymentSessionId) => {
+  let checkoutOptions = {
+    paymentSessionId: paymentSessionId,
+    redirectTarget: "_self", // or "_blank" if you want to open in new tab
+  };
+  cashfree.checkout(checkoutOptions);
+};
 
   //******** Checkout Settings End ************** */
 
@@ -480,7 +492,7 @@ const ShopCart = () => {
 
     Delivery?.Delivery?.mode1?.id &&
       Cart?.ShopCart?.order_amount <
-        Delivery?.Delivery?.min_free_shipping_amount &&
+      Delivery?.Delivery?.min_free_shipping_amount &&
       setDeliveryMode(Delivery?.Delivery?.mode1?.id);
   }, [addressDetails, Delivery?.Delivery]);
 
@@ -940,7 +952,7 @@ const ShopCart = () => {
               My Shopping Cart ({Cart?.ShopCart?.total} items)
             </h4>
             {Cart?.ShopCart?.order_amount <
-            Delivery?.Delivery?.min_free_shipping_amount ? (
+              Delivery?.Delivery?.min_free_shipping_amount ? (
               <h4 className="orange-font font-weight-bold">
                 Free Delivery for order above{" "}
                 {Delivery?.Delivery?.min_free_shipping_amount}
@@ -1043,45 +1055,45 @@ const ShopCart = () => {
                                                     className="btn mx-0 px-3"
                                                     onClick={() =>
                                                       auth &&
-                                                      auth.guest_id != undefined
+                                                        auth.guest_id != undefined
                                                         ? dispatch(
-                                                            changeGuestQuantity(
-                                                              {
-                                                                data: {
-                                                                  guest_id:
-                                                                    auth?.guest_id,
-                                                                  cart_id:
-                                                                    item?.cart_id,
-                                                                  action:
-                                                                    "less",
-                                                                },
-                                                                callback: () =>
-                                                                  dispatch(
-                                                                    getGuestCart(
-                                                                      {
-                                                                        data: {
-                                                                          guest_id:
-                                                                            auth?.guest_id,
-                                                                        },
-                                                                      }
-                                                                    )
-                                                                  ),
-                                                              }
-                                                            )
-                                                          )
-                                                        : dispatch(
-                                                            changeQuantity({
+                                                          changeGuestQuantity(
+                                                            {
                                                               data: {
+                                                                guest_id:
+                                                                  auth?.guest_id,
                                                                 cart_id:
                                                                   item?.cart_id,
-                                                                action: "less",
+                                                                action:
+                                                                  "less",
                                                               },
                                                               callback: () =>
                                                                 dispatch(
-                                                                  getCartDetails()
+                                                                  getGuestCart(
+                                                                    {
+                                                                      data: {
+                                                                        guest_id:
+                                                                          auth?.guest_id,
+                                                                      },
+                                                                    }
+                                                                  )
                                                                 ),
-                                                            })
+                                                            }
                                                           )
+                                                        )
+                                                        : dispatch(
+                                                          changeQuantity({
+                                                            data: {
+                                                              cart_id:
+                                                                item?.cart_id,
+                                                              action: "less",
+                                                            },
+                                                            callback: () =>
+                                                              dispatch(
+                                                                getCartDetails()
+                                                              ),
+                                                          })
+                                                        )
                                                     }
                                                     style={{ fontSize: "22px" }}
                                                   >
@@ -1100,44 +1112,44 @@ const ShopCart = () => {
                                                     className="btn mx-0  px-3"
                                                     onClick={() =>
                                                       auth &&
-                                                      auth.guest_id != undefined
+                                                        auth.guest_id != undefined
                                                         ? dispatch(
-                                                            changeGuestQuantity(
-                                                              {
-                                                                data: {
-                                                                  guest_id:
-                                                                    auth?.guest_id,
-                                                                  cart_id:
-                                                                    item?.cart_id,
-                                                                  action: "add",
-                                                                },
-                                                                callback: () =>
-                                                                  dispatch(
-                                                                    getGuestCart(
-                                                                      {
-                                                                        data: {
-                                                                          guest_id:
-                                                                            auth?.guest_id,
-                                                                        },
-                                                                      }
-                                                                    )
-                                                                  ),
-                                                              }
-                                                            )
-                                                          )
-                                                        : dispatch(
-                                                            changeQuantity({
+                                                          changeGuestQuantity(
+                                                            {
                                                               data: {
+                                                                guest_id:
+                                                                  auth?.guest_id,
                                                                 cart_id:
                                                                   item?.cart_id,
                                                                 action: "add",
                                                               },
                                                               callback: () =>
                                                                 dispatch(
-                                                                  getCartDetails()
+                                                                  getGuestCart(
+                                                                    {
+                                                                      data: {
+                                                                        guest_id:
+                                                                          auth?.guest_id,
+                                                                      },
+                                                                    }
+                                                                  )
                                                                 ),
-                                                            })
+                                                            }
                                                           )
+                                                        )
+                                                        : dispatch(
+                                                          changeQuantity({
+                                                            data: {
+                                                              cart_id:
+                                                                item?.cart_id,
+                                                              action: "add",
+                                                            },
+                                                            callback: () =>
+                                                              dispatch(
+                                                                getCartDetails()
+                                                              ),
+                                                          })
+                                                        )
                                                     }
                                                     style={{ fontSize: "22px" }}
                                                   >
@@ -1182,9 +1194,9 @@ const ShopCart = () => {
                       <details
                         id="ship"
                         open={isShipOpen}
-                        // onClick={(e) => {
-                        //   setIsShipOpen(!isShipOpen);
-                        // }}
+                      // onClick={(e) => {
+                      //   setIsShipOpen(!isShipOpen);
+                      // }}
                       >
                         <summary className="bg-theme-colored text-white"
                         // onClick={(e) => {
@@ -1231,11 +1243,10 @@ const ShopCart = () => {
                                         display: addressHide ? "none" : "block",
                                         position: "relative",
                                       }}
-                                      className={` pl-3 cursor-pointer my-3 ${
-                                        !addressHide && addressId == address?.id
+                                      className={` pl-3 cursor-pointer my-3 ${!addressHide && addressId == address?.id
                                           ? "activeAddress"
                                           : "inactiveAddress"
-                                      }`}
+                                        }`}
                                       onClick={() => {
                                         setaActiveAddress(
                                           `address${index + 1}`
@@ -1269,7 +1280,7 @@ const ShopCart = () => {
                                         {(activeAddress ==
                                           `address${index + 1}` ||
                                           addressId == address?.id) &&
-                                        !addressHide ? (
+                                          !addressHide ? (
                                           <>
                                             <button
                                               className="btn btn-outline-dark mt-3 cursor-pointer font-weight-bold"
@@ -1597,9 +1608,8 @@ const ShopCart = () => {
                                           type="submit"
                                           onClick={() => {
                                             setaActiveAddress(
-                                              `address${
-                                                addressDetails?.addresses
-                                                  ?.length + 1
+                                              `address${addressDetails?.addresses
+                                                ?.length + 1
                                               }`
                                             );
                                             setAddressHide(false);
@@ -1683,17 +1693,15 @@ const ShopCart = () => {
                                                 : "block",
                                               position: "relative",
                                             }}
-                                            className={` pl-3 cursor-pointer my-3 ${
-                                              !billingaddressHide &&
-                                              billingaddressId ==
+                                            className={` pl-3 cursor-pointer my-3 ${!billingaddressHide &&
+                                                billingaddressId ==
                                                 billingaddress?.id
                                                 ? "activeAddress"
                                                 : "inactiveAddress"
-                                            }`}
+                                              }`}
                                             onClick={() => {
                                               setaActiveBillingAddress(
-                                                `billingaddress${
-                                                  billingindex + 1
+                                                `billingaddress${billingindex + 1
                                                 }`
                                               );
 
@@ -1728,12 +1736,11 @@ const ShopCart = () => {
                                                 {billingaddress?.state}
                                               </p>
                                               {(activeBillingAddress ==
-                                                `billlingaddress${
-                                                  billingindex + 1
+                                                `billlingaddress${billingindex + 1
                                                 }` ||
                                                 billingaddressId ==
-                                                  billingaddress?.id) &&
-                                              !billingaddressHide ? (
+                                                billingaddress?.id) &&
+                                                !billingaddressHide ? (
                                                 <>
                                                   <button
                                                     className="btn btn-outline-dark mt-3 cursor-pointer font-weight-bold"
@@ -2003,10 +2010,9 @@ const ShopCart = () => {
                                             type="submit"
                                             onClick={() => {
                                               setaActiveBillingAddress(
-                                                `billingaddress${
-                                                  addressDetails
-                                                    ?.billing_addresses
-                                                    ?.length + 1
+                                                `billingaddress${addressDetails
+                                                  ?.billing_addresses
+                                                  ?.length + 1
                                                 }`
                                               );
                                               setBillingAddressHide(false);
@@ -2064,14 +2070,14 @@ const ShopCart = () => {
                             </div>
                           ) : null}
                           {ShopDetails?.pincodeData?.message ==
-                          "Currently we are not available at your location" ? (
+                            "Currently we are not available at your location" ? (
                             <h5 className="mandatory">
                               {ShopDetails?.pincodeData?.message}
                             </h5>
                           ) : null}
 
                           {guest?.addresses?.fullname ||
-                          addressDetails?.addresses?.length ? (
+                            addressDetails?.addresses?.length ? (
                             <div className="row ">
                               <div className="col-md-12 col-lg-12 col-sm-12">
                                 <a
@@ -2122,7 +2128,7 @@ const ShopCart = () => {
                               </div>
 
                               {Checkout?.rewardPoints?.reward_points &&
-                              showRewardCheck ? (
+                                showRewardCheck ? (
                                 <div className="form-group row ">
                                   <div className="form-group col-md-6 col-12  col-sm-6 col-xs-6">
                                     Total Coins:
@@ -2134,7 +2140,7 @@ const ShopCart = () => {
                                 </div>
                               ) : null}
                               {Checkout?.rewardPoints?.reward_points &&
-                              showRewardCheck ? (
+                                showRewardCheck ? (
                                 <div className="form-group row ">
                                   <div className="form-group col-md-6 col-12  col-sm-6 col-xs-6">
                                     Usable Coins:
@@ -2145,7 +2151,7 @@ const ShopCart = () => {
                                 </div>
                               ) : null}
                               {Checkout?.rewardPoints?.usable_reward &&
-                              showRewardCheck ? (
+                                showRewardCheck ? (
                                 <div className="form-group row ">
                                   <div className="form-group col-md-12 col-12  col-sm-6 col-xs-6">
                                     <p className="text-left mt-1 mb-2">

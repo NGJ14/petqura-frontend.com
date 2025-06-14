@@ -52,24 +52,52 @@ function* addCheckoutPrepaidOrder(response) {
   }
 }
 
-function* getCheckoutPrepaidOrder({ data, callback }) {
+// function* getCheckoutPrepaidOrder({ data, callback }) {
+//   try {
+//     yield put(getCheckoutPrepaidOrderBegin());
+//     const response = yield call(add, "/cashfree/create-order", data);
+//     if (response) {
+//       yield put(getCheckoutPrepaidOrderSuccess(response.result));
+//       callback &&
+//         callback(
+//           response?.result?.payment_id,
+//           response?.result?.paytm_token,
+//           response?.result?.amount
+//         );
+//     }
+//   } catch (error) {
+//     yield put(getCheckoutPrepaidOrderFail(error));
+//     console.log(error);
+//   }
+// }
+
+export function* getCheckoutPrepaidOrder({ data, callback }) {
   try {
     yield put(getCheckoutPrepaidOrderBegin());
-    const response = yield call(add, "/checkout_prepaid_order", data);
-    if (response) {
-      yield put(getCheckoutPrepaidOrderSuccess(response.result));
-      callback &&
-        callback(
-          response?.result?.payment_id,
-          response?.result?.paytm_token,
-          response?.result?.amount
-        );
+
+    // 🔧 call your backend API to create the Cashfree order
+    const response = yield call(add, "/cashfree/create-order", data);
+
+    if (response?.response?.payment_session_id) {
+      const sessionId = response.response.payment_session_id;
+
+      // ✅ dispatch success action
+      yield put(getCheckoutPrepaidOrderSuccess(sessionId));
+
+      // ✅ call the redirect/handler
+      if (callback) {
+        callback(sessionId); // you can expand this if needed
+      }
+    } else {
+      throw new Error("Missing session ID in response");
     }
+
   } catch (error) {
+    console.error("Cashfree order error:", error);
     yield put(getCheckoutPrepaidOrderFail(error));
-    console.log(error);
   }
 }
+
 
 function* addCheckoutCODOrder({ data, callback }) {
   try {
