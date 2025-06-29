@@ -5,7 +5,12 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { config } from "../../config/config";
-import consulation from "../../assets/images/new/1.svg";
+import accessoriesIMG from "../../assets/images/products/accessories.svg"
+import treatsIMG from "../../assets/images/products/pet-treats.svg";
+import toysIMG from "../../assets/images/products/pet-toys.svg";
+import dogFoodIMG from "../../assets/images/products/dog-food.png";
+import catfoodIMG from "../../assets/images/products/cat-food.svg";
+
 
 const WhatClientSays = () => {
   var settings = {
@@ -61,33 +66,28 @@ const WhatClientSays = () => {
   const columnData = [
     {
       id: 1,
-      image: "",
-      title: "{consulation}",
-      desc: "I highly recommend PawWalker to any pet parent. It has everything you need to provide the best care for your beloved pets, all in one place.",
+      image: dogFoodIMG,
+      title: "Dog Food",
     },
     {
       id: 2,
-      image: "sliderClientImg2.png",
+      image: catfoodIMG,
       title: "Cat Food",
-      desc: "I'm so glad I stumbled upon PawWalker. It made finding quality pet supplies so much easier. The prices were great, and the delivery was super quick!",
     },
     {
       id: 3,
-      image: "sliderClientImg3.png",
+      image: treatsIMG,
       title: "Pet Treats",
-      desc: "I'm so grateful for PawWalker! It helped me discover a pet clinic near me for grooming with great, experienced staff. The staff was knowledgeable and friendly, making my pet's experience enjoyable.",
     },
     {
       id: 4,
-      image: "sliderClientImg1.png",
+      image: toysIMG,
       title: "Pet Toys",
-      desc: "I highly recommend PawWalker to any pet parent. It has everything you need to provide the best care for your beloved pets, all in one place.",
     },
     {
       id: 5,
-      image: "sliderClientImg1.png",
+      image: accessoriesIMG,
       title: "Accessories",
-      desc: "I highly recommend PawWalker to any pet parent. It has everything you need to provide the best care for your beloved pets, all in one place.",
     },
   ];
 
@@ -136,19 +136,22 @@ const ColumnTittle = styled.div`
   font-size: 20px;
   color: #000;
   font-weight: bold;
+  text-align: center;
+  justify-content: center;
+  margin: 0 auto;
 `;
 
 const SliderColumn = styled.div`
   display: flex !important;
   flex-direction: column;
   align-items: flex-start;
-  gap: 8px;
-  background: rgb(224, 247, 255);
+  gap: 0px;
+  background: #fff;
   border-radius: 50px;
   border: 1px solidrgba(0, 106, 255, 0.4);
-  padding: 4rem;
-  margin-bottom: 3rem;
-  box-shadow: 10px 10px 20px 0px #00000029;
+  padding: 0rem;
+  // margin-bottom: 3rem;
+  // box-shadow: 10px 10px 20px 0px #00000029;
 
   @media only screen and (max-width: 576px) {
     box-shadow: none;

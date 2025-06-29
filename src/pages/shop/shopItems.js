@@ -139,9 +139,9 @@ const ShopItems = () => {
   const PetType = [
     { id: "1", value: "Dogs" },
     { id: "2", value: "Cats" },
-    { id: "3", value: "Birds" },
-    { id: "4", value: "Fish & Aquatics" },
-    { id: "5", value: "Small Pets" },
+    // { id: "3", value: "Birds" },
+    // { id: "4", value: "Fish & Aquatics" },
+    // { id: "5", value: "Small Pets" },
   ];
 
   const [searchText, setSearchText] = useState("");

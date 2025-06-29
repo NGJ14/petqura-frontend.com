@@ -489,7 +489,7 @@ const ShopCheckout = () => {
                       type="submit"
                       onClick={handleCheckout}
                       style={{
-                        background: "#138496",
+                        background: "#00419d",
                         color: "#fff",
                         fontSize: "14px",
                         // width: "100%",
@@ -682,7 +682,7 @@ const ShopCheckout = () => {
                       type="submit"
                       onClick={handlePrePaidPayment}
                       style={{
-                        background: "#138496",
+                        background: "#00419d",
                         color: "#fff",
                         fontSize: "14px",
                         // width: "100%",

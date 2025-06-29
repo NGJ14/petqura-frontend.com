@@ -479,7 +479,7 @@ const ProductDetails = () => {
                               type="submit"
                               onClick={handleAddToCart}
                               style={{
-                                background: "#FF670F",
+                                background: "#00419d",
                                 color: "#fff",
                                 fontSize: "15px",
                               }}
@@ -674,7 +674,7 @@ const ProductDetails = () => {
                                 type="submit"
                                 onClick={handleReviewEnableClick}
                                 style={{
-                                  background: "#138496",
+                                  background: "#00419d",
                                   color: "#fff",
                                   fontSize: "13px",
                                 }}
@@ -722,7 +722,7 @@ const ProductDetails = () => {
                                   type="submit"
                                   onClick={handleAddReview}
                                   style={{
-                                    background: "#138496",
+                                    background: "#00419d",
                                     color: "#fff",
                                     fontSize: "13px",
                                   }}
@@ -741,7 +741,7 @@ const ProductDetails = () => {
                                     setRating(0);
                                   }}
                                   style={{
-                                    background: "#138496",
+                                    background: "#00419d",
                                     color: "#fff",
                                     fontSize: "13px",
                                   }}

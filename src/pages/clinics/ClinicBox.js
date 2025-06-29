@@ -37,7 +37,7 @@ const ClinicBox = (props) => {
             </div>
           </ClinicMainSecSpeciality> */}
 
-          <ClinicMainSecSpeciality>
+          {/* <ClinicMainSecSpeciality>
             <div>
               <img
                 src={`${config.S3imgHostUrl}/frontend-assets/icons/priceIcons.png`}
@@ -45,21 +45,21 @@ const ClinicBox = (props) => {
               />
             </div>
             <p className="clinicPrice">{props.clinicPrice}</p>
-          </ClinicMainSecSpeciality>
+          </ClinicMainSecSpeciality> */}
         </ClinicMainSecWrap>
 
         <ClinicFooterSec>
           <ClinicFooterTopSec>
-            {/* <ClinicRatingBtn>
+            <ClinicRatingBtn>
               <img
                 src={`${config.S3imgHostUrl}/frontend-assets/icons/likeIcon.png`}
                 alt="like"
               />{" "}
               99%
-            </ClinicRatingBtn> */}
-            {/* <ClinicViewMoreBtn>
+            </ClinicRatingBtn>
+            <ClinicViewMoreBtn>
               <Link to={props.redirectLink}>View More</Link>
-            </ClinicViewMoreBtn> */}
+            </ClinicViewMoreBtn>
           </ClinicFooterTopSec>
           <ClinicFooterBottomSec>
             <BookAppoinmentBtn onClick={props.bookAppoinment}>
@@ -236,13 +236,13 @@ export const BookAppoinmentBtn = styled.button`
   border-radius: 20px;
   font-weight: 600;
   position: absolute;
-  bottom: -20px;
+  bottom: -40px;
 `;
 
 const ClinicMainSecWrap = styled.div`
   width: 100%;
   height: auto;
-  min-height: 140px;
+  min-height: 35px;
   margin: 10px 0px 0px 0px;
   display: flex;
   flex-direction: column;

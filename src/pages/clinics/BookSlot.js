@@ -600,7 +600,7 @@ const BookSlot = ({
               onClick={handleSlotSubmit}
               disabled={slotVal == "" ? true : false}
             >
-              Submit
+              Book appointment
             </Button>{" "}
             <Button className="slot-submit-btn" onClick={toggle}>
               Close

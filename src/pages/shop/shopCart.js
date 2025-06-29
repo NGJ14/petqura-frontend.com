@@ -56,8 +56,6 @@ import {
 } from "../../store/UserStore/Coupon/action";
 import Login from "../Login";
 
-
-
 const ShopCart = () => {
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
@@ -170,7 +168,7 @@ const ShopCart = () => {
             (Cart?.ShopCart?.order_amount -
               (Checkout?.rewardPoints?.usable_reward +
                 couponDetails?.couponamount)) *
-            100
+              100
           ) / 100
         );
   }, [couponDetails?.couponamount, couponDetails?.payableamount]);
@@ -186,7 +184,7 @@ const ShopCart = () => {
         Math.round(
           (Cart?.ShopCart?.order_amount -
             (Checkout?.rewardPoints?.usable_reward + coupon_discount)) *
-          100
+            100
         ) / 100
       );
 
@@ -304,7 +302,7 @@ const ShopCart = () => {
             (Cart?.ShopCart?.order_amount -
               (Checkout?.rewardPoints?.usable_reward +
                 couponDetails?.couponamount)) *
-            100
+              100
           ) / 100
         );
   }, [couponDetails?.couponamount, couponDetails?.payableamount]);
@@ -405,7 +403,7 @@ const ShopCart = () => {
 
     if (profileDetails.user?.active) {
       // launchCashfreeCheckout('session_cK6tBVnP9ud8Vszz0mRiRVP9A6G8UpoWSrps5QVrIlSuN3k8ljpBDpA9udjrhzxObOz-nr1e7AaYDK12Z88ljZRPM6fdzBVVjjlsD_V55oMZyMQOFWnRG_LQQXV4iApaymentpayment');
-      
+
       dispatch(
         getCheckoutPrepaidOrder({
           data,
@@ -432,15 +430,14 @@ const ShopCart = () => {
         })
       );
     }
-
   };
-const launchCashfreeCheckout = (paymentSessionId) => {
-  let checkoutOptions = {
-    paymentSessionId: paymentSessionId,
-    redirectTarget: "_self", // or "_blank" if you want to open in new tab
+  const launchCashfreeCheckout = (paymentSessionId) => {
+    let checkoutOptions = {
+      paymentSessionId: paymentSessionId,
+      redirectTarget: "_self", // or "_blank" if you want to open in new tab
+    };
+    cashfree.checkout(checkoutOptions);
   };
-  cashfree.checkout(checkoutOptions);
-};
 
   //******** Checkout Settings End ************** */
 
@@ -492,7 +489,7 @@ const launchCashfreeCheckout = (paymentSessionId) => {
 
     Delivery?.Delivery?.mode1?.id &&
       Cart?.ShopCart?.order_amount <
-      Delivery?.Delivery?.min_free_shipping_amount &&
+        Delivery?.Delivery?.min_free_shipping_amount &&
       setDeliveryMode(Delivery?.Delivery?.mode1?.id);
   }, [addressDetails, Delivery?.Delivery]);
 
@@ -952,7 +949,7 @@ const launchCashfreeCheckout = (paymentSessionId) => {
               My Shopping Cart ({Cart?.ShopCart?.total} items)
             </h4>
             {Cart?.ShopCart?.order_amount <
-              Delivery?.Delivery?.min_free_shipping_amount ? (
+            Delivery?.Delivery?.min_free_shipping_amount ? (
               <h4 className="orange-font font-weight-bold">
                 Free Delivery for order above{" "}
                 {Delivery?.Delivery?.min_free_shipping_amount}
@@ -974,7 +971,9 @@ const launchCashfreeCheckout = (paymentSessionId) => {
                   <div className="col-md-9 col-lg-9 col-sm-6">
                     <div className="accordian">
                       <details id="cart" open={isCartOpen}>
-                        <summary className="bg-theme-colored text-white">1. Cart</summary>
+                        <summary className="bg-theme-colored text-white">
+                          1. Cart
+                        </summary>
                         <div className="acc-content">
                           <div className="row">
                             <div className="col-md-12 col-lg-12 col-sm-12">
@@ -1009,10 +1008,10 @@ const launchCashfreeCheckout = (paymentSessionId) => {
                                                     {item?.product?.brand_name}
                                                   </p>
 
-                                                  <span className="seller-data pl-0 ml-0">
+                                                  {/* <span className="seller-data pl-0 ml-0">
                                                     Sold by:{" "}
                                                     {item?.product?.added_by}
-                                                  </span>
+                                                  </span> */}
 
                                                   <p className="my-1">
                                                     Variant:{" "}
@@ -1055,45 +1054,45 @@ const launchCashfreeCheckout = (paymentSessionId) => {
                                                     className="btn mx-0 px-3"
                                                     onClick={() =>
                                                       auth &&
-                                                        auth.guest_id != undefined
+                                                      auth.guest_id != undefined
                                                         ? dispatch(
-                                                          changeGuestQuantity(
-                                                            {
+                                                            changeGuestQuantity(
+                                                              {
+                                                                data: {
+                                                                  guest_id:
+                                                                    auth?.guest_id,
+                                                                  cart_id:
+                                                                    item?.cart_id,
+                                                                  action:
+                                                                    "less",
+                                                                },
+                                                                callback: () =>
+                                                                  dispatch(
+                                                                    getGuestCart(
+                                                                      {
+                                                                        data: {
+                                                                          guest_id:
+                                                                            auth?.guest_id,
+                                                                        },
+                                                                      }
+                                                                    )
+                                                                  ),
+                                                              }
+                                                            )
+                                                          )
+                                                        : dispatch(
+                                                            changeQuantity({
                                                               data: {
-                                                                guest_id:
-                                                                  auth?.guest_id,
                                                                 cart_id:
                                                                   item?.cart_id,
-                                                                action:
-                                                                  "less",
+                                                                action: "less",
                                                               },
                                                               callback: () =>
                                                                 dispatch(
-                                                                  getGuestCart(
-                                                                    {
-                                                                      data: {
-                                                                        guest_id:
-                                                                          auth?.guest_id,
-                                                                      },
-                                                                    }
-                                                                  )
+                                                                  getCartDetails()
                                                                 ),
-                                                            }
+                                                            })
                                                           )
-                                                        )
-                                                        : dispatch(
-                                                          changeQuantity({
-                                                            data: {
-                                                              cart_id:
-                                                                item?.cart_id,
-                                                              action: "less",
-                                                            },
-                                                            callback: () =>
-                                                              dispatch(
-                                                                getCartDetails()
-                                                              ),
-                                                          })
-                                                        )
                                                     }
                                                     style={{ fontSize: "22px" }}
                                                   >
@@ -1112,44 +1111,44 @@ const launchCashfreeCheckout = (paymentSessionId) => {
                                                     className="btn mx-0  px-3"
                                                     onClick={() =>
                                                       auth &&
-                                                        auth.guest_id != undefined
+                                                      auth.guest_id != undefined
                                                         ? dispatch(
-                                                          changeGuestQuantity(
-                                                            {
+                                                            changeGuestQuantity(
+                                                              {
+                                                                data: {
+                                                                  guest_id:
+                                                                    auth?.guest_id,
+                                                                  cart_id:
+                                                                    item?.cart_id,
+                                                                  action: "add",
+                                                                },
+                                                                callback: () =>
+                                                                  dispatch(
+                                                                    getGuestCart(
+                                                                      {
+                                                                        data: {
+                                                                          guest_id:
+                                                                            auth?.guest_id,
+                                                                        },
+                                                                      }
+                                                                    )
+                                                                  ),
+                                                              }
+                                                            )
+                                                          )
+                                                        : dispatch(
+                                                            changeQuantity({
                                                               data: {
-                                                                guest_id:
-                                                                  auth?.guest_id,
                                                                 cart_id:
                                                                   item?.cart_id,
                                                                 action: "add",
                                                               },
                                                               callback: () =>
                                                                 dispatch(
-                                                                  getGuestCart(
-                                                                    {
-                                                                      data: {
-                                                                        guest_id:
-                                                                          auth?.guest_id,
-                                                                      },
-                                                                    }
-                                                                  )
+                                                                  getCartDetails()
                                                                 ),
-                                                            }
+                                                            })
                                                           )
-                                                        )
-                                                        : dispatch(
-                                                          changeQuantity({
-                                                            data: {
-                                                              cart_id:
-                                                                item?.cart_id,
-                                                              action: "add",
-                                                            },
-                                                            callback: () =>
-                                                              dispatch(
-                                                                getCartDetails()
-                                                              ),
-                                                          })
-                                                        )
                                                     }
                                                     style={{ fontSize: "22px" }}
                                                   >
@@ -1178,7 +1177,7 @@ const launchCashfreeCheckout = (paymentSessionId) => {
                                       setIsShipOpen(!isShipOpen);
                                   }}
                                 >
-                                  PROCEED TO SHIPPING
+                                  DELIVERY
                                   {Cart?.loading ? (
                                     <i
                                       className="fa fa-spinner fa-spin ml-3"
@@ -1194,14 +1193,15 @@ const launchCashfreeCheckout = (paymentSessionId) => {
                       <details
                         id="ship"
                         open={isShipOpen}
-                      // onClick={(e) => {
-                      //   setIsShipOpen(!isShipOpen);
-                      // }}
-                      >
-                        <summary className="bg-theme-colored text-white"
                         // onClick={(e) => {
                         //   setIsShipOpen(!isShipOpen);
                         // }}
+                      >
+                        <summary
+                          className="bg-theme-colored text-white"
+                          // onClick={(e) => {
+                          //   setIsShipOpen(!isShipOpen);
+                          // }}
                         >
                           2. Shipping Address
                         </summary>
@@ -1243,10 +1243,11 @@ const launchCashfreeCheckout = (paymentSessionId) => {
                                         display: addressHide ? "none" : "block",
                                         position: "relative",
                                       }}
-                                      className={` pl-3 cursor-pointer my-3 ${!addressHide && addressId == address?.id
+                                      className={` pl-3 cursor-pointer my-3 ${
+                                        !addressHide && addressId == address?.id
                                           ? "activeAddress"
                                           : "inactiveAddress"
-                                        }`}
+                                      }`}
                                       onClick={() => {
                                         setaActiveAddress(
                                           `address${index + 1}`
@@ -1280,7 +1281,7 @@ const launchCashfreeCheckout = (paymentSessionId) => {
                                         {(activeAddress ==
                                           `address${index + 1}` ||
                                           addressId == address?.id) &&
-                                          !addressHide ? (
+                                        !addressHide ? (
                                           <>
                                             <button
                                               className="btn btn-outline-dark mt-3 cursor-pointer font-weight-bold"
@@ -1608,8 +1609,9 @@ const launchCashfreeCheckout = (paymentSessionId) => {
                                           type="submit"
                                           onClick={() => {
                                             setaActiveAddress(
-                                              `address${addressDetails?.addresses
-                                                ?.length + 1
+                                              `address${
+                                                addressDetails?.addresses
+                                                  ?.length + 1
                                               }`
                                             );
                                             setAddressHide(false);
@@ -1693,15 +1695,17 @@ const launchCashfreeCheckout = (paymentSessionId) => {
                                                 : "block",
                                               position: "relative",
                                             }}
-                                            className={` pl-3 cursor-pointer my-3 ${!billingaddressHide &&
-                                                billingaddressId ==
+                                            className={` pl-3 cursor-pointer my-3 ${
+                                              !billingaddressHide &&
+                                              billingaddressId ==
                                                 billingaddress?.id
                                                 ? "activeAddress"
                                                 : "inactiveAddress"
-                                              }`}
+                                            }`}
                                             onClick={() => {
                                               setaActiveBillingAddress(
-                                                `billingaddress${billingindex + 1
+                                                `billingaddress${
+                                                  billingindex + 1
                                                 }`
                                               );
 
@@ -1736,11 +1740,12 @@ const launchCashfreeCheckout = (paymentSessionId) => {
                                                 {billingaddress?.state}
                                               </p>
                                               {(activeBillingAddress ==
-                                                `billlingaddress${billingindex + 1
+                                                `billlingaddress${
+                                                  billingindex + 1
                                                 }` ||
                                                 billingaddressId ==
-                                                billingaddress?.id) &&
-                                                !billingaddressHide ? (
+                                                  billingaddress?.id) &&
+                                              !billingaddressHide ? (
                                                 <>
                                                   <button
                                                     className="btn btn-outline-dark mt-3 cursor-pointer font-weight-bold"
@@ -2010,9 +2015,10 @@ const launchCashfreeCheckout = (paymentSessionId) => {
                                             type="submit"
                                             onClick={() => {
                                               setaActiveBillingAddress(
-                                                `billingaddress${addressDetails
-                                                  ?.billing_addresses
-                                                  ?.length + 1
+                                                `billingaddress${
+                                                  addressDetails
+                                                    ?.billing_addresses
+                                                    ?.length + 1
                                                 }`
                                               );
                                               setBillingAddressHide(false);
@@ -2020,7 +2026,7 @@ const launchCashfreeCheckout = (paymentSessionId) => {
                                               setGuestBillingAddress(false);
                                             }}
                                             style={{
-                                              background: "#138496",
+                                              background: "#00419d",
                                               color: "#fff",
                                               fontSize: "15px",
                                             }}
@@ -2054,7 +2060,7 @@ const launchCashfreeCheckout = (paymentSessionId) => {
                                               // )[0].checked = false;
                                             }}
                                             style={{
-                                              background: "#138496",
+                                              background: "#00419d",
                                               color: "#fff",
                                               fontSize: "15px",
                                             }}
@@ -2070,14 +2076,14 @@ const launchCashfreeCheckout = (paymentSessionId) => {
                             </div>
                           ) : null}
                           {ShopDetails?.pincodeData?.message ==
-                            "Currently we are not available at your location" ? (
+                          "Currently we are not available at your location" ? (
                             <h5 className="mandatory">
                               {ShopDetails?.pincodeData?.message}
                             </h5>
                           ) : null}
 
                           {guest?.addresses?.fullname ||
-                            addressDetails?.addresses?.length ? (
+                          addressDetails?.addresses?.length ? (
                             <div className="row ">
                               <div className="col-md-12 col-lg-12 col-sm-12">
                                 <a
@@ -2105,7 +2111,9 @@ const launchCashfreeCheckout = (paymentSessionId) => {
                   <div className="col-md-3 col-lg-3 col-sm-6">
                     <div className="accordian">
                       <details open>
-                        <summary className="bg-theme-colored text-white" >Payment Summary</summary>
+                        <summary className="bg-theme-colored text-white">
+                          Payment Summary
+                        </summary>
                         <div className="acc-content">
                           <div className="row">
                             <div className="col-md-12 mt-5 mx-4">
@@ -2128,7 +2136,7 @@ const launchCashfreeCheckout = (paymentSessionId) => {
                               </div>
 
                               {Checkout?.rewardPoints?.reward_points &&
-                                showRewardCheck ? (
+                              showRewardCheck ? (
                                 <div className="form-group row ">
                                   <div className="form-group col-md-6 col-12  col-sm-6 col-xs-6">
                                     Total Coins:
@@ -2140,7 +2148,7 @@ const launchCashfreeCheckout = (paymentSessionId) => {
                                 </div>
                               ) : null}
                               {Checkout?.rewardPoints?.reward_points &&
-                                showRewardCheck ? (
+                              showRewardCheck ? (
                                 <div className="form-group row ">
                                   <div className="form-group col-md-6 col-12  col-sm-6 col-xs-6">
                                     Usable Coins:
@@ -2151,7 +2159,7 @@ const launchCashfreeCheckout = (paymentSessionId) => {
                                 </div>
                               ) : null}
                               {Checkout?.rewardPoints?.usable_reward &&
-                                showRewardCheck ? (
+                              showRewardCheck ? (
                                 <div className="form-group row ">
                                   <div className="form-group col-md-12 col-12  col-sm-6 col-xs-6">
                                     <p className="text-left mt-1 mb-2">

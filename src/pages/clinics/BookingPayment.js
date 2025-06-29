@@ -233,7 +233,7 @@ const BookingPayment = () => {
                   {getLocalStorage("AUTH_DETAILS") &&
                   getLocalStorage("AUTH_DETAILS")?.user?.role == "pet_owner" ? (
                     <div className=" approve-content-header">
-                      <h4 className="">
+                      {/* <h4 className="">
                         <span className="approve-number ml-4">1</span>
                         <span className="approve-heading">Login</span>
                         <span className="text-success"> ✔</span>
@@ -246,7 +246,7 @@ const BookingPayment = () => {
                         <h5 className="font-weight-500 text-dark ml-50 margin-right">
                           {profileDetails?.user?.phone}
                         </h5>
-                      </div>
+                      </div> */}
                     </div>
                   ) : (
                     <div className=" approve-content-header">
@@ -263,8 +263,8 @@ const BookingPayment = () => {
 
                 <div className="col-lg-9">
                   <h4 className="content-header">
-                    <span className="number ml-4">2</span>
-                    <span className="heading">Booking Details</span>
+                    {/* <span className="number ml-4">2</span> */}
+                    <span className="heading">Confirm Details</span>
                   </h4>
                   <div className="">
                     <div className="inner row">
@@ -303,14 +303,14 @@ const BookingPayment = () => {
                             </p>
                           </div>
                         ) : null}
-                        <div className="d-flex">
+                        {/* <div className="d-flex">
                           <p className="col-md-6 col-xs-5">
                             Medical Description:
                           </p>
                           <p className="col-md-6 col-xs-5">
                             {Clinic?.paymentData?.appointment_details?.service}
                           </p>
-                        </div>
+                        </div> */}
                         <div className="d-flex">
                           <p className="col-md-6 col-xs-5">Doctor Name:</p>
                           <p className="col-md-6 col-xs-5">
@@ -355,7 +355,7 @@ const BookingPayment = () => {
                             </p>
                           </p>
                         </div>
-                        <div className="d-flex">
+                        {/* <div className="d-flex">
                           <p className="col-md-6 col-xs-5">Visited Clinic:</p>
                           <p className="col-md-6 col-xs-5">
                             {Clinic?.paymentData?.appointment_details
@@ -363,7 +363,7 @@ const BookingPayment = () => {
                               ? "Yes"
                               : "No"}
                           </p>
-                        </div>
+                        </div> */}
                         <div className="d-flex">
                           <p className="col-md-6 col-xs-5">Appointment Date:</p>
                           <p className="col-md-6 col-xs-5">
@@ -475,7 +475,7 @@ const BookingPayment = () => {
                             type="submit"
                             onClick={handleBookPayment}
                             style={{
-                              background: "#138496",
+                              background: "#00419d",
                               color: "#fff",
                               fontSize: "14px",
                             }}

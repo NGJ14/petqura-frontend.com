@@ -1,209 +1,91 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { config } from "../../config/config";
-import grooming from "../../assets/images/new/3.svg";
-import vaccinations from "../../assets/images/new/2.svg";
-import consulation from "../../assets/images/new/1.svg";
+import Consultation from "../../assets/images/new/1-cropped.svg";
+import Vaccinations from "../../assets/images/new/2-cropped.svg";
+import Grooming from "../../assets/images/new/3-cropped.svg";
+import Dental from "../../assets/images/new/4-cropped.svg";
+import Dermatology from "../../assets/images/new/5-cropped.svg";
+import Ultrasound from "../../assets/images/new/6-cropped.svg";
+import Xray from "../../assets/images/new/7-cropped.svg";
+import BloodUrine from "../../assets/images/new/8-cropped.svg";
+import Microchip from "../../assets/images/new/9-cropped.svg";
+import ECG from "../../assets/images/new/10-cropped.svg";
+
+const services = [
+  { img: Consultation, title: "Consultation", link: "/clinic" },
+  { img: Vaccinations, title: "Vaccinations", link: "/store" },
+  { img: Grooming, title: "Grooming", link: "/hands4paws" },
+  { img: Dental, title: "Dental Care", link: "/hands4paws" },
+  { img: Dermatology, title: "Dermatology", link: "/boarding" },
+  { img: Ultrasound, title: "Ultrasound", link: "/training" },
+  { img: Xray, title: "X-ray", link: "/surgery" },
+  { img: BloodUrine, title: "Blood & Urine", link: "/surgery" },
+  { img: Microchip, title: "Microchip", link: "/surgery" },
+  { img: ECG, title: "ECG", link: "/surgery" },
+];
 
 const Services = () => {
+  const [showAll, setShowAll] = useState(false);
+
   return (
     <section className="mt-2 pt-2">
       <div className="common-container pt-0 paddingMore">
         <div className="section-content">
           <Tittle className="text-left">
-            <h2 className="">
+            <h2>
               <span className="text-primary"> SERVICES</span>
             </h2>
           </Tittle>
           <Tittle className="text-right">
-            <h3 className="">
-              <span className="text-warning"> View all</span>
+            <h3
+              style={{ cursor: "pointer" }}
+              onClick={() => setShowAll(!showAll)}
+            >
+              <span className="text-warning">
+                {showAll ? "View less" : "View more"}
+              </span>
             </h3>
           </Tittle>
-          <div className="row">
-            <div className="col-md-4">
-              <div
-                className="
-                icon-box
-                text-center
-                mt-sm-0
-                servicesBg
-              "
-              >
-                <IconWrapper>
-                  <a
-                    // className="
-                    // icon icon-lg
-                    // bg-theme-colored
-                    // icon-circled icon-border-effect
-                    // effect-circled
-                    // text-white
-                    // iconImg
-                    // "
-                    href="/clinic"
-                  >
-                    {/* <i className="flaticon-pet-veterinarian-hospital" /> */}
-                    {/* <img
-                      src={`${config.S3imgHostUrl}/frontend-assets/icons/servClincIcon.png`}
-                      alt="Image"
-                    /> */}
-                  </a>
-                </IconWrapper>
-                <img className="ServicesIconImage" src={grooming} alt="Image" />
-                {/* <p className="text-dark">
-                  From the comforts of your home, schedule appointments with the
-                  most loved and trusted vets of Bengaluru.
-                </p> */}
-                {/* <a
-                  href="#"
-                  className="btn btn-theme-colored text-uppercase mt-10"
-                >
-                  More info
-                </a> */}
-                {/* <TernoryBtn href="">Call Us</TernoryBtn> */}
-              </div>
-              <h4 className="icon-box-title text-center text-capitalize letter-space-0">
-                <a
-                  className="darkTextColor segoeFont font-weight-bold f-22"
-                  href="/hands4paws"
-                >
-                  Grooming
-                </a>
-              </h4>
-            </div>
-            <div className="col-md-4">
-              <div
-                className="
-                icon-box
-                bg-lighter
-                text-center
-                p-30
-                mt-sm-0
-                border-1px
-                services-bg-image-store
-                servicesBg
-                "
-              >
-                <IconWrapper>
-                  <a
-                    //   className="
-                    //   icon icon-lg
-                    //   bg-theme-colored
-                    //   icon-circled icon-border-effect
-                    //   effect-circled
-                    //   text-white
-                    //   iconImg
-                    // "
-                    href="/store"
-                  >
-                    {/* <i className="flaticon-pet-shopping-cart-with-product-inside" /> */}
-                    {/* <img
-                      src={`${config.S3imgHostUrl}/frontend-assets/icons/servStoreIcon.png`}
-                      alt="Icon"
-                    /> */}
-                  </a>
-                </IconWrapper>
-                <img
-                  className="ServicesIconImage"
-                  src={vaccinations}
-                  alt="Image"
-                />
-                {/* <h4 className="icon-box-title text-capitalize letter-space-0">
+
+          {/* Service Grid Section */}
+          <ServiceGrid>
+            {services.slice(0, 4).map((item, index) => (
+              <ServiceCard key={index}>
+                <img className="ServicesIconImage p-5" src={item.img} alt="Image" />
+                <h4 className="icon-box-title text-center text-capitalize letter-space-0">
                   <a
                     className="darkTextColor segoeFont font-weight-bold f-22"
-                    href="/store"
+                    href={item.link}
                   >
-                    Store
+                    {item.title}
                   </a>
-                </h4> */}
-                {/* <p className="text-dark">
-                  Stop, drop, and roll over into our store, curated with love
-                  and mischief.
-                </p> */}
-                {/* <a
-                  href="#"
-                  className="btn btn-theme-colored text-uppercase mt-10"
-                >
-                  More info
-                </a> */}
-                {/* <TernoryBtn href="">Call Us</TernoryBtn> */}
-              </div>
-              <h4 className="icon-box-title text-center text-capitalize letter-space-0">
-                <a
-                  className="darkTextColor segoeFont font-weight-bold f-22"
-                  href="/hands4paws"
-                >
-                  Vaccinations
-                </a>
-              </h4>
-            </div>
-            <div className="col-md-4">
-              <div
-                className="
-                icon-box
-                bg-lighter
-                text-center
-                p-30
-                mt-sm-0
-                border-1px
-                services-bg-image-hands4paws
-                servicesBg
-              "
-              >
-                <IconWrapper>
-                  <a
-                    //   className="
-                    //   icon icon-lg
-                    //   bg-theme-colored
-                    //   icon-circled icon-border-effect
-                    //   effect-circled
-                    //   text-white
-                    //   iconImg
-                    // "
-                    href="/hands4paws"
-                  >
-                    {/* <i className="flaticon-pet-play" /> */}
-                    {/* <img
-                      src={`${config.S3imgHostUrl}/frontend-assets/icons/servHandsIcon.png`}
-                      alt="Icon"
-                    /> */}
-                  </a>
-                </IconWrapper>
-                <img className="ServicesIconImage" src={consulation} alt="Image" />
-                {/* <h4 className="icon-box-title text-capitalize letter-space-0">
-                  <a
-                    className="darkTextColor segoeFont font-weight-bold f-22"
-                    href="/hands4paws"
-                  >
-                    Hands4Paws
-                  </a>
-                </h4> */}
-                {/* <p className="text-dark">
-                  The sweetest dreams are made of treats! Join us to provide the
-                  stray animals of Bengaluru with food, warmth, and love.
-                </p> */}
-                {/* <a
-                  href="#"
-                  className="btn btn-theme-colored text-uppercase mt-10"
-                >
-                  More info
-                </a> */}
-                {/* <TernoryBtn href="">
-                  Call Us
-                </TernoryBtn> */}
-              </div>
-              <h4 className="icon-box-title text-center text-capitalize letter-space-0">
-                <a
-                  className="darkTextColor segoeFont font-weight-bold f-22"
-                  href="/hands4paws"
-                >
-                  Consultation
-                </a>
-              </h4>
-            </div>
-          </div>
+                </h4>
+              </ServiceCard>
+            ))}
+
+            {showAll &&
+              services.slice(4).map((item, index) => (
+                <ServiceCard key={index + 4}>
+                  <img
+                    className="ServicesIconImage p-5"
+                    src={item.img}
+                    alt="Image"
+                  />
+                  <h4 className="icon-box-title text-center text-capitalize letter-space-0">
+                    <a
+                      className="darkTextColor segoeFont font-weight-bold f-22"
+                      href={item.link}
+                    >
+                      {item.title}
+                    </a>
+                  </h4>
+                </ServiceCard>
+              ))}
+          </ServiceGrid>
         </div>
       </div>
+
       <CustomImg>
         <img
           src={`${config.S3imgHostUrl}/frontend-assets/ourServiceCat.png`}
@@ -215,6 +97,8 @@ const Services = () => {
 };
 
 export default Services;
+
+// ---------- STYLED COMPONENTS ----------
 
 export const CustomImg = styled.div`
   width: 35%;
@@ -260,10 +144,6 @@ export const TernoryBtn = styled.a`
   }
 `;
 
-const ServicesIconImage =styled.img`
-  background:black;
-`
-
 const IconWrapper = styled.div`
   display: flex;
   position: absolute;
@@ -293,6 +173,11 @@ export const Tittle = styled.div`
     display: inline-block;
   }
 
+  h3 {
+    font-size: 24px;
+    font-weight: normal;
+  }
+
   .tittleBold {
     color: #00419d;
     font-weight: bold;
@@ -312,11 +197,46 @@ export const Tittle = styled.div`
       font-size: 30px;
     }
 
+    h3 {
+      font-size: 20px;
+    }
+
     .tittleBold {
       margin-left: 10px;
     }
   }
+`;
+
+const ServiceGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(22%, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+
+  @media only screen and (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
   @media only screen and (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const ServiceCard = styled.div`
+  background: rgb(215, 250, 255);
+  background: rgb(240, 255, 255);
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  img {
+    width: 210px;
+    height: 210px;
   }
 `;

@@ -7,6 +7,10 @@ import delivery from "../../assets/images/user/Fa6SolidTruck.svg";
 // import returns from "../../assets/images/user/return.svg";
 import returns from "../../assets/images/user/Fa6SolidArrowsRotate.svg";
 
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   checkPincode,
@@ -53,6 +57,34 @@ const ProductDetails = () => {
   const [enableAddReviewBtn, setEnableAddReviewBtn] = useState(true);
   const [disableSubmit, setDisableSubmit] = useState(false);
   const [disablePin, setDisablePin] = useState(false);
+  const [showProductInfo, setShowProductInfo] = useState(false);
+  const [showSpecs, setShowSpecs] = useState(false);
+
+  const sliderSettings = {
+    dots: false,
+    infinite: true,
+    speed: 800,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    arrows: true,
+    responsive: [
+      {
+        breakpoint: 1200,
+        settings: { slidesToShow: 3 },
+      },
+      {
+        breakpoint: 768,
+        settings: { slidesToShow: 2 },
+      },
+      {
+        breakpoint: 480,
+        settings: { slidesToShow: 1 },
+      },
+    ],
+  };
+  
 
   const history = useHistory();
   useEffect(() => {
@@ -342,10 +374,21 @@ const ProductDetails = () => {
                       <div className="product_review">
                         <ul className="review_text list-inline">
                           {Reviews.reviewData.average_rating == 0 ? null : (
-                            <li className=" rating-btn">
-                              {Reviews.reviewData.average_rating}{" "}
-                              <i className="fa fa-star"></i>
-                            </li>
+                            <li className="rating-btn align-items-center py-2">
+                            {[...Array(Math.round(Reviews?.reviewData?.average_rating || 0))].map((_, i) => (
+                              <i
+                                key={i}
+                                className="fa fa-star"
+                                style={{
+                                  color: "#fff",          // White star
+                                  fontSize: "15px",       // Slightly larger
+                                  marginRight: "4px",
+                                  lineHeight: "1",
+                                }}
+                              ></i>
+                            ))}
+                          </li>
+                          
                           )}
                           <li>
                             <a
@@ -514,7 +557,7 @@ const ProductDetails = () => {
                               type="submit"
                               onClick={handleAddToCart}
                               style={{
-                                background: "#FF670F",
+                                background: "#00419d",
                                 color: "#fff",
                                 fontSize: "15px",
                               }}
@@ -522,7 +565,7 @@ const ProductDetails = () => {
                               ADD TO CART
                             </button>
                           </div>
-                          <h5
+                          {/* <h5
                             className={`mb-4 ml-0 ${
                               ShopDetails?.variant?.delivery_in_24
                                 ? "mt-3"
@@ -534,12 +577,12 @@ const ProductDetails = () => {
                               ? `${3}`
                               : null}
                             {ShopDetails?.variant?.custom_delivery_days} days
-                          </h5>
+                          </h5> */}
                         </div>
                       </div>
                     </div>
                     <div className="row">
-                      <div className="col-md-3">
+                      {/* <div className="col-md-3">
                         <div className="ibtBU6 _3t6eWY">
                           <input
                             placeholder="Enter delivery pincode"
@@ -563,7 +606,7 @@ const ProductDetails = () => {
                             Check
                           </button>
                         </div>
-                      </div>
+                      </div> */}
                       <div className="col-md-6">
                         {ShopDetails.pincodeData?.message && (
                           <p className="orange-font font-weight-bold">
@@ -573,7 +616,7 @@ const ProductDetails = () => {
                       </div>
                     </div>
 
-                    <div className=" offer-zone pt-3">
+                    {/* <div className=" offer-zone pt-3">
                       <div className="mx-5 ml-sm-0 ">
                         <img
                           src={delivery}
@@ -604,7 +647,7 @@ const ProductDetails = () => {
                           Exchange or Returns
                         </h5>
                       </div>
-                    </div>
+                    </div> */}
 
                     {/* <div className="col-lg-2 px-0 d-flex">
                       <input
@@ -622,37 +665,267 @@ const ProductDetails = () => {
                     <div>
                       <div>
                         <div>
-                          <h3 className="mt-60 mb-5">Product Info </h3>
-                          <p>
-                            {
-                              ShopDetails?.userProductDetails
-                                ?.product_description
-                            }
-                          </p>
+                          {/* <h3 className="mb-5 ml-3 pl-1">Related Products</h3>
+                          <div className=" common-container products">
+                            <div className="row multi-row-clearfix ">
+                              {ShopDetails?.userProductDetails?.related_products
+                                ?.length
+                                ? ShopDetails?.userProductDetails?.related_products
+                                    ?.map((product, i) =>
+                                      product?.product_id ==
+                                      params?.id ? null : (
+                                        <div className=" col-sm-4 col-md-4 col-lg-3 mb-30 col-xs-6 pl-0">
+                                          <a
+                                            href={`/product/${product?.product_id}`}
+                                            style={{ textDecoration: "none" }}
+                                          >
+                                            <div className="product col-lg-7">
+                                              <div className="product-thumb product-img">
+                                                <img
+                                                  alt
+                                                  src={
+                                                    product?.variants[0]
+                                                      ?.product_image_1
+                                                      ? product?.variants[0]
+                                                          ?.product_image_1
+                                                      : productPlaceholder
+                                                  }
+                                                  style={{
+                                                    height: "100%",
+                                                    width: "100%",
+                                                    objectFit: "contain",
+                                                  }}
+                                                  className="img-responsive img-fullwidth product-hover  cust-size"
+                                                />
+                                                <div className="overlay" />
+                                              </div>
+                                              <div className="product-details ml-4 ">
+                                                <h5 className="product-brand text-dark">
+                                                  {product?.product_name}
+                                                </h5>
+                                                <h6 className="text-dark">
+                                                  {product?.brand_name}
+                                                </h6>
+                                                {product?.variants?.length &&
+                                                  product?.variants
+                                                    ?.slice(0, 1)
+                                                    ?.map((variant) => (
+                                                      <>
+                                                        <div className="price ml-0">
+                                                          <span className="amount text-dark font-weight-bold ml-0">
+                                                            Rs.{variant?.price}
+                                                          </span>
+                                                          <del className="ml-3">
+                                                            <span className="amount">
+                                                              Rs.
+                                                              {variant?.price *
+                                                                2}
+                                                            </span>
+                                                          </del>
+                                                        </div>
+                                                        <span className=" orange-font">
+                                                          {variant?.dispaly_discount_percentage >
+                                                          0 ? (
+                                                            <span className=" orange-font">
+                                                              (
+                                                              {
+                                                                variant?.dispaly_discount_percentage
+                                                              }
+                                                              % OFF)
+                                                            </span>
+                                                          ) : null}{" "}
+                                                        </span>
+                                                      </>
+                                                    ))}
+                                              </div>
+                                            </div>
+                                          </a>
+                                        </div>
+                                      )
+                                    )
+                                : null}
+                            </div>
+                          </div> */}
+                          <h3 className="bg-theme-colored text-white p-3 mb-0 ml-3 pl-1">
+                            Related Products
+                          </h3>
+
+                          <div
+                            className="related-slider-wrapper"
+                            style={{
+                              width: "100%",
+                              margin: "0px auto",
+                              padding: "0 1rem",
+                            }}
+                          >
+                            <Slider {...sliderSettings}>
+                              {ShopDetails?.userProductDetails?.related_products
+                                ?.length
+                                ? ShopDetails.userProductDetails.related_products.map(
+                                    (product) =>
+                                      product?.product_id ===
+                                      params?.id ? null : (
+                                        <div
+                                          key={product?.product_id}
+                                          className="p-3"
+                                        >
+                                          <a
+                                            href={`/product/${product?.product_id}`}
+                                            style={{ textDecoration: "none" }}
+                                          >
+                                            <div
+                                              style={{
+                                                height: "380px", // 🔸 Total card height
+                                                padding: "1rem",
+                                                borderRadius: "10px",
+                                                backgroundColor: "#fff",
+                                                display: "flex",
+                                                flexDirection: "column",
+                                                justifyContent: "flex-start",
+                                                alignItems: "flex-start",
+                                                boxShadow:
+                                                  "0 4px 8px rgba(0,0,0,0.1)",
+                                              }}
+                                            >
+                                              <img
+                                                src={
+                                                  product?.variants?.[0]
+                                                    ?.product_image_1 ||
+                                                  productPlaceholder
+                                                }
+                                                alt="Product"
+                                                style={{
+                                                  height: "200px", // 🔸 Image height
+                                                  width: "100%",
+                                                  objectFit: "contain",
+                                                  borderRadius: "8px",
+                                                  marginBottom: "1rem",
+                                                }}
+                                              />
+
+                                              <h5
+                                                style={{
+                                                  fontSize: "16px",
+                                                  fontWeight: "600",
+                                                  color: "#000",
+                                                  margin: 0,
+                                                  marginBottom: "0.5rem",
+                                                }}
+                                              >
+                                                {product?.product_name}
+                                              </h5>
+
+                                              <div>
+                                                {product?.variants
+                                                  ?.slice(0, 1)
+                                                  .map((variant) => (
+                                                    <div
+                                                      key={variant?.variant_id}
+                                                    >
+                                                      <span
+                                                        style={{
+                                                          fontSize: "15px",
+                                                          fontWeight: "bold",
+                                                          color: "#000",
+                                                        }}
+                                                      >
+                                                        Rs.{variant?.price}
+                                                      </span>
+                                                      <del
+                                                        style={{
+                                                          marginLeft: "8px",
+                                                          fontSize: "14px",
+                                                          color: "#888",
+                                                        }}
+                                                      >
+                                                        Rs.{variant?.price * 2}
+                                                      </del>
+                                                      {variant?.dispaly_discount_percentage >
+                                                        0 && (
+                                                        <span
+                                                          style={{
+                                                            marginLeft: "8px",
+                                                            color: "#f57224",
+                                                            fontSize: "14px",
+                                                          }}
+                                                        >
+                                                          (
+                                                          {
+                                                            variant?.dispaly_discount_percentage
+                                                          }
+                                                          % OFF)
+                                                        </span>
+                                                      )}
+                                                    </div>
+                                                  ))}
+                                              </div>
+                                            </div>
+                                          </a>
+                                        </div>
+                                      )
+                                  )
+                                : null}
+                            </Slider>
+                          </div>
+                          <h3
+                            className="mt-0 mb-3 bg-theme-colored text-white p-3 d-flex align-items-center justify-content-between"
+                            style={{ cursor: "pointer" }}
+                            onClick={() => setShowProductInfo(!showProductInfo)}
+                          >
+                            Product Info{" "}
+                            {showProductInfo ? (
+                              <i className="fa fa-chevron-up"></i>
+                            ) : (
+                              <i className="fa fa-chevron-down"></i>
+                            )}
+                          </h3>
+                          {showProductInfo && (
+                            <p>
+                              {
+                                ShopDetails?.userProductDetails
+                                  ?.product_description
+                              }
+                            </p>
+                          )}
                         </div>
+
+                        {/* Specifications Dropdown */}
                         <div>
-                          <h3 className="mb-5 ml-0">Specifications</h3>
-                          <table className="table">
-                            <tbody>
-                              <tr>
-                                <th>Brand</th>
-                                <td>
-                                  <p>
-                                    {
-                                      ShopDetails?.userProductDetails
-                                        ?.brand_name
-                                    }
-                                  </p>
-                                </td>
-                              </tr>
-                              <tr>
-                                <th>Variant</th>
-                                <td>
-                                  <p>{ShopDetails?.variant?.variant_name}</p>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
+                          <h3
+                            className="mt-4 mb-3 bg-theme-colored text-white p-3 d-flex align-items-center justify-content-between"
+                            style={{ cursor: "pointer" }}
+                            onClick={() => setShowSpecs(!showSpecs)}
+                          >
+                            Specifications{" "}
+                            {showSpecs ? (
+                              <i className="fa fa-chevron-up"></i>
+                            ) : (
+                              <i className="fa fa-chevron-down"></i>
+                            )}
+                          </h3>
+                          {showSpecs && (
+                            <table className="table">
+                              <tbody>
+                                <tr>
+                                  <th>Brand</th>
+                                  <td>
+                                    <p>
+                                      {
+                                        ShopDetails?.userProductDetails
+                                          ?.brand_name
+                                      }
+                                    </p>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th>Variant</th>
+                                  <td>
+                                    <p>{ShopDetails?.variant?.variant_name}</p>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          )}
                         </div>
                         <div id="reviews">
                           <h3>Reviews</h3>
@@ -666,9 +939,23 @@ const ProductDetails = () => {
                                         <ul className="review_text list-inline mt-5">
                                           <li className="d-flex justify-content-between">
                                             <div className="d-flex  responsive-review-container">
-                                              <li className=" rating-btn  pro-btn">
-                                                {review?.review_star_count}{" "}
-                                                <i className="fa fa-star"></i>
+                                              <li className="rating-btn pro-btn d-flex align-items-center py-2">
+                                                {[
+                                                  ...Array(
+                                                    review?.review_star_count
+                                                  ),
+                                                ].map((_, i) => (
+                                                  <i
+                                                    key={i}
+                                                    className="fa fa-star"
+                                                    style={{
+                                                      color: "#fff", // White color
+                                                      fontSize: "15px", // Slightly larger size
+                                                      marginRight: "4px", // Small gap between stars
+                                                      lineHeight: "1", // Prevents extra spacing
+                                                    }}
+                                                  ></i>
+                                                ))}
                                               </li>
                                               <span className=" font-weight-bold mt-1 ml-0 font-17">
                                                 {review?.review_title}
@@ -715,7 +1002,7 @@ const ProductDetails = () => {
                                 type="submit"
                                 onClick={handleReviewEnableClick}
                                 style={{
-                                  background: "#138496",
+                                  background: "#00419d",
                                   color: "#fff",
                                   fontSize: "13px",
                                 }}
@@ -763,7 +1050,7 @@ const ProductDetails = () => {
                                   type="submit"
                                   onClick={handleAddReview}
                                   style={{
-                                    background: "#138496",
+                                    background: "#00419d",
                                     color: "#fff",
                                     fontSize: "13px",
                                   }}
@@ -782,7 +1069,7 @@ const ProductDetails = () => {
                                     setRating(0);
                                   }}
                                   style={{
-                                    background: "#138496",
+                                    background: "#00419d",
                                     color: "#fff",
                                     fontSize: "13px",
                                   }}
@@ -795,84 +1082,6 @@ const ProductDetails = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <h3 className="mb-5 ml-3 pl-1">Related Products</h3>
-                <div className=" common-container products">
-                  <div className="row multi-row-clearfix ">
-                    {ShopDetails?.userProductDetails?.related_products?.length
-                      ? ShopDetails?.userProductDetails?.related_products
-                          // ?.slice(0.6)
-                          ?.map((product, i) =>
-                            product?.product_id == params?.id ? null : (
-                              <div className=" col-sm-4 col-md-4 col-lg-3 mb-30 col-xs-6 pl-0">
-                                <a
-                                  href={`/product/${product?.product_id}`}
-                                  style={{ textDecoration: "none" }}
-                                >
-                                  <div className="product col-lg-7">
-                                    <div className="product-thumb product-img">
-                                      <img
-                                        alt
-                                        src={
-                                          product?.variants[0]?.product_image_1
-                                            ? product?.variants[0]
-                                                ?.product_image_1
-                                            : productPlaceholder
-                                        }
-                                        style={{
-                                          height: "100%",
-                                          width: "100%",
-                                          objectFit: "contain",
-                                        }}
-                                        className="img-responsive img-fullwidth product-hover  cust-size"
-                                      />
-                                      <div className="overlay" />
-                                    </div>
-                                    <div className="product-details ml-4 ">
-                                      <h5 className="product-brand text-dark">
-                                        {/* {product?.product_name?.slice(0, 23)} */}
-                                        {product?.product_name}
-                                      </h5>
-                                      <h6 className="text-dark">
-                                        {product?.brand_name}
-                                      </h6>
-                                      {product?.variants?.length &&
-                                        product?.variants
-                                          ?.slice(0, 1)
-                                          ?.map((variant) => (
-                                            <>
-                                              <div className="price ml-0">
-                                                <span className="amount text-dark font-weight-bold ml-0">
-                                                  Rs.{variant?.price}
-                                                </span>
-                                                <del className="ml-3">
-                                                  <span className="amount">
-                                                    Rs.{variant?.price * 2}
-                                                  </span>
-                                                </del>
-                                              </div>
-                                              <span className=" orange-font">
-                                                {variant?.dispaly_discount_percentage >
-                                                0 ? (
-                                                  <span className=" orange-font">
-                                                    (
-                                                    {
-                                                      variant?.dispaly_discount_percentage
-                                                    }
-                                                    % OFF)
-                                                  </span>
-                                                ) : null}{" "}
-                                              </span>
-                                            </>
-                                          ))}
-                                    </div>
-                                  </div>
-                                </a>
-                              </div>
-                            )
-                          )
-                      : null}
                   </div>
                 </div>
               </div>

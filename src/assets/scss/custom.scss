@@ -1733,14 +1733,14 @@ pt-140 pb-30 pl-50 .card-address-cust {
   padding: 7px 20px;
   font-size: 15px;
   color: #fff;
-  background-color: #138496;
-  border: 1px solid #138496 !important;
+  background-color: #00419d;
+  border: 1px solid #00419d !important;
   text-decoration: none;
   &:hover {
     background-color: #fff;
-    border: 1px solid #138496 !important;
+    border: 1px solid #00419d !important;
     text-decoration: none;
-    color: #138496;
+    color: #00419d;
   }
 }
 
@@ -2225,7 +2225,8 @@ pt-140 pb-30 pl-50 .card-address-cust {
 .dropdown-user {
   font-size: 12px;
   font-weight: bold;
-  color: rgb(59, 59, 59) !important;
+  // color: rgb(59, 59, 59) !important;
+  color:white;
 }
 
 // Footer

@@ -542,7 +542,7 @@ const ClinicDetail = () => {
                         type="submit"
                         onClick={handleReviewEnableClick}
                         style={{
-                          background: "#138496",
+                          background: "#00419d",
                           color: "#fff",
                           fontSize: "13px",
                         }}
@@ -588,7 +588,7 @@ const ClinicDetail = () => {
                           type="submit"
                           onClick={handleAddReview}
                           style={{
-                            background: "#138496",
+                            background: "#00419d",
                             color: "#fff",
                             fontSize: "13px",
                           }}
@@ -607,7 +607,7 @@ const ClinicDetail = () => {
                             setRating(0);
                           }}
                           style={{
-                            background: "#138496",
+                            background: "#00419d",
                             color: "#fff",
                             fontSize: "13px",
                           }}

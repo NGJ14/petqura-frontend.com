@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router";
 import { Link } from "react-router-dom";
-import logo from "../../assets/images/petqura-logo/logo-2.png";
+import logo from "../../assets/images/PetQuraSQ.svg";
 import { getLocalStorage, removeItem } from "../../helpers/utils";
 import Login from "../../pages/Login";
 import {
@@ -81,11 +81,23 @@ const Header = () => {
                   className="menuzord orange no-bg menuzord-responsive"
                 >
                   <Link
-                    className="menuzord-brand pull-left flip cust-image "
-                    to={"/"}
+                    className="menuzord-brand pull-left flip cust-image"
+                    to="/"
                   >
-                    <img height={40} width={120} src={logo} />
+                    <img
+                      height={70}
+                      width={70}
+                      src={logo}
+                      alt="Logo"
+                      style={{
+                        backgroundColor: "#fff",
+                        borderRadius: "120px",
+                        padding: "1px", // Optional for spacing inside white box
+                        marginBottom: "10px",
+                      }}
+                    />
                   </Link>
+
                   <a
                     onClick={() => {
                       breadCrumbtoggle();
@@ -160,7 +172,7 @@ const Header = () => {
                       </li>
                     ) : null} */}
 
-                    {auth && auth?.user?.role == "pet_owner" ? null : (
+                    {/* {auth && auth?.user?.role == "pet_owner" ? null : (
                       <li>
                         <a
                           style={{ cursor: "pointer", textTransform: "none" }}
@@ -208,6 +220,17 @@ const Header = () => {
                           </li>
                         </ul>
                       </li>
+                    )} */}
+                    {auth && auth?.user?.role == "pet_owner" ? null : (
+                      <li>
+                        <a
+                          className="cursor-pointer dropdown-user"
+                          href="/carer/login"
+                          target="_blank"
+                        >
+                          For Partners
+                        </a>
+                      </li>
                     )}
                     {auth && auth?.user?.role == "pet_owner" ? (
                       <li>
@@ -244,9 +267,7 @@ const Header = () => {
                             </a>
                           </li>
                           <li>
-                            <a onClick={() => logout()}>
-                              Logout
-                            </a>
+                            <a onClick={() => logout()}>Logout</a>
                           </li>
                         </ul>
                       </li>
