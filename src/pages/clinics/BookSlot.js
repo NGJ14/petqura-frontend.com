@@ -259,9 +259,7 @@ const BookSlot = ({
                         }
                       }}
                     >
-                      <p className="font-weight-bold mb-2">
-                        Today
-                      </p>
+                      <p className="font-weight-bold mb-2">Today</p>
                       {/* {clinicData?.tab_loading && activeTab === "1" ? (
                         <i
                           className="fa fa-spinner fa-spin"
@@ -475,7 +473,24 @@ const BookSlot = ({
                             (slot, i) => (
                               <>
                                 <div className="row">
-                                  <div className="col-sm-6">
+                                  <div className="col-sm-6" style={{marginBottom:"10px"}} >
+                                    <img
+                                      src={
+                                        slot.profile_photo
+                                          ? slot.profile_photo
+                                          : "https://cdn-icons-png.flaticon.com/512/847/847969.png" // fallback
+                                      }
+                                      // src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=1024x1024&w=is&k=20&c=-mUWsTSENkugJ3qs5covpaj-bhYpxXY-v9RDpzsw504="
+                                      alt="Doctor Avatar"
+                                      style={{
+                                        width: "40px",
+                                        height: "40px",
+                                        borderRadius: "50%",
+                                        objectFit: "cover",
+                                        marginRight: "10px",
+                                        border: "1px black solid"
+                                      }}
+                                    />
                                     <h4
                                       className="mb-4"
                                       style={{ display: "inline" }}

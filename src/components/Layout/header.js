@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/images/PetQuraSQ.svg";
 import { getLocalStorage, removeItem } from "../../helpers/utils";
 import Login from "../../pages/Login";
+
 import {
   getCartDetails,
   getGuestCart,
@@ -128,18 +129,42 @@ const Header = () => {
 
                     <li
                       className={
-                        location.pathname.includes("/clinic") ? `active` : ""
+                        location.pathname.includes("/clinic") ? "active" : ""
                       }
                     >
-                      <Link to={"/clinic"}>Clinic</Link>
+                      <a
+                        onClick={() => {
+                          const isLoggedIn = getLocalStorage("AUTH_DETAILS");
+                          if (!isLoggedIn) {
+                            setModal(true);
+                          } else {
+                            history.push("/clinic");
+                          }
+                        }}
+                        className="cursor-pointer"
+                      >
+                        Clinic
+                      </a>
                     </li>
 
                     <li
                       className={
-                        location.pathname.includes("/store") ? `active` : ""
+                        location.pathname.includes("/store") ? "active" : ""
                       }
                     >
-                      <Link to={"/store"}>Store</Link>
+                      <a
+                        onClick={() => {
+                          const isLoggedIn = getLocalStorage("AUTH_DETAILS");
+                          if (!isLoggedIn) {
+                            setModal(true);
+                          } else {
+                            history.push("/store");
+                          }
+                        }}
+                        className="cursor-pointer"
+                      >
+                        Store
+                      </a>
                     </li>
 
                     {/* Doctors */}

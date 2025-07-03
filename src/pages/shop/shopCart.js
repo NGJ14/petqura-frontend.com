@@ -1020,15 +1020,15 @@ const ShopCart = () => {
                                                         .variant_name
                                                     }
                                                   </p>
-                                                  <p className="py-1 my-1  pl-0">
-                                                    Price:{" "}
-                                                    {(
-                                                      parseFloat(
-                                                        item?.total_price
-                                                      ) /
-                                                      parseFloat(item?.quantity)
-                                                    ).toFixed(2)}
+                                                <div className="mt-5">
+                                                  <p className="text-md text-gray-500 " style={{textDecoration:"line-through"}}>
+                                                    ₹{parseFloat(item?.product_variant?.non_discount_price).toFixed(2)}
                                                   </p>
+                                                  <p className="text-lg text-green-600 font-bold">
+                                                    ₹{parseFloat(item?.product_variant?.discounted_price).toFixed(2)}
+                                                  </p>
+                                                </div>
+
 
                                                   {/* <p className="">Qty: {item?.quantity}</p> */}
                                                 </div>

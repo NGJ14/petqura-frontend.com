@@ -19,7 +19,7 @@ const Authmiddleware = ({
       ) {
         return (
           <Redirect
-            to={{ pathname: "/home", state: { from: props.location } }}
+            to={{ pathname: "/home", state: { from: props.location } }} //// /home
           />
         );
       }
