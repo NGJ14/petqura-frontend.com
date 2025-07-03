@@ -3,8 +3,24 @@ import styled from "styled-components";
 import { config } from "../../config/config";
 import { Link } from "react-router-dom";
 import avatar from "../../assets/images/user/Fa6SolidHospital.svg";
-
+  import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 const ClinicBox = (props) => {
+
+
+// You can put this above your component or inside it
+const renderStars = (rating) => {
+  const stars = [];
+  for (let i = 1; i <= 5; i++) {
+    if (rating >= i) {
+      stars.push(<FaStar key={i} className="text-yellow-500" />);
+    } else if (rating >= i - 0.5) {
+      stars.push(<FaStarHalfAlt key={i} className="text-yellow-500" />);
+    } else {
+      stars.push(<FaRegStar key={i} className="text-yellow-500" />);
+    }
+  }
+  return stars;
+};
   return (
     <ClinicBoxWrap>
       <ClinicMainSec>
@@ -50,12 +66,10 @@ const ClinicBox = (props) => {
 
         <ClinicFooterSec>
           <ClinicFooterTopSec>
-            <ClinicRatingBtn>
-              <img
-                src={`${config.S3imgHostUrl}/frontend-assets/icons/likeIcon.png`}
-                alt="like"
-              />{" "}
-              99%
+            <ClinicRatingBtn className="flex items-center gap-1">
+              
+              {renderStars(4.5)}
+              <span className="ml-1 text-sm text-gray-700">{4.5.toFixed(1)}</span>
             </ClinicRatingBtn>
             <ClinicViewMoreBtn>
               <Link to={props.redirectLink}>View More</Link>
