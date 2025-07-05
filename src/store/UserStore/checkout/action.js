@@ -51,6 +51,7 @@ export const getCheckoutPrepaidOrder = ({ data, callback }) => ({
   data: data,
 });
 
+
 export const getCheckoutPrepaidOrderBegin = () => ({
   type: GET_CHECKOUT_PREPAID_ORDER_BEGIN,
 });

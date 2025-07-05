@@ -434,7 +434,8 @@ const ShopCart = () => {
   const launchCashfreeCheckout = (paymentSessionId) => {
     let checkoutOptions = {
       paymentSessionId: paymentSessionId,
-      redirectTarget: "_self", // or "_blank" if you want to open in new tab
+      redirectTarget: "_self", 
+      returnUrl:`${window.location.origin}/`// or "_blank" if you want to open in new tab
     };
     cashfree.checkout(checkoutOptions);
   };
@@ -1021,12 +1022,30 @@ const ShopCart = () => {
                                                     }
                                                   </p>
                                                 <div className="mt-5">
-                                                  <p className="text-md text-gray-500 " style={{textDecoration:"line-through"}}>
-                                                    ₹{parseFloat(item?.product_variant?.non_discount_price).toFixed(2)}
-                                                  </p>
-                                                  <p className="text-lg text-green-600 font-bold">
-                                                    ₹{parseFloat(item?.product_variant?.discounted_price).toFixed(2)}
-                                                  </p>
+                                                 <p
+                                                      style={{
+                                                        fontSize: "1.2rem", // text-md
+                                                        color: "#6b7280", // Tailwind gray-500
+                                                        textDecoration: "line-through",
+                                                        margin: 0,
+                                                        padding: 0,
+                                                      }}
+                                                    >
+                                                      ₹{parseFloat(item?.product_variant?.non_discount_price).toFixed(2)}
+                                                    </p>
+
+                                                    <p
+                                                      style={{
+                                                        fontSize: "1.5  rem", // text-lg
+                                                        color: "#16a34a",     // Tailwind green-600
+                                                        fontWeight: "bold",
+                                                        margin: 0,
+                                                        padding: 0,
+                                                      }}
+                                                    >
+                                                      ₹{parseFloat(item?.product_variant?.discounted_price).toFixed(2)}
+                                                    </p>    
+  
                                                 </div>
 
 

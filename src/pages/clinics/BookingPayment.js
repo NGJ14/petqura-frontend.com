@@ -21,6 +21,9 @@ import Login from "../Login";
 import logo from "../../assets/images/logo.jpg";
 import { resetErrors } from "../../store/UserStore/Login/action";
 import delete_icon from "../../assets/icons/delete_icon.svg";
+import { getCheckoutPrepaidOrder } from "../../store/UserStore/checkout/action";
+import { cashfree } from "../../file/cashfree/util";
+import { getAppointmentPaymentSession } from "../../store/UserStore/Booking/action";
 
 const BookingPayment = () => {
   const dispatch = useDispatch();
@@ -79,100 +82,58 @@ const BookingPayment = () => {
       setcouponname(Clinic?.paymentData?.coupon_name);
   }, [Clinic?.paymentData?.amount]);
 
-  const makePayment = (payment_id, paytm_token, amount) => {
-    var config = {
-      root: "",
-      style: {
-        bodyBackgroundColor: "#fafafb",
-        bodyColor: "",
-        themeBackgroundColor: "#0FB8C9",
-        themeColor: "#ffffff",
-        headerBackgroundColor: "#284055",
-        headerColor: "#ffffff",
-        errorColor: "",
-        successColor: "",
-        card: {
-          padding: "",
-          backgroundColor: "",
-        },
-      },
-      data: {
-        orderId: payment_id,
-        token: paytm_token,
-        tokenType: "TXN_TOKEN",
-        amount: amount,
-      },
-      payMode: {
-        labels: {},
-        filter: {
-          exclude: [],
-        },
-        order: ["CC", "DC", "NB", "UPI", "PPBL", "PPI", "BALANCE"],
-      },
-      website: getWebPayTm(),
-      flow: "DEFAULT",
-      merchant: {
-        mid: getMid(),
-        redirect: false,
-      },
-      handler: {
-        transactionStatus: function transactionStatus(response) {
-          dispatch(
-            processClinicPayment(
-              response,
-              payment_id,
-              history,
-              window.Paytm.CheckoutJS.close(),
-              window.scrollTo({ top: 0, behavior: "smooth" })
-            )
-          );
-        },
-        notifyMerchant: function notifyMerchant(eventName, data) {
-          console.log("Closed");
-        },
-      },
-    };
+  
 
-    if (window.Paytm && window.Paytm.CheckoutJS) {
-      window.Paytm.CheckoutJS.init(config)
-        .then(function onSuccess() {
-          window.Paytm.CheckoutJS.invoke();
-        })
-        .catch(function onError(error) {
-          console.log("Error => ", error);
-        });
+ const handleBookPayment = async (e) => {
+  e.preventDefault();
+
+  const auth = getLocalStorage("AUTH_DETAILS");
+
+  const payload = {
+    time_slot_id: Clinic?.paymentData?.appointment_details?.time_slot_id,
+    start_time: Clinic?.paymentData?.appointment_details?.start_time, // e.g. "15:30"
+    appointment_date: Clinic?.paymentData?.appointment_details?.appointment_date, // e.g. "05-07-2025"
+    pet_name: Clinic?.paymentData?.appointment_details?.pet_name,
+    pet_age: Clinic?.paymentData?.appointment_details?.pet_age,
+    pet_breed: Clinic?.paymentData?.appointment_details?.pet_breed,
+    pet_type: Clinic?.paymentData?.appointment_details?.pet_type,
+    description: Clinic?.paymentData?.appointment_details?.description || "",
+  };
+
+  try {
+    const res = await fetch("http://beqa.petqura.com/cashfree/book-appointment", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${auth?.access_token}`, // make sure this is valid
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const result = await res.json();
+    console.log("Cashfree Order Response:", result);
+
+    if (result?.response?.payment_session_id) {
+      launchCashfreeCheckout(result.response.payment_session_id);
+    } else {
+      alert("Failed to create appointment order");
     }
+  } catch (error) {
+    console.error("Error booking appointment:", error);
+    alert("Error occurred during booking.");
+  }
+};
+const launchCashfreeCheckout = (paymentSessionId) => {
+  let checkoutOptions = {
+    paymentSessionId: paymentSessionId,
+    redirectTarget: "_self",
+    returnUrl: `${window.location.origin}/clinic/success/` // or "_blank"
   };
 
-  const handleBookPayment = (e) => {
-    e.preventDefault();
-    dispatch(
-      bookClinicAppointment({
-        data: { payment_id: params?.id },
-        callback: () => {
-          history?.push({
-            pathname: `/clinic/success/${params?.id}`,
-            state: { from: "payment" },
-          });
-        },
-      })
-    );
-  };
+  cashfree.checkout(checkoutOptions);
+};
 
-  const handleClinicPayment = (e) => {
-    // const paymentObject = new window.Razorpay(options);
-    e.preventDefault();
-    // paymentObject.open();
-    // makePayment();
-    dispatch(
-      initiateClinicPayment({
-        data: { payment_id: params?.id },
-        callback: (payment_id, paytm_token, amount) => {
-          makePayment(payment_id, paytm_token, amount);
-        },
-      })
-    );
-  };
+
 
   const applyCoupon = (e) => {
     e.preventDefault();

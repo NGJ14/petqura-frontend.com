@@ -23,9 +23,11 @@ import ContactUsSaga from "./UserStore/ContactUs/saga";
 import DonationSaga from "./UserStore/donation/saga";
 import ADIMAGESaga from "./UserStore/AdImage/saga";
 import PAGESaga from "./UserStore/PageContent/saga";
+import appointmentSaga from "./UserStore/Booking/saga";
 
 export default function* rootSaga() {
   yield all([
+    fork(appointmentSaga),
     fork(RegisterSaga),
     fork(LoginUserSaga),
     fork(ProfileSaga),
