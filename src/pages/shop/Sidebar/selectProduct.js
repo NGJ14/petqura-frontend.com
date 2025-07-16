@@ -9,8 +9,9 @@ const SelectProduct = ({
   filter,
   setfilter,
 }) => {
-  const [isOpen1, setIsOpen1] = useState(true);
-  const [isOpen2, setIsOpen2] = useState(true);
+  const isMobile = window.innerWidth <= 768;
+  const [isOpen1, setIsOpen1] = useState(!isMobile); // Categories
+  const [isOpen2, setIsOpen2] = useState(!isMobile); // VEG/NON-VEG
   const [foodItem, setFoodItem] = useState(false);
   const [foodValue, setFoodValue] = useState("");
   const [id, setId] = useState("");
@@ -105,7 +106,9 @@ const SelectProduct = ({
               <h5 className="font-size-14 m-0">Categories</h5>
               <i
                 className={
-                  isOpen1 ? "fas fa-solid fa-caret-up" : "fas fa-solid fa-caret-down"
+                  isOpen1
+                    ? "fas fa-solid fa-caret-up"
+                    : "fas fa-solid fa-caret-down"
                 }
               ></i>
             </CardHeader>
