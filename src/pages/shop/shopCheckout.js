@@ -446,7 +446,7 @@ const ShopCheckout = () => {
                               <div className="d-flex justify-content-between custom-cart-item-flex">
                                 <img
                                   src={item?.product_variant?.product_image_1}
-                                  width="150px"
+                                  height="138px"
                                   className="cust-image-responsive"
                                 />
                                 <div className="ml-4 mt-5 col-lg-8 custom-checkout-products">

@@ -1,6 +1,7 @@
 import React from "react";
 import { styled } from "styled-components";
-import { Tittle as WhatClientSaysTittle } from "./services";
+// import { Tittle as WhatClientSaysTittle } from "./services";
+import { Tittle as WhatClientSaysTittle } from "../../components/StyledShared";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -119,7 +120,7 @@ const WhatClientSays = () => {
 export default WhatClientSays;
 
 const Tittle = styled(WhatClientSaysTittle)`
-  margin-bottom: 5rem;
+  margin-bottom: 0rem;
 
   @media only screen and (max-width: 576px) {
     margin-bottom: 2rem;
@@ -134,7 +135,7 @@ const DescriptionText = styled.div`
 
 const ColumnTittle = styled.div`
   font-size: 20px;
-  color: #000;
+  color: #00419d;
   font-weight: bold;
   text-align: center;
   justify-content: center;
@@ -144,20 +145,27 @@ const ColumnTittle = styled.div`
 const SliderColumn = styled.div`
   display: flex !important;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 0px;
-  background: #fff;
-  border-radius: 50px;
-  border: 1px solidrgba(0, 106, 255, 0.4);
-  padding: 0rem;
-  // margin-bottom: 3rem;
-  // box-shadow: 10px 10px 20px 0px #00000029;
+  align-items: center;
+  border-radius: 30px;
+  padding: 2rem;
+  margin: 0 1rem; /* Horizontal space between boxes */
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  img {
+    width: 300px;
+    height: 300px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+  }
 
   @media only screen and (max-width: 576px) {
-    box-shadow: none;
+    padding: 1.5rem;
   }
 `;
-
 const Container = styled.div`
   width: 100%;
   display: flex;
@@ -167,19 +175,15 @@ const Container = styled.div`
   position: relative;
   padding: 0 8rem;
   padding-bottom: 7rem;
-
   .slick-slide {
     height: auto;
   }
-
   .slick-slider {
     width: 100%;
-
     .slick-track {
       display: flex;
-      gap: 6rem;
+      gap: 0rem;
     }
-
     .slick-prev {
       width: 50px;
       height: 50px;
@@ -190,7 +194,6 @@ const Container = styled.div`
       z-index: 9;
       left: -35px;
     }
-
     .slick-next {
       width: 50px;
       height: 50px;
@@ -201,13 +204,11 @@ const Container = styled.div`
       z-index: 9;
       right: -35px;
     }
-
     .slick-prev:before,
     .slick-next:before {
       content: "";
     }
   }
-
   @media only screen and (max-width: 576px) {
     gap: 1rem;
     padding: 0 10px;

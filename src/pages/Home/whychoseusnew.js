@@ -1,6 +1,7 @@
 import React from "react";
 import { styled } from "styled-components";
-import { Tittle } from './services';
+// import { Tittle } from './services';
+import { Tittle } from "../../components/StyledShared";
 import { config } from "../../config/config";
 
 const WhyChoseUsNew = () => {

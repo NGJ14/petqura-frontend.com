@@ -1,10 +1,15 @@
 import React from "react";
 import { styled } from "styled-components";
-import { Tittle as OurBlogPostTittle } from "./services";
+// import { Tittle as OurBlogPostTittle } from "./services";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { CustomImg as OurBlogPostCustomImg } from "./services";
+// import { CustomImg as OurBlogPostCustomImg } from "./services";
+import {
+  Tittle as OurBlogPostTittle,
+  CustomImg as OurBlogPostCustomImg,
+} from "../../components/StyledShared";
+
 
 // export const config = "https://pawwalker-files.s3.amazonaws.com/frontend-assets/";
 import { config } from "../../config/config";
@@ -43,12 +48,12 @@ const OurBlogPost = () => {
           />
         </Slider>
       </Container>
-      <CustomImg>
+      {/* <CustomImg>
         <img
           src={`${config.S3imgHostUrl}/frontend-assets/ourBlogPostCat.png`}
           alt="Image"
         />
-      </CustomImg>
+      </CustomImg> */}
     </CommonWrapper>
   );
 };

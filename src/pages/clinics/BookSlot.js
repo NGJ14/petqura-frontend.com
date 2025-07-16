@@ -54,6 +54,13 @@ const BookSlot = ({
     "DD-MM-YYYY"
   );
 
+  const TIME_FILTERS = {
+    all: [0, 24],
+    morning: [5, 12],
+    afternoon: [12, 17],
+    evening: [17, 22],
+  };
+
   const doctorHelpTooltip = (props) => (
     <Tooltip className="mytooltip" {...props}>
       We understand your preference and will provide the same; subject to
@@ -72,6 +79,7 @@ const BookSlot = ({
   const [slotDate, setSlotDate] = useState(da1);
   const [slotKey, setSlotKey] = useState("");
   const clinicData = useSelector((state) => state.Clinic);
+  const [selectedFilter, setSelectedFilter] = useState("all");
   const Slot = useSelector((state) => state.Slot);
   const [modal, setModal] = useState(false);
   const authToggle = () => setModal(!modal);
@@ -463,115 +471,181 @@ const BookSlot = ({
                   <TabContent activeTab={activeTab} className="p-4 ml-3">
                     {tabpanes.map((tabpane) => (
                       <TabPane tabId={tabpane.value} key={tabpane.id}>
-                        {/* {clinicData?.ClinicDetails?.slots?.length == 0 ? (
-                          <p className="text-center">No Slots Available</p>
-                        ) : null} */}
-
                         {clinicData?.ClinicSlotDetails?.slots?.length &&
                         !clinicData?.tab_loading ? (
-                          clinicData?.ClinicSlotDetails?.slots?.map(
-                            (slot, i) => (
-                              <>
-                                <div className="row">
-                                  <div className="col-sm-6" style={{marginBottom:"10px"}} >
-                                    <img
-                                      src={
-                                        slot.profile_photo
-                                          ? slot.profile_photo
-                                          : "https://cdn-icons-png.flaticon.com/512/847/847969.png" // fallback
-                                      }
-                                      // src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=1024x1024&w=is&k=20&c=-mUWsTSENkugJ3qs5covpaj-bhYpxXY-v9RDpzsw504="
-                                      alt="Doctor Avatar"
-                                      style={{
-                                        width: "40px",
-                                        height: "40px",
-                                        borderRadius: "50%",
-                                        objectFit: "cover",
-                                        marginRight: "10px",
-                                        border: "1px black solid"
-                                      }}
-                                    />
-                                    <h4
-                                      className="mb-4"
-                                      style={{ display: "inline" }}
-                                    >
-                                      {slot?.doctor_name}
-                                    </h4>
-                                    {/* <OverlayTrigger
-                                      placement="top"
-                                      overlay={doctorHelpTooltip}
-                                    >
-                                      <p
-                                        className="fas fa-question-circle doc-disclaimer"
-                                        id="tooltip"
-                                      ></p>
-                                    </OverlayTrigger> */}
-                                    {/* <ToolTipComponent
-                                      text="We understand your preference and will provide the same; subject to availability."
-                                      placement="right"
-                                      target="tooltip"
-                                    /> */}
-                                  </div>
-                                  <div className="col-sm-6">
-                                    <div className="pull-right">
-                                      <h5>
-                                        <b>Rs:{slot?.doctor_fee}</b>
-                                      </h5>
-                                    </div>
-                                  </div>
-                                </div>
-                                {slot?.slots?.length ? (
-                                  slot?.slots?.map((data) => (
-                                    <>
-                                      <button
-                                        disabled={data?.active != "active"}
-                                        className={`btn slots-btn ${
-                                          slotKey ===
-                                          `${data?.slot_id}:${data?.time}`
-                                            ? "active-slot-time"
-                                            : ""
-                                        } ${
-                                          data?.active == "booked"
-                                            ? "slot-unavailabe-btn"
-                                            : data?.active == "unavailable"
-                                            ? "slot-unavailabe-btn"
-                                            : data?.active == "pending"
-                                            ? "slot-requested-btn"
-                                            : data?.active == "blocked"
-                                            ? "slot-blocked-btn"
-                                            : ""
-                                        }`}
-                                        onClick={() => {
-                                          setSlotKey(
-                                            `${data?.slot_id}:${data?.time}`
-                                          );
-                                          setSlotVal(data?.time);
-                                          setSlotId(data?.slot_id);
-                                          toggles();
-                                        }}
-                                      >
-                                        {data.time}
-                                      </button>
-                                    </>
-                                  ))
-                                ) : !slot?.length ? (
-                                  <p className="text-center">
-                                    No Slots Available
-                                  </p>
-                                ) : null}
-                              </>
-                            )
-                          )
-                        ) : clinicData?.tab_loading ? (
                           <>
-                            <p className="text-center">
-                              Checking doctor's availability{"   "}
-                              <i
-                                className="fa fa-spinner fa-spin"
-                                aria-hidden="true"
-                              ></i>
-                            </p>
+                            {/* Filter Buttons */}
+                            <div className="mb-3 d-flex flex-wrap gap-2 justify-content-center">
+                              <Button
+                                color={
+                                  selectedFilter === "all" ? "primary" : "white"
+                                }
+                                style={{
+                                  fontSize: "1.3rem",
+                                  Servicespadding: "5px 10px",
+                                  borderRadius: "50px",
+                                }}
+                                onClick={() => setSelectedFilter("all")}
+                              >
+                                All
+                              </Button>
+                              <Button
+                                color={
+                                  selectedFilter === "morning"
+                                    ? "primary"
+                                    : "white"
+                                }
+                                style={{
+                                  fontSize: "1.3rem",
+                                  Servicespadding: "5px 10px",
+                                  borderRadius: "50px",
+                                }}
+                                onClick={() => setSelectedFilter("morning")}
+                              >
+                                Morning
+                              </Button>
+                              <Button
+                                color={
+                                  selectedFilter === "afternoon"
+                                    ? "primary"
+                                    : "white"
+                                }
+                                style={{
+                                  fontSize: "1.3rem",
+                                  Servicespadding: "5px 10px",
+                                  borderRadius: "50px",
+                                }}
+                                onClick={() => setSelectedFilter("afternoon")}
+                              >
+                                Afternoon
+                              </Button>
+                              <Button
+                                color={
+                                  selectedFilter === "evening"
+                                    ? "primary"
+                                    : "white"
+                                }
+                                style={{
+                                  fontSize: "1.3rem",
+                                  Servicespadding: "5px 10px",
+                                  borderRadius: "50px",
+                                }}
+                                onClick={() => setSelectedFilter("evening")}
+                              >
+                                Evening
+                              </Button>
+                            </div>
+
+                            {/* Doctor Slots */}
+                            {clinicData?.ClinicSlotDetails?.slots?.map(
+                              (slot, i) => {
+                                // Filter the time slots here
+                                const filteredSlots =
+                                  selectedFilter === "all"
+                                    ? slot?.slots
+                                    : slot?.slots?.filter((data) => {
+                                        const hour = parseInt(
+                                          data?.time?.split(":")[0]
+                                        );
+                                        if (selectedFilter === "morning")
+                                          return hour >= 5 && hour < 12;
+                                        if (selectedFilter === "afternoon")
+                                          return hour >= 12 && hour < 17;
+                                        if (selectedFilter === "evening")
+                                          return hour >= 17 && hour <= 21;
+                                        return true;
+                                      });
+
+                                return (
+                                  <>
+                                    <div className="row">
+                                      <div
+                                        className="col-sm-6"
+                                        style={{ marginBottom: "10px" }}
+                                      >
+                                        <img
+                                          src={
+                                            slot.profile_photo
+                                              ? slot.profile_photo
+                                              : "https://cdn-icons-png.flaticon.com/512/847/847969.png"
+                                          }
+                                          alt="Doctor Avatar"
+                                          style={{
+                                            width: "40px",
+                                            height: "40px",
+                                            borderRadius: "50%",
+                                            objectFit: "cover",
+                                            marginRight: "10px",
+                                            border: "1px black solid",
+                                          }}
+                                        />
+                                        <h4
+                                          className="mb-4"
+                                          style={{ display: "inline" }}
+                                        >
+                                          {slot?.doctor_name}
+                                        </h4>
+                                      </div>
+                                      <div className="col-sm-6">
+                                        <div className="pull-right">
+                                          <h5>
+                                            <b>Rs:{slot?.doctor_fee}</b>
+                                          </h5>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    {/* Render filtered time slots */}
+                                    {filteredSlots?.length ? (
+                                      filteredSlots.map((data) => (
+                                        <button
+                                          disabled={data?.active !== "active"}
+                                          className={`btn slots-btn ${
+                                            slotKey ===
+                                            `${data?.slot_id}:${data?.time}`
+                                              ? "active-slot-time"
+                                              : ""
+                                          } ${
+                                            data?.active === "booked"
+                                              ? "slot-unavailabe-btn"
+                                              : data?.active === "unavailable"
+                                              ? "slot-unavailabe-btn"
+                                              : data?.active === "pending"
+                                              ? "slot-requested-btn"
+                                              : data?.active === "blocked"
+                                              ? "slot-blocked-btn"
+                                              : ""
+                                          }`}
+                                          onClick={() => {
+                                            setSlotKey(
+                                              `${data?.slot_id}:${data?.time}`
+                                            );
+                                            setSlotVal(data?.time);
+                                            setSlotId(data?.slot_id);
+                                            toggles();
+                                          }}
+                                        >
+                                          {data.time}
+                                        </button>
+                                      ))
+                                    ) : (
+                                      <p className="text-center">
+                                        No Slots Available
+                                      </p>
+                                    )}
+                                  </>
+                                );
+                              }
+                            )}
                           </>
+                        ) : clinicData?.tab_loading ? (
+                          <p className="text-center">
+                            Checking doctor's availability{" "}
+                            <i
+                              className="fa fa-spinner fa-spin"
+                              aria-hidden="true"
+                            ></i>
+                          </p>
                         ) : (
                           <p className="text-center">
                             No appointments are available on this day

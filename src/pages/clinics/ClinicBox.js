@@ -31,7 +31,7 @@ const renderStars = (rating) => {
         />
         <h5 className="clinicTitle">{props.clinicTitle}</h5>
         <ClinicMainSecWrap>
-          <ClinicMainSecSpeciality>
+          {/* <ClinicMainSecSpeciality>
             <div>
               <img
                 src={`${config.S3imgHostUrl}/frontend-assets/icons/locationIcon.png`}
@@ -40,7 +40,7 @@ const renderStars = (rating) => {
             </div>
             <p className="clinicLocation">{props.clinicLocation}</p>
           </ClinicMainSecSpeciality>
-          {/* <ClinicMainSecSpeciality className="specialityWrap">
+          <ClinicMainSecSpeciality className="specialityWrap">
             <div>
               <img
                 src={`${config.S3imgHostUrl}/frontend-assets/icons/specialityIcon.png`}
@@ -51,9 +51,9 @@ const renderStars = (rating) => {
               <h6>SPECIALITY</h6>
               <p className="clinicSpeciality">{props.clinicConsultation}</p>
             </div>
-          </ClinicMainSecSpeciality> */}
+          </ClinicMainSecSpeciality>
 
-          {/* <ClinicMainSecSpeciality>
+          <ClinicMainSecSpeciality>
             <div>
               <img
                 src={`${config.S3imgHostUrl}/frontend-assets/icons/priceIcons.png`}
@@ -67,14 +67,16 @@ const renderStars = (rating) => {
         <ClinicFooterSec>
           <ClinicFooterTopSec>
             <ClinicRatingBtn className="flex items-center gap-1">
-              
               {renderStars(4.5)}
-              <span className="ml-1 text-sm text-gray-700">{4.5.toFixed(1)}</span>
+              <span className="ml-1 text-sm text-gray-700">
+                {/* {4.5.toFixed(1)} */}
+              </span>
             </ClinicRatingBtn>
             <ClinicViewMoreBtn>
               <Link to={props.redirectLink}>View More</Link>
             </ClinicViewMoreBtn>
           </ClinicFooterTopSec>
+
           <ClinicFooterBottomSec>
             <BookAppoinmentBtn onClick={props.bookAppoinment}>
               Book Your Appointment
@@ -124,13 +126,13 @@ const ClinicMainSec = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
 
   & .clinicTitle {
-    color:#000;
+    color: #000;
     font-size: 16px;
     font-weight: bold;
-    margin: 10px 0px 0px 0px;
+    margin: 5px 0px 0px 0px;
   }
 `;
 
@@ -186,16 +188,15 @@ const ClinicFooterSec = styled.div`
 
 const ClinicFooterTopSec = styled.div`
   display: flex;
-  width: 90%;
+  width: 100%;
   margin: auto;
-  justify-content: space-between;
+  justify-content: center;
 `;
 
 export const ClinicRatingBtn = styled.button`
-  padding: 5px 10px;
-  background-color: #07b1f1;
-  color: #ffffff;
-  font-size: 12px;
+  background-color: #fff;
+  color: gold;
+  font-size:20px;
   display: flex;
   gap: 5px;
   border: none;
@@ -203,7 +204,7 @@ export const ClinicRatingBtn = styled.button`
   border-radius: 6px;
   height: -webkit-fill-available;
   align-items: center;
-
+  margin-bottom: 2px;
   & img {
     width: 13px !important;
     height: 13px !important;
@@ -256,7 +257,7 @@ export const BookAppoinmentBtn = styled.button`
 const ClinicMainSecWrap = styled.div`
   width: 100%;
   height: auto;
-  min-height: 35px;
+  // min-height: 10px;
   margin: 10px 0px 0px 0px;
   display: flex;
   flex-direction: column;

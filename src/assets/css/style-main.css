@@ -3327,11 +3327,11 @@ textarea {
 }
 
 .products .product {
-  border: 1px solid #fcf9f9;
+  border: 2px solid #00419d;
   max-width: 400px;
 }
 .products .product:hover {
-  border: 1px solid #eeeeee;
+  border: 2px solid #00419d;
 }
 .products .product .product-details .product-title {
   font-size: 15px;

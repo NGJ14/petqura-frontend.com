@@ -124,7 +124,9 @@ const Header = () => {
                         location.pathname.includes("/home") ? `active` : ""
                       }
                     >
-                      <Link to={"/"}>Home</Link>
+                      <Link to={"/"} style={{ color: "#fff" }}>
+                        Home
+                      </Link>
                     </li>
 
                     <li
@@ -142,6 +144,7 @@ const Header = () => {
                           }
                         }}
                         className="cursor-pointer"
+                        style={{ color: "#fff" }}
                       >
                         Clinic
                       </a>
@@ -162,6 +165,7 @@ const Header = () => {
                           }
                         }}
                         className="cursor-pointer"
+                        style={{ color: "#fff" }}
                       >
                         Store
                       </a>
@@ -176,7 +180,11 @@ const Header = () => {
                           : ""
                       }
                     >
-                      <Link className="cursor-pointer" to={"contact-us"}>
+                      <Link
+                        className="cursor-pointer"
+                        to={"contact-us"}
+                        style={{ color: "#fff" }}
+                      >
                         Contact Us
                       </Link>
                     </li>
@@ -252,6 +260,7 @@ const Header = () => {
                           className="cursor-pointer dropdown-user"
                           href="/carer/login"
                           target="_blank"
+                          style={{ color: "#fff" }}
                         >
                           For Partners
                         </a>
@@ -268,6 +277,7 @@ const Header = () => {
                               profileContentshow == true ? false : true
                             )
                           }
+                          style={{ color: "#fff" }}
                         >
                           Hi,{auth?.user?.first_name}
                           <span className="indicator">

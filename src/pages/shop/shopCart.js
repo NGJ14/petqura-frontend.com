@@ -995,8 +995,8 @@ const ShopCart = () => {
                                                     item?.product_variant
                                                       ?.product_image_1
                                                   }
-                                                  width="150px"
-                                                  // height="138px"
+                                                  // width="150px"
+                                                  height="138px"
                                                   className="cust-image-responsive"
                                                 />
                                               </div>

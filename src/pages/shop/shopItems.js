@@ -461,12 +461,23 @@ const ShopItems = () => {
                                                 ""
                                               )}
                                               <span
-                                                className="badge badge-pill text-black p-3 m-2 badge-pawwalker custtt"
+                                                className={`badge badge-pill text-black p-3 m-2 badge-pawwalker custtt ${
+                                                  productIndex === i &&
+                                                  productvariantIndex ===
+                                                    PVindex
+                                                    ? "selected-variant"
+                                                    : ""
+                                                }`}
                                                 style={{
                                                   fontSize: "14px",
                                                   cursor: "pointer",
                                                   marginLeft: "0px",
-                                                  background: "#E9E6E6",
+                                                  background:
+                                                    productIndex === i &&
+                                                    productvariantIndex ===
+                                                      PVindex
+                                                      ? "lightblue" // Selected variant background (e.g., light orange)
+                                                      : "#E9E6E6", // Default background
                                                 }}
                                                 onClick={(e) => {
                                                   e.preventDefault();

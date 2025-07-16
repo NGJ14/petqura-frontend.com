@@ -1,6 +1,7 @@
 import React from "react";
 import { styled } from "styled-components";
-import { Tittle as WhatClientSaysTittle } from "./services";
+// import { Tittle as WhatClientSaysTittle } from "./services";
+import { Tittle as WhatClientSaysTittle } from "../../components/StyledShared";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";

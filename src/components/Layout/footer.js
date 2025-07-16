@@ -46,26 +46,20 @@ const Footer = (props) => {
       </FooterMainSec>
 
       <FooterMiddleSec>
-        <div className="footer-midleft">
+        {/* <div className="footer-midleft">
           <img
             src={`${config.S3imgHostUrl}/frontend-assets/${props.footerImg}`}
             alt="About Us"
             className="footerImage"
           />
-        </div>
-
+        </div> */}
+        <div style={{ height: "14vh" }}></div>
         <div className="footer-midright">
           <a href="https://www.facebook.com/pawwalkerofficial">
-            <img
-              src={facebook_logo}
-              alt="Facebook"
-            />
+            <img src={facebook_logo} alt="Facebook" />
           </a>
           <a href="https://www.instagram.com/pawwalkerofficial/">
-            <img
-              src={instagram_logo}
-              alt="Instagram"
-            />
+            <img src={instagram_logo} alt="Instagram" />
           </a>
         </div>
       </FooterMiddleSec>

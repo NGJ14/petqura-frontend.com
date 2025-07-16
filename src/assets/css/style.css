@@ -1297,7 +1297,7 @@ input:checked + label:after {
 /* Slider  */
 
 .slick-slide {
-  height: 80vh;
+  /* height: 40vh; */
   text-align: center;
   color: white;
   font-size: 20px;
@@ -1706,10 +1706,8 @@ ul.social-footer2 li a {
 .rating-btn {
   /* width: 70%; */
   font-size: 12px;
-  color: #fff;
   border-radius: 3px;
   padding: 5px 7px;
-  background-color: #00419d;
   margin-right: 5px;
   margin-left: 5px;
 }
@@ -1739,7 +1737,6 @@ ul.social-footer2 li a {
 /* Products  */
 
 .product-hover:hover {
-  border: solid 10px #ffffff;
   border-bottom: none;
   border-radius: 36px;
   transition: all 500ms ease-in-out;

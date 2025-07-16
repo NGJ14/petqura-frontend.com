@@ -2174,17 +2174,17 @@ textarea[resize="horizontal"] {
   .menuzord.orange .menuzord-menu > li.active > a,
   .menuzord.orange .menuzord-menu > li:hover > a,
   .menuzord.orange .menuzord-menu ul.dropdown li:hover > a {
-    background: #df4e28;
+    background: #00419d;
     border-top: none;
-    border-bottom: 1px solid #df4d27;
+    border-bottom: 1px solid #00419d;
   }
 
   .menuzord-responsive .menuzord-menu > li > a {
-    border-bottom: solid 1px #df4d27;
+    border-bottom: solid 1px #00419d;
   }
 
   .menuzord-responsive .menuzord-menu > li:first-child > a {
-    border-top: solid 1px #df4d27;
+    border-top: solid 1px #00419d;
   }
 
   .menuzord-responsive .menuzord-menu > li:last-child > a {
@@ -2192,13 +2192,13 @@ textarea[resize="horizontal"] {
   }
 
   .menuzord-responsive .menuzord-menu li .indicator {
-    border-left: solid 1px #df4d27;
+    border-left: solid 1px #00419d;
   }
 
   .menuzord .menuzord-menu ul.dropdown,
   .menuzord .menuzord-menu .megamenu {
     border: none;
-    background: #df4d27;
+    background: #00419d;
     border-top: 1px solid #00419d;
     border-bottom-right-radius: 18px;
   }

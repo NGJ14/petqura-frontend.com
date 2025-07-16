@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { config } from "../../config/config";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import Consultation from "../../assets/images/new/1-cropped.svg";
 import Vaccinations from "../../assets/images/new/2-cropped.svg";
 import Grooming from "../../assets/images/new/3-cropped.svg";
@@ -11,171 +14,94 @@ import Xray from "../../assets/images/new/7-cropped.svg";
 import BloodUrine from "../../assets/images/new/8-cropped.svg";
 import Microchip from "../../assets/images/new/9-cropped.svg";
 import ECG from "../../assets/images/new/10-cropped.svg";
+import { config } from "../../config/config";
 
 const services = [
   { img: Consultation, title: "Consultation", link: "/clinic" },
-  { img: Vaccinations, title: "Vaccinations", link: "/store" },
-  { img: Grooming, title: "Grooming", link: "/hands4paws" },
-  { img: Dental, title: "Dental Care", link: "/hands4paws" },
-  { img: Dermatology, title: "Dermatology", link: "/boarding" },
-  { img: Ultrasound, title: "Ultrasound", link: "/training" },
-  { img: Xray, title: "X-ray", link: "/surgery" },
-  { img: BloodUrine, title: "Blood & Urine", link: "/surgery" },
-  { img: Microchip, title: "Microchip", link: "/surgery" },
-  { img: ECG, title: "ECG", link: "/surgery" },
+  { img: Vaccinations, title: "Vaccinations", link: "/clinic" },
+  { img: Grooming, title: "Grooming", link: "/clinic" },
+  { img: Dental, title: "Dental Care", link: "/clinic" },
+  { img: Dermatology, title: "Dermatology", link: "/clinic" },
+  { img: Ultrasound, title: "Ultrasound", link: "/clinic" },
+  { img: Xray, title: "X-ray", link: "/clinic" },
+  { img: BloodUrine, title: "Blood & Urine", link: "/clinic" },
+  { img: Microchip, title: "Microchip", link: "/clinic" },
+  { img: ECG, title: "ECG", link: "/clinic" },
 ];
 
 const Services = () => {
-  const [showAll, setShowAll] = useState(false);
+  const settings = {
+    dots: false,
+    infinite: true,
+    autoplay: true,
+    speed: 600,
+    slidesToShow: 4, // 🔁 updated from 3 to 4
+    slidesToScroll: 1,
+    arrows: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: { slidesToShow: 3, slidesToScroll: 1, arrows: false },
+      },
+      {
+        breakpoint: 768,
+        settings: { slidesToShow: 2, slidesToScroll: 1, arrows: false },
+      },
+      {
+        breakpoint: 480,
+        settings: { slidesToShow: 1, slidesToScroll: 1, arrows: false },
+      },
+    ],
+  };
+
 
   return (
-    <section className="mt-2 pt-2">
-      <div className="common-container pt-0 paddingMore">
-        <div className="section-content">
-          <Tittle className="text-left">
-            <h2>
-              <span className="text-primary"> SERVICES</span>
-            </h2>
-          </Tittle>
-          <Tittle className="text-right">
-            <h3
-              style={{ cursor: "pointer" }}
-              onClick={() => setShowAll(!showAll)}
-            >
-              <span className="text-warning">
-                {showAll ? "View less" : "View more"}
-              </span>
-            </h3>
-          </Tittle>
+    <Wrapper>
+      <Tittle>
+        <h2 className="borderLine">
+          <span className="tittleBold">Services</span>
+        </h2>
+      </Tittle>
 
-          {/* Service Grid Section */}
-          <ServiceGrid>
-            {services.slice(0, 4).map((item, index) => (
-              <ServiceCard key={index}>
-                <img className="ServicesIconImage p-5" src={item.img} alt="Image" />
-                <h4 className="icon-box-title text-center text-capitalize letter-space-0">
-                  <a
-                    className="darkTextColor segoeFont font-weight-bold f-22"
-                    href={item.link}
-                  >
-                    {item.title}
-                  </a>
-                </h4>
-              </ServiceCard>
-            ))}
-
-            {showAll &&
-              services.slice(4).map((item, index) => (
-                <ServiceCard key={index + 4}>
-                  <img
-                    className="ServicesIconImage p-5"
-                    src={item.img}
-                    alt="Image"
-                  />
-                  <h4 className="icon-box-title text-center text-capitalize letter-space-0">
-                    <a
-                      className="darkTextColor segoeFont font-weight-bold f-22"
-                      href={item.link}
-                    >
-                      {item.title}
-                    </a>
-                  </h4>
-                </ServiceCard>
-              ))}
-          </ServiceGrid>
-        </div>
-      </div>
-
-      <CustomImg>
-        <img
-          src={`${config.S3imgHostUrl}/frontend-assets/ourServiceCat.png`}
-          alt="Image"
-        />
-      </CustomImg>
-    </section>
+      <SliderContainer>
+        <Slider {...settings}>
+          {services.map((item, index) => (
+            <SlideCard key={index}>
+              <img src={item.img} alt={item.title} />
+              <h4>
+                <a href={item.link}>{item.title}</a>
+              </h4>
+            </SlideCard>
+          ))}
+        </Slider>
+      </SliderContainer>
+    </Wrapper>
   );
 };
 
 export default Services;
 
-// ---------- STYLED COMPONENTS ----------
+// --- Styled Components ---
 
-export const CustomImg = styled.div`
-  width: 35%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  bottom: -20%;
-  left: 2%;
+const Wrapper = styled.section`
+  padding: 5rem 2rem;
+  background-color: #fff;
 
-  img {
-    max-width: 100%;
-  }
-
-  @media only screen and (max-width: 900px) {
-    width: 250px;
-    bottom: -4%;
+  @media only screen and (max-width: 576px) {
+    padding: 3rem 1rem;
   }
 `;
 
-export const TernoryBtn = styled.a`
-  background-color: #00419d;
-  border-radius: 30px;
-  font-family: Montserrat;
-  font-weight: 500;
-  color: #fff;
-  font-size: 25px;
-  padding: 1rem 3rem;
-  position: absolute;
-  bottom: -40px;
-  z-index: 9;
-
-  &:hover {
-    color: #ffffff;
-    text-decoration: none;
-    background: linear-gradient(180deg, #00419d, #00419d80);
-  }
-
-  @media only screen and (max-width: 900px) {
-    font-size: 16px;
-    padding: 5px 20px;
-    position: static;
-  }
-`;
-
-const IconWrapper = styled.div`
-  display: flex;
-  position: absolute;
-  top: -7rem;
-  left: 0;
-  right: 0;
-  align-items: center;
-  justify-content: center;
-
-  @media only screen and (max-width: 900px) {
-    position: static;
-  }
-`;
-
-export const Tittle = styled.div`
+const Tittle = styled.div`
   width: 100%;
   text-align: center;
-  margin-bottom: 1rem;
-  display: inline-block;
+  margin-bottom: 7rem;
 
   h2 {
     font-size: 35px;
-    color: #000;
+    font-weight: normal;
     font-family: Montserrat;
-    font-weight: normal;
-    text-transform: capitalize;
-    display: inline-block;
-  }
-
-  h3 {
-    font-size: 24px;
-    font-weight: normal;
+    color: #000;
   }
 
   .tittleBold {
@@ -185,58 +111,77 @@ export const Tittle = styled.div`
 
   .borderLine {
     border-bottom: 2px solid #07b1f1;
-    padding-bottom: 10px;
-    padding-right: 15px;
-    padding-left: 15px;
+    display: inline-block;
+    padding: 0 15px 10px 15px;
   }
 
-  @media only screen and (max-width: 900px) {
-    margin-bottom: 2rem;
-
+  @media (max-width: 576px) {
     h2 {
-      font-size: 30px;
-    }
-
-    h3 {
-      font-size: 20px;
-    }
-
-    .tittleBold {
-      margin-left: 10px;
+      font-size: 28px;
     }
   }
 `;
 
-const ServiceGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(22%, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
+const SliderContainer = styled.div`
+  padding: 0 5rem;
 
-  @media only screen and (max-width: 900px) {
-    grid-template-columns: repeat(2, 1fr);
+  .slick-slider {
+    .slick-track {
+      display: flex;
+      gap: 3rem;
+    }
+
+    .slick-prev,
+    .slick-next {
+      width: 50px;
+      height: 50px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      z-index: 2;
+    }
+
+    .slick-prev {
+      background-image: url(${config.S3imgHostUrl}/frontend-assets/icons/slickPrev.png);
+      left: -30px;
+    }
+
+    .slick-next {
+      background-image: url(${config.S3imgHostUrl}/frontend-assets/icons/slickNext.png);
+      right: -30px;
+    }
+
+    .slick-prev:before,
+    .slick-next:before {
+      content: "";
+    }
   }
 
-  @media only screen and (max-width: 576px) {
-    grid-template-columns: 1fr;
+  @media (max-width: 576px) {
+    padding: 0 1rem;
   }
 `;
 
-const ServiceCard = styled.div`
-  background: rgb(215, 250, 255);
-  background: rgb(240, 255, 255);
-  padding: 2rem;
+const SlideCard = styled.div`
+  background: #ffffff;
+  background: rgb(230, 255, 255);
   border-radius: 1rem;
+  padding: 2rem;
   text-align: center;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
-
   &:hover {
-    transform: translateY(-5px);
+    transform: translateY(-6px);
   }
-
   img {
-    width: 210px;
-    height: 210px;
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+    margin: 0 auto 4rem auto;
+  }
+  h4 a {
+    font-size: 20px;
+    font-weight: bold;
+    color: #00419d;
+    text-decoration: none;
   }
 `;

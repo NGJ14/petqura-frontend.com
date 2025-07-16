@@ -23,6 +23,16 @@ import { config } from "../../config/config";
 import { styled } from "styled-components";
 import { ClinicRatingBtn } from "./ClinicBox";
 import Rating from "../../components/UI/Rating";
+import Consultation from "../../assets/images/new/1-cropped.svg";
+import Vaccination from "../../assets/images/new/2-cropped.svg";
+import Grooming from "../../assets/images/new/3-cropped.svg";
+import Dental from "../../assets/images/new/4-cropped.svg";
+import Dermatology from "../../assets/images/new/5-cropped.svg";
+import Ultrasound from "../../assets/images/new/6-cropped.svg";
+import Xray from "../../assets/images/new/7-cropped.svg";
+import BloodUrine from "../../assets/images/new/8-cropped.svg";
+import Microchip from "../../assets/images/new/9-cropped.svg";
+import ECG from "../../assets/images/new/10-cropped.svg";
 
 const ClinicDetail = () => {
   const [modal, setModal] = useState(false);
@@ -325,28 +335,62 @@ const ClinicDetail = () => {
                 <ul id="tab" className="available-container">
                   <li className={`${activeTab == "services" ? "active" : ""}`}>
                     {clinicData?.ServiceData?.clinic_services?.length ? (
-                      clinicData?.ServiceData?.clinic_services?.map(
-                        (service) => (
-                          <div className="my-5">
-                            <p
-                              className="font-weight-600"
-                              style={{ fontSize: "23px" }}
-                            >
-                              {service?.service}
-                            </p>
+                      <div
+                        className="d-flex flex-wrap justify-content-start"
+                        style={{ gap: "30px" }}
+                      >
+                        {clinicData?.ServiceData?.clinic_services.map(
+                          (service, index) => {
+                            const serviceImageMap = {
+                              Consultation: Consultation,
+                              Vaccination: Vaccination,
+                              Grooming: Grooming,
+                              "Dental Care": Dental,
+                              Dermatology: Dermatology,
+                              Ultrasound: Ultrasound,
+                              "X-ray": Xray,
+                              "Blood & Urine": BloodUrine,
+                              Microchip: Microchip,
+                              ECG: ECG,
+                            };
 
-                            <h5 className=" text-muted doc-detail-page-overview font-16">
-                              {service?.description}
-                            </h5>
-                          </div>
-                        )
-                      )
+                            const normalizedService = service?.service?.trim();
+                            const imageSrc = serviceImageMap[normalizedService];
+
+
+                            return (
+                              
+                              <div key={index} style={{ width: "250px" }}>
+                                {imageSrc && (
+                                  <img
+                                    src={imageSrc}
+                                    alt={service?.service}
+                                    style={{
+                                      width: "250px",
+                                      height: "250px",
+                                      background: "#e6ffff",
+                                      padding: "10px",
+                                      objectFit: "contain",
+                                      marginBottom: "15px",
+                                      borderRadius: "10px",
+                                    }}
+                                  />
+                                )}
+                                <h5 className="text-muted doc-detail-page-overview font-16">
+                                  {service?.description}
+                                </h5>
+                              </div>
+                            );
+                          }
+                        )}
+                      </div>
                     ) : (
-                      <p className="unavailable-container  text-muted font-16">
+                      <p className="unavailable-container text-muted font-16">
                         Service Details Not Available
                       </p>
                     )}
                   </li>
+
                   <li className={`${activeTab == "doctors" ? "active" : ""}`}>
                     {clinicData?.ClinicDetails?.clinic?.doctors?.length ? (
                       clinicData?.ClinicDetails?.clinic?.doctors?.map((doc) => (
@@ -898,7 +942,7 @@ const ReviewSectionMainTopRightBottom = styled.div`
     align-items: center;
     gap: 4px;
     & i {
-      color: #00419d;
+      color: gold;
       font-size: 17px;
     }
   }
