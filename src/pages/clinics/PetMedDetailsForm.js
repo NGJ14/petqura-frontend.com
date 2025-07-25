@@ -50,6 +50,7 @@ const PetMedDetailsForm = ({
         service_id: service,
         visited_drop: visited,
       };
+      
 
       dispatch(
         addClinicPayment({
