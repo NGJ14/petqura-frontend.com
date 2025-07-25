@@ -392,106 +392,124 @@ const ShopItems = () => {
                                   <div className="row">
                                     <div className="col-sm-9 col-lg-12 col-xs-12 noRelative">
                                       {Array.isArray(product?.variants) &&
-                                        product.variants.map(
-                                          (variant, PVindex) => (
-                                            <React.Fragment key={PVindex}>
-                                              {PVindex === 0 ? (
-                                                <>
-                                                  <div className="price">
-                                                    <span className="amount text-black font-weight-bold ml-0">
+                                        product.variants.length > 0 && (
+                                          <>
+                                            {/* Price and Discount Display */}
+                                            <div className="d-flex justify-content-center">
+                                              <div className="price d-flex dropD align-items-center text-center">
+                                                {/* MRP / Striked Price First */}
+                                                {discountpercentage > 0 &&
+                                                productIndex === i ? (
+                                                  <del className="price-custom">
+                                                    <span className="amount">
                                                       Rs.&nbsp;
-                                                      {discountpercentage > 0 &&
-                                                      productIndex === i
-                                                        ? discountedPrice.toFixed(
-                                                            2
-                                                          )
-                                                        : variant?.dispaly_discount_percentage >
-                                                          0
-                                                        ? (variant?.discounted_price).toFixed(
-                                                            2
-                                                          )
-                                                        : variant?.price.toFixed(
-                                                            2
-                                                          )}
+                                                      {nondiscountedPrice.toFixed(
+                                                        2
+                                                      )}
                                                     </span>
-                                                    {/* {discountpercentage > 0 &&
-                                                    productIndex == i ? (
-                                                      <del className="ml-3 price-custom">
-                                                        <span className="amount">
-                                                          Rs.&nbsp;
-                                                          {nondiscountedPrice.toFixed(
-                                                            2
-                                                          )}
-                                                        </span>
-                                                      </del>
-                                                    ) : variant?.dispaly_discount_percentage >
-                                                      0 ? (
-                                                      <del className="ml-3 price-custom">
-                                                        <span className="amount">
-                                                          Rs.&nbsp;
-                                                          {variant?.non_discount_price.toFixed(
-                                                            2
-                                                          )}
-                                                        </span>
-                                                      </del>
-                                                    ) : null} */}
-                                                  </div>
-                                                  {/* {discountpercentage > 0 &&
-                                                  productIndex == i ? (
-                                                    <span className=" text-success font-weight-bold ml-0 mt-2">
-                                                      <div>
-                                                        {discountpercentage}%{" "}
-                                                        <br />
-                                                        ON
-                                                      </div>
+                                                  </del>
+                                                ) : product.variants[0]
+                                                    ?.dispaly_discount_percentage >
+                                                  0 ? (
+                                                  <del
+                                                    className="price-custom mt-0 pt-0"
+                                                  >
+                                                    <span
+                                                      className="amount amtStrk"
+                                                      style={{
+                                                        fontSize: "16px",
+                                                        color:
+                                                          "rgb(150, 150, 150)",
+                                                        fontWeight: "bold",
+                                                        marginTop: "25px",
+                                                      }}
+                                                    >
+                                                      Rs.&nbsp;
+                                                      {product.variants[0]?.non_discount_price.toFixed(
+                                                        2
+                                                      )}
                                                     </span>
-                                                  ) : variant?.dispaly_discount_percentage >
-                                                    0 ? (
-                                                    <span className=" text-success font-weight-bold ml-0 mt-2">
-                                                      <div>
-                                                        {
-                                                          variant?.dispaly_discount_percentage
-                                                        }
-                                                        % <br /> OFF
-                                                      </div>
-                                                    </span>
-                                                  ) : null} */}
-                                                </>
-                                              ) : (
-                                                ""
-                                              )}
-                                              <span
-                                                className={`badge badge-pill text-black p-3 m-2 badge-pawwalker custtt ${
-                                                  productIndex === i &&
-                                                  productvariantIndex ===
-                                                    PVindex
-                                                    ? "selected-variant"
-                                                    : ""
-                                                }`}
+                                                  </del>
+                                                ) : null}
+
+                                                {/* Discounted / Final Price Next */}
+                                                <span className="amount text-black font-weight-bold ml-2 mt-0">
+                                                  Rs.&nbsp;
+                                                  {discountpercentage > 0 &&
+                                                  productIndex === i
+                                                    ? discountedPrice.toFixed(2)
+                                                    : product.variants[0]
+                                                        ?.dispaly_discount_percentage >
+                                                      0
+                                                    ? product.variants[0]?.discounted_price.toFixed(
+                                                        2
+                                                      )
+                                                    : product.variants[0]?.price.toFixed(
+                                                        2
+                                                      )}
+                                                </span>
+                                              </div>
+                                            </div>
+
+                                            {/* Discount Badge */}
+                                            {/* {discountpercentage > 0 &&
+                                            productIndex === i ? (
+                                              <span className="text-success font-weight-bold ml-0 mt-2">
+                                                <div>
+                                                  {discountpercentage}% <br />{" "}
+                                                  ON
+                                                </div>
+                                              </span>
+                                            ) : product.variants[0]
+                                                ?.dispaly_discount_percentage >
+                                              0 ? (
+                                              <span className="text-success font-weight-bold ml-0 mt-2">
+                                                <div>
+                                                  {
+                                                    product.variants[0]
+                                                      ?.dispaly_discount_percentage
+                                                  }
+                                                  % <br /> OFF
+                                                </div>
+                                              </span>
+                                            ) : null} */}
+
+                                            {/* Variant Dropdown */}
+                                            <div className="d-flex justify-content-center mt-3">
+                                              <select
+                                                className="form-control variantSelect w-100"
                                                 style={{
+                                                  maxWidth: "300px",
                                                   fontSize: "14px",
+                                                  backgroundColor: "#fff",
                                                   cursor: "pointer",
-                                                  marginLeft: "0px",
-                                                  background:
-                                                    productIndex === i &&
-                                                    productvariantIndex ===
-                                                      PVindex
-                                                      ? "lightblue" // Selected variant background (e.g., light orange)
-                                                      : "#E9E6E6", // Default background
                                                 }}
-                                                onClick={(e) => {
-                                                  e.preventDefault();
+                                                value={productvariantIndex}
+                                                onChange={(e) => {
+                                                  const selectedIndex =
+                                                    parseInt(e.target.value);
                                                   selectedfeature(
-                                                    variant,
-                                                    PVindex,
+                                                    product.variants[
+                                                      selectedIndex
+                                                    ],
+                                                    selectedIndex,
                                                     i
                                                   );
                                                 }}
                                               >
-                                                {variant?.variant_name}
-                                              </span>
-                                            </React.Fragment>
-                                          )
+                                                {product.variants.map(
+                                                  (variant, PVindex) => (
+                                                    <option
+                                                      key={PVindex}
+                                                      value={PVindex}
+                                                    >
+                                                      {variant?.variant_name}
+                                                    </option>
+                                                  )
+                                                )}
+                                              </select>
+                                            </div>
+                                          </>
                                         )}
                                     </div>
                                     <div className=""></div>

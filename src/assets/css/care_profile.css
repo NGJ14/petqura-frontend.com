@@ -1975,9 +1975,9 @@ textarea[resize="horizontal"] {
   /* border: 1px solid #b5b5b5; */
   border-radius: 36px;
   position: relative;
-  min-height: 450px;
+  min-height: 425px;
   overflow: visible;
-  min-height: 473px;
+  background: rgb(231, 231, 231);
 }
 
 .section-content .products .product .noRelative {
@@ -2058,7 +2058,7 @@ textarea[resize="horizontal"] {
 }
 
 .products .blockPadding {
-  padding: 0 20px;
+  padding: 0 10px;
   padding-bottom: 35px;
 }
 
@@ -2593,4 +2593,86 @@ textarea[resize="horizontal"] {
 
 .forgot-password-form-input {
   width: 300px;
+}
+
+.product-img {
+  height: 25rem;
+  background: white;
+  padding-bottom: 10px;
+  /* border-top-left-radius: 35px; */
+  border-radius: 35px;
+  /* border-top-right-radius: 35px; */
+  border: 2px solid rgb(231, 231, 231);
+}
+.product-img img {
+  border-radius: 50px 50px 10px 10px;
+}
+
+@media (max-width: 768px) {
+  .productSmall {
+    padding: 0;
+    /* display: flex; */
+  }
+  .products .blockPadding {
+    width: 50%;
+  }
+  .products .blockPadding {
+    padding: 0 5px;
+    padding-bottom: 35px;
+  }
+
+  .borderless {
+    padding: 0;
+  }
+
+  .product-img {
+    height: 16rem;
+    border: 2px solid rgb(231, 231, 231);
+  }
+  .product-img img {
+    border-radius: 50px 50px 10px 10px;
+  }
+  .section-content .products .product {
+    min-height: 355px;
+  }
+  .section-content .products .product .text-success{
+    height: 90px;
+    width: 80px;
+  }
+  .dropD{
+    flex-direction: column;
+  }
+  .amtStrk{
+  padding-left: 0px;
+  padding: 10px 0;
+  margin-top: 25px;
+}
+}
+.amtStrk{
+  padding-left: 10px;
+}
+.custom-select-wrapper {
+  position: relative;
+}
+
+.custom-select-arrow {
+  appearance: none; /* Remove default arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 2.5rem; /* Space for custom arrow */
+  background: white
+    url('data:image/svg+xml;utf8,<svg fill="%23666" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>')
+    no-repeat right 0.75rem center;
+  background-size: 1rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+.variantSelect {
+  border-radius: 50px;
+  border: 2px solid;
+  font-weight: bold;
+  text-align: center;
+}
+.products .product {
+  border: none;
 }
