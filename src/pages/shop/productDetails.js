@@ -395,9 +395,9 @@ const ProductDetails = () => {
                         {ShopDetails?.userProductDetails?.product_name}
                       </h3>
                       <div className="product_review">
-                        <ul className="review_text list-inline">
+                        <ul className="review_text mReview_text list-inline">
                           {Reviews.reviewData.average_rating == 0 ? null : (
-                            <li className="rating-btn align-items-center py-2">
+                            <li className="rating-btn mRatingSpace align-items-center py-2">
                               {[
                                 ...Array(
                                   Math.round(
@@ -436,7 +436,7 @@ const ProductDetails = () => {
                         </ul>
                       </div>
                       <div>
-                        <ul>
+                        <ul className="mParaSpace">
                           <h4 className="font-18 mt-4 mb-3">Features</h4>
                           {ShopDetails?.userProductDetails?.product_info
                             ?.features?.length
@@ -454,7 +454,7 @@ const ProductDetails = () => {
                         <table className="table variations no-border">
                           <tbody>
                             <tr>
-                              <div className="number ">
+                              <div className="number mNumber">
                                 <span
                                   className="btn pl-0"
                                   onClick={() => {
@@ -540,6 +540,7 @@ const ProductDetails = () => {
                                 color: "#212121",
                                 lineHeight: "2rem",
                                 fontWeight: "500",
+                                paddingLeft: "10px",
                               }}
                             >
                               <span className="ml-0">₹</span>&nbsp;
@@ -611,7 +612,7 @@ const ProductDetails = () => {
                       <div>
                         <div>
                           <h3
-                            className="mt-0 mb-3 bg-theme-colored text-white p-3 d-flex align-items-center justify-content-between"
+                            className="mHead mt-0 mb-3 bg-theme-colored text-white p-3 d-flex align-items-center justify-content-between"
                             style={{ cursor: "pointer" }}
                             onClick={() => setShowProductInfo(!showProductInfo)}
                             style={{
@@ -640,7 +641,7 @@ const ProductDetails = () => {
                         {/* Specifications Dropdown */}
                         <div>
                           <h3
-                            className="mt-4 mb-3 bg-theme-colored text-white p-3 d-flex align-items-center justify-content-between"
+                            className="mHead mt-4 mb-3 bg-theme-colored text-white p-3 d-flex align-items-center justify-content-between"
                             style={{ cursor: "pointer" }}
                             onClick={() => setShowSpecs(!showSpecs)}
                             style={{
@@ -681,7 +682,7 @@ const ProductDetails = () => {
                           )}
                         </div>
                         <h3
-                          className="bg-theme-colored text-white p-3 mb-0 pl-1"
+                          className="mHead bg-theme-colored text-white p-3 mb-0 pl-1"
                           style={{
                             borderTopRightRadius: "25px",
                             borderBottomRightRadius: "25px",
@@ -819,9 +820,9 @@ const ProductDetails = () => {
                                     (review) => (
                                       <div className="">
                                         <ul className="review_text list-inline mt-5">
-                                          <li className="d-flex justify-content-between">
-                                            <div className="d-flex  responsive-review-container">
-                                              <li className="rating-btn pro-btn d-flex align-items-center py-2">
+                                          <li className="d-flex  justify-content-between">
+                                            <div className="d-flex mSpace responsive-review-container">
+                                              <li className="rating-btn mStar pro-btn d-flex align-items-center py-2">
                                                 {[
                                                   ...Array(
                                                     review?.review_star_count

@@ -2618,8 +2618,30 @@ textarea[resize="horizontal"] {
   width:240px;
 }
 @media (max-width: 768px) {
+  .mHead{
+    margin-left: -10px;
+  }
+  .mStar{
+    margin-left: -10px;
+  }
+  .mNumber{
+    padding:0 15px;
+  }
+  .mSpace{
+    display: flex;
+    flex-direction: column;
+  }
+  .mReview_text{
+    padding: 0 19px;
+  }
+  .product-title{
+    padding: 0 25px;
+  }
+  .mParaSpace{
+    padding: 0 25px;
+  }
   .adCrtCnt{
-    margin-left: 15px;
+    margin-left: 5px;
   }
   .mProdInfAddCrtBtn{
     margin-bottom: 15px;
