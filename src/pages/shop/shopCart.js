@@ -1021,50 +1021,43 @@ const ShopCart = () => {
                                                         .variant_name
                                                     }
                                                   </p>
-                                                <div className="mt-5">
-                                                 <p
+                                                  <div className="cartPrices mt-4">
+                                                    <p
                                                       style={{
-                                                        fontSize: "1.2rem", // text-md
+                                                        fontSize: "1.3rem", // text-md
                                                         color: "#6b7280", // Tailwind gray-500
-                                                        textDecoration: "line-through",
-                                                        margin: 0,
+                                                        textDecoration:
+                                                          "line-through",
                                                         padding: 0,
                                                       }}
                                                     >
-                                                      ₹{parseFloat(item?.product_variant?.non_discount_price).toFixed(2)}
+                                                      ₹
+                                                      {parseFloat(
+                                                        item?.product_variant
+                                                          ?.non_discount_price
+                                                      ).toFixed(2)}
                                                     </p>
 
                                                     <p
                                                       style={{
-                                                        fontSize: "1.5  rem", // text-lg
-                                                        color: "#16a34a",     // Tailwind green-600
+                                                        fontSize: "1.6  rem", // text-lg
+                                                        color: "#16a34a", // Tailwind green-600
                                                         fontWeight: "bold",
-                                                        margin: 0,
                                                         padding: 0,
                                                       }}
                                                     >
-                                                      ₹{parseFloat(item?.product_variant?.discounted_price).toFixed(2)}
-                                                    </p>    
-  
-                                                </div>
-
+                                                      ₹
+                                                      {parseFloat(
+                                                        item?.product_variant
+                                                          ?.discounted_price
+                                                      ).toFixed(2)}
+                                                    </p>
+                                                  </div>
 
                                                   {/* <p className="">Qty: {item?.quantity}</p> */}
                                                 </div>
                                               </div>
-                                              <div className="col-lg-3 col-md-3 col-sm-3">
-                                                <h5
-                                                  className=" orange-font"
-                                                  style={{ fontSize: "14px" }}
-                                                >
-                                                  Total Price:{" "}
-                                                  <span className="blue-font">
-                                                    Rs.
-                                                    {parseFloat(
-                                                      item?.total_price
-                                                    ).toFixed(2)}
-                                                  </span>
-                                                </h5>
+                                              <div className="col-lg-3 col-md-3 col-sm-3 cartRightHalf">
                                                 <div className="quantity buttons_added d-flex ">
                                                   <span className="mt-4 font-weight-normal">
                                                     Qty:
@@ -1173,6 +1166,20 @@ const ShopCart = () => {
                                                   >
                                                     +
                                                   </span>
+                                                </div>
+                                                <div>
+                                                  <h5
+                                                    className="totCartPrice orange-font"
+                                                    style={{ fontSize: "14px" }}
+                                                  >
+                                                    Total Price:{" "}
+                                                    <span className="blue-font">
+                                                      Rs.
+                                                      {parseFloat(
+                                                        item?.total_price
+                                                      ).toFixed(2)}
+                                                    </span>
+                                                  </h5>
                                                 </div>
                                               </div>
                                             </div>

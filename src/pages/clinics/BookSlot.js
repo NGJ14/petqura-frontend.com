@@ -100,6 +100,19 @@ const BookSlot = ({
     setSlotDate(da1);
     setSlotVal("");
     setActiveTab("1");
+
+    // Set default filter based on current hour
+    const hour = new Date().getHours();
+    if (hour >= 5 && hour < 12) {
+      setSelectedFilter("morning");
+    } else if (hour >= 12 && hour < 17) {
+      setSelectedFilter("afternoon");
+    } else if (hour >= 17 && hour <= 21) {
+      setSelectedFilter("evening");
+    } else {
+      setSelectedFilter("morning"); // fallback if it's midnight or late night
+    }
+
     clinicId != undefined &&
       dispatch(
         getClinicSlotById({
@@ -112,6 +125,7 @@ const BookSlot = ({
         })
       );
   }, [id]);
+
 
   const day3 = moment(new Date().setDate(new Date().getDate() + 2)).format(
     "ddd, DD MMM"
@@ -476,19 +490,6 @@ const BookSlot = ({
                           <>
                             {/* Filter Buttons */}
                             <div className="mb-3 d-flex flex-wrap gap-2 justify-content-center">
-                              <Button
-                                color={
-                                  selectedFilter === "all" ? "primary" : "white"
-                                }
-                                style={{
-                                  fontSize: "1.3rem",
-                                  Servicespadding: "5px 10px",
-                                  borderRadius: "50px",
-                                }}
-                                onClick={() => setSelectedFilter("all")}
-                              >
-                                All
-                              </Button>
                               <Button
                                 color={
                                   selectedFilter === "morning"

@@ -6,10 +6,11 @@ import quick from "../../assets/images/user/Fa6SolidTruckFast.svg";
 import delivery from "../../assets/images/user/Fa6SolidTruck.svg";
 // import returns from "../../assets/images/user/return.svg";
 import returns from "../../assets/images/user/Fa6SolidArrowsRotate.svg";
-
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick-theme.css";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -60,32 +61,7 @@ const ProductDetails = () => {
   const [showProductInfo, setShowProductInfo] = useState(false);
   const [showSpecs, setShowSpecs] = useState(false);
 
-  const sliderSettings = {
-    dots: false,
-    infinite: true,
-    speed: 800,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    arrows: true,
-    responsive: [
-      {
-        breakpoint: 1200,
-        settings: { slidesToShow: 3 },
-      },
-      {
-        breakpoint: 768,
-        settings: { slidesToShow: 2 },
-      },
-      {
-        breakpoint: 480,
-        settings: { slidesToShow: 1 },
-      },
-    ],
-  };
-
-  const history = useHistory();
+    const history = useHistory();
   useEffect(() => {
     document.title = ShopDetails?.userProductDetails?.product_name;
   }, [history?.location?.pathname]);
@@ -115,18 +91,7 @@ const ProductDetails = () => {
       setRating(Reviews?.userReview?.review_star_count);
   }, [Reviews?.userReview]);
 
-  // const basicRequest = {
-  //   page: 1,
-  //   page_count: 9,
-  //   keyword: "",
-  //   ideal_for: "Dogs",
-  //   sort: "popular",
-  //   category_name: ShopDetails?.userProductDetails?.category_name,
-  // };
-  // const [request, setRequest] = useState({ ...basicRequest });
-  // useEffect(() => {
-  //   request && dispatch(getUserProductDetails({ request: { ...request } }));
-  // }, [request]);
+  
 
   useEffect(() => {
     dispatch(getUserProductById({ data: { pid: params?.id } }));
@@ -235,6 +200,75 @@ const ProductDetails = () => {
     );
   };
 
+  const NextArrow = ({ onClick }) => (
+    <div
+      onClick={onClick}
+      style={{
+        position: "absolute",
+        right: 0,
+        top: "40%",
+        transform: "translateY(-50%)",
+        zIndex: 10,
+        background: "#00419d",
+        color: "white",
+        borderRadius: "50%",
+        padding: "0.5rem 0.75rem",
+        boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
+        cursor: "pointer",
+      }}
+    >
+      <FaChevronRight />
+    </div>
+  );
+
+  const PrevArrow = ({ onClick }) => (
+    <div
+      onClick={onClick}
+      style={{
+        position: "absolute",
+        left: -40,
+        top: "40%",
+        transform: "translateY(-50%)",
+        zIndex: 10,
+        background: "#00419d",
+        color:"#fff",
+        borderRadius: "50%",
+        padding: "0.5rem 0.85rem 0.8rem 0.85rem",
+        boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
+        cursor: "pointer",
+      }}
+    >
+      <FaChevronLeft />
+    </div>
+  );
+
+  const sliderSettings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: { slidesToShow: 3 },
+      },
+      {
+        breakpoint: 768,
+        settings: { slidesToShow: 2 },
+      },
+      {
+        breakpoint: 480,
+        settings: { slidesToShow: 1 },
+      },
+    ],
+  };
+
+
   return (
     <div>
       <section>
@@ -255,21 +289,11 @@ const ProductDetails = () => {
                             padding: "10px",
                             position: "relative",
                           }}
-                          // src="https://img0.junaroad.com/uiproducts/15020374/zoom_0-1523095717.jpg"
                           src={
                             img ? img : ShopDetails?.variant?.product_image_1
                           }
                         />
                       </div>
-                      // <div className="mt-5">
-                      //   <img
-                      //     className="col-lg-10"
-                      //     src={`${
-                      //       img ? img : ShopDetails?.variant?.product_image_1
-                      //     }`}
-                      //     alt=""
-                      //   />
-                      // </div>
                     )}
 
                     <div
@@ -555,9 +579,9 @@ const ProductDetails = () => {
                         </div>
 
                         <div className="custom-add-to-cart">
-                          <div>
+                          <div className="adCrtCnt">
                             <button
-                              className=" btn btn-default font-weight-bold px-5 py-3 mr-4 ml-0"
+                              className=" btn mProdInfAddCrtBtn btn-default font-weight-bold px-5 py-3 mr-4 ml-0"
                               type="submit"
                               onClick={handleAddToCart}
                               style={{
@@ -569,48 +593,10 @@ const ProductDetails = () => {
                               ADD TO CART
                             </button>
                           </div>
-                          {/* <h5
-                            className={`mb-4 ml-0 ${
-                              ShopDetails?.variant?.delivery_in_24
-                                ? "mt-3"
-                                : "mt-2"
-                            } mt-0 orange-font `}
-                          >
-                            Usually Delivered in{" "}
-                            {ShopDetails?.variant?.delivery_in_72
-                              ? `${3}`
-                              : null}
-                            {ShopDetails?.variant?.custom_delivery_days} days
-                          </h5> */}
                         </div>
                       </div>
                     </div>
                     <div className="row">
-                      {/* <div className="col-md-3">
-                        <div className="ibtBU6 _3t6eWY">
-                          <input
-                            placeholder="Enter delivery pincode"
-                            type="text"
-                            pattern="\d*"
-                            maxlength="6"
-                            autocomplete="off"
-                            className="cfnctZ"
-                            value={pin}
-                            onChange={(e) => setPin(e.target.value)}
-                            style={{ fontSize: "15.5px" }}
-                            onKeyDown={handleKeyDown}
-                          />
-                          <button
-                            className={`UgLoKg pull-right ${
-                              disablePin ? " jlIjY-" : ""
-                            }`}
-                            onClick={handlePincode}
-                            disabled={disablePin}
-                          >
-                            Check
-                          </button>
-                        </div>
-                      </div> */}
                       <div className="col-md-6">
                         {ShopDetails.pincodeData?.message && (
                           <p className="orange-font font-weight-bold">
@@ -619,138 +605,11 @@ const ProductDetails = () => {
                         )}
                       </div>
                     </div>
-
-                    {/* <div className=" offer-zone pt-3">
-                      <div className="mx-5 ml-sm-0 ">
-                        <img
-                          src={delivery}
-                          width="40px"
-                          className="delivery-img"
-                        />
-                        <h5 className="icon-box-title orange-font   ">
-                          Normal Delivery
-                        </h5>
-                      </div>
-                      <div className="mx-5 ml-sm-0 ">
-                        <img
-                          src={quick}
-                          width="40px"
-                          className=" delivery-img"
-                        />
-                        <h5 className="icon-box-title orange-font  ">
-                          Quick Delivery
-                        </h5>
-                      </div>
-                      <div className="ml-70 ml-sm-0 exchange-offer">
-                        <img
-                          src={returns}
-                          width="32px"
-                          className="delivery-img "
-                        />
-                        <h5 className="icon-box-title orange-font  ">
-                          Exchange or Returns
-                        </h5>
-                      </div>
-                    </div> */}
-
-                    {/* <div className="col-lg-2 px-0 d-flex">
-                      <input
-                        className="form-control "
-                        placeholder="Enter p
-                        -incode"
-                        type="number"
-                      />
-                    </div>
-                    <a className=" ml-2 my-4 orange-font font-weight-bold">
-                      Submit
-                    </a> */}
                   </div>
                   <div className=" col-lg-10 col-md-12 col-sm-12 ml-5">
                     <div>
                       <div>
                         <div>
-                          {/* <h3 className="mb-5 ml-3 pl-1">Related Products</h3>
-                          <div className=" common-container products">
-                            <div className="row multi-row-clearfix ">
-                              {ShopDetails?.userProductDetails?.related_products
-                                ?.length
-                                ? ShopDetails?.userProductDetails?.related_products
-                                    ?.map((product, i) =>
-                                      product?.product_id ==
-                                      params?.id ? null : (
-                                        <div className=" col-sm-4 col-md-4 col-lg-3 mb-30 col-xs-6 pl-0">
-                                          <a
-                                            href={`/product/${product?.product_id}`}
-                                            style={{ textDecoration: "none" }}
-                                          >
-                                            <div className="product col-lg-7">
-                                              <div className="product-thumb product-img">
-                                                <img
-                                                  alt
-                                                  src={
-                                                    product?.variants[0]
-                                                      ?.product_image_1
-                                                      ? product?.variants[0]
-                                                          ?.product_image_1
-                                                      : productPlaceholder
-                                                  }
-                                                  style={{
-                                                    height: "100%",
-                                                    width: "100%",
-                                                    objectFit: "contain",
-                                                  }}
-                                                  className="img-responsive img-fullwidth product-hover  cust-size"
-                                                />
-                                                <div className="overlay" />
-                                              </div>
-                                              <div className="product-details ml-4 ">
-                                                <h5 className="product-brand text-dark">
-                                                  {product?.product_name}
-                                                </h5>
-                                                <h6 className="text-dark">
-                                                  {product?.brand_name}
-                                                </h6>
-                                                {product?.variants?.length &&
-                                                  product?.variants
-                                                    ?.slice(0, 1)
-                                                    ?.map((variant) => (
-                                                      <>
-                                                        <div className="price ml-0">
-                                                          <span className="amount text-dark font-weight-bold ml-0">
-                                                            Rs.{variant?.price}
-                                                          </span>
-                                                          <del className="ml-3">
-                                                            <span className="amount">
-                                                              Rs.
-                                                              {variant?.price *
-                                                                2}
-                                                            </span>
-                                                          </del>
-                                                        </div>
-                                                        <span className=" orange-font">
-                                                          {variant?.dispaly_discount_percentage >
-                                                          0 ? (
-                                                            <span className=" orange-font">
-                                                              (
-                                                              {
-                                                                variant?.dispaly_discount_percentage
-                                                              }
-                                                              % OFF)
-                                                            </span>
-                                                          ) : null}{" "}
-                                                        </span>
-                                                      </>
-                                                    ))}
-                                              </div>
-                                            </div>
-                                          </a>
-                                        </div>
-                                      )
-                                    )
-                                : null}
-                            </div>
-                          </div> */}
-
                           <h3
                             className="mt-0 mb-3 bg-theme-colored text-white p-3 d-flex align-items-center justify-content-between"
                             style={{ cursor: "pointer" }}
@@ -758,6 +617,7 @@ const ProductDetails = () => {
                             style={{
                               borderTopRightRadius: "25px",
                               borderBottomRightRadius: "25px",
+                              marginRight: "15px",
                             }}
                           >
                             Product Info{" "}
@@ -786,6 +646,7 @@ const ProductDetails = () => {
                             style={{
                               borderTopRightRadius: "25px",
                               borderBottomRightRadius: "25px",
+                              marginRight: "15px",
                             }}
                           >
                             Specifications{" "}
@@ -824,17 +685,18 @@ const ProductDetails = () => {
                           style={{
                             borderTopRightRadius: "25px",
                             borderBottomRightRadius: "25px",
+                            marginRight: "15px",
                           }}
                         >
                           Related Products
                         </h3>
-
                         <div
                           className="related-slider-wrapper"
                           style={{
                             width: "100%",
                             margin: "0px auto",
                             padding: "0 1rem",
+                            position: "relative",
                           }}
                         >
                           <Slider {...sliderSettings}>
@@ -853,15 +715,16 @@ const ProductDetails = () => {
                                           style={{ textDecoration: "none" }}
                                         >
                                           <div
+                                            className="cardRelProd"
                                             style={{
                                               height: "380px", // 🔸 Total card height
-                                              padding: "1rem",
+                                              padding: "0.5rem",
                                               borderRadius: "10px",
                                               backgroundColor: "#fff",
                                               display: "flex",
                                               flexDirection: "column",
-                                              justifyContent: "flex-start",
-                                              alignItems: "flex-start",
+                                              justifyContent: "center",
+                                              alignItems: "center",
                                               boxShadow:
                                                 "0 4px 8px rgba(0,0,0,0.1)",
                                             }}

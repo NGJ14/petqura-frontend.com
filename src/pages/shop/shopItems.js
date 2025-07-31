@@ -421,7 +421,6 @@ const ShopItems = () => {
                                                         color:
                                                           "rgb(150, 150, 150)",
                                                         fontWeight: "bold",
-                                                        marginTop: "25px",
                                                       }}
                                                     >
                                                       Rs.&nbsp;
@@ -452,7 +451,7 @@ const ShopItems = () => {
                                             </div>
 
                                             {/* Discount Badge */}
-                                            {/* {discountpercentage > 0 &&
+                                            {discountpercentage > 0 &&
                                             productIndex === i ? (
                                               <span className="text-success font-weight-bold ml-0 mt-2">
                                                 <div>
@@ -472,7 +471,7 @@ const ShopItems = () => {
                                                   % <br /> OFF
                                                 </div>
                                               </span>
-                                            ) : null} */}
+                                            ) : null}
 
                                             {/* Variant Dropdown */}
                                             <div className="d-flex justify-content-center mt-3">
@@ -539,7 +538,7 @@ const ShopItems = () => {
                                           }}
                                         />
                                       </OverlayTrigger> */}
-                                      <span>Add to Cart</span>
+                                      <span className="mCartBtn">Add to Cart</span>
                                     </div>
                                   </div>
                                 </div>

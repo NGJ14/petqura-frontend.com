@@ -2607,8 +2607,29 @@ textarea[resize="horizontal"] {
 .product-img img {
   border-radius: 50px 50px 10px 10px;
 }
-
+.cartRightHalf{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 12px 0;
+  align-items: center;
+}
+.cardRelProd{
+  width:240px;
+}
 @media (max-width: 768px) {
+  .adCrtCnt{
+    margin-left: 15px;
+  }
+  .mProdInfAddCrtBtn{
+    margin-bottom: 15px;
+  }
+  .cardRelProd{
+    width: 295px;
+  }
+  .mCartBtn{
+    margin: 0;
+  }
   .productSmall {
     padding: 0;
     /* display: flex; */
@@ -2635,21 +2656,31 @@ textarea[resize="horizontal"] {
   .section-content .products .product {
     min-height: 355px;
   }
-  .section-content .products .product .text-success{
+  .section-content .products .product .text-success {
     height: 90px;
     width: 80px;
   }
-  .dropD{
+  .dropD {
     flex-direction: column;
   }
-  .amtStrk{
-  padding-left: 0px;
-  padding: 10px 0;
-  margin-top: 25px;
+  .amtStrk {
+    padding-left: 0px;
+    padding: 10px 0;
+    margin-top: 25px;
+    margin-right: 0px;
+  }
 }
-}
-.amtStrk{
+.amtStrk {
   padding-left: 10px;
+  margin-right: 10px;
+  padding-top: 10px;
+}
+.cartPrices{
+  display: flex;
+  align-items: center;
+}
+.cartPrices p{
+  margin: 0 8px 0 0;
 }
 .custom-select-wrapper {
   position: relative;
