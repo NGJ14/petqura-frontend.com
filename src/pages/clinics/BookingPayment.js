@@ -46,6 +46,8 @@ const BookingPayment = () => {
   const [couponname, setcouponname] = useState();
   const [couponcode, setcouponcode] = useState();
   const [payableamt, setpayableamt] = useState();
+  const [petName, setPetName] = useState("");
+
 
   const Clinic = useSelector((state) => state.Clinic);
   const profileDetails = useSelector((state) => state.Profile);
@@ -85,6 +87,10 @@ const BookingPayment = () => {
   
 
  const handleBookPayment = async (e) => {
+  if (!petName.trim()) {
+  alert("Please enter your pet's name");
+  return;
+}
   e.preventDefault();
 
   const auth = getLocalStorage("AUTH_DETAILS");
@@ -93,10 +99,7 @@ const BookingPayment = () => {
     time_slot_id: Clinic?.paymentData?.appointment_details?.time_slot_id,
     start_time: Clinic?.paymentData?.appointment_details?.start_time, // e.g. "15:30"
     appointment_date: Clinic?.paymentData?.appointment_details?.appointment_date, // e.g. "05-07-2025"
-    pet_name: Clinic?.paymentData?.appointment_details?.pet_name,
-    pet_age: Clinic?.paymentData?.appointment_details?.pet_age,
-    pet_breed: Clinic?.paymentData?.appointment_details?.pet_breed,
-    pet_type: Clinic?.paymentData?.appointment_details?.pet_type,
+    pet_name: petName,
     description: Clinic?.paymentData?.appointment_details?.description || "",
   };
 
@@ -127,7 +130,7 @@ const launchCashfreeCheckout = (paymentSessionId) => {
   let checkoutOptions = {
     paymentSessionId: paymentSessionId,
     redirectTarget: "_self",
-    returnUrl: `${window.location.origin}/clinic/success/` // or "_blank"
+    returnUrl: `${window.location.origin}/clinic` // or "_blank"
   };
 
   cashfree.checkout(checkoutOptions);
@@ -238,21 +241,22 @@ const launchCashfreeCheckout = (paymentSessionId) => {
                             {auth?.last_name || auth?.user?.last_name}
                           </p>
                         </div>
-                        <div className="d-flex">
-                          <p className="col-md-6 col-xs-5">Pet Name:</p>
-                          <p className="col-md-6 col-xs-5">
-                            {" "}
-                            {Clinic?.paymentData?.appointment_details?.pet_name}
-                          </p>
-                        </div>
-                        <div className="d-flex">
-                          <p className="col-md-6 col-xs-5">Pet Age:</p>
-                          <p className="col-md-6 col-xs-5">
-                            {" "}
-                            {Clinic?.paymentData?.appointment_details?.pet_age}
-                          </p>
-                        </div>
-                        {Clinic?.paymentData?.appointment_details?.pet_breed ? (
+
+                          <div className="d-flex align-items-center">
+                            <p className="col-md-6 col-xs-5">Pet Name:</p>
+                            <div className="col-md-6 col-xs-7">
+                              <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Enter your pet's name"
+                                value={petName}
+                                onChange={(e) => setPetName(e.target.value)}
+                              />
+                            </div>
+                          </div>
+                  
+                       
+                        {/* {Clinic?.paymentData?.appointment_details?.pet_breed ? (
                           <div className="d-flex">
                             <p className="col-md-6 col-xs-5">Breed Type :</p>
                             <p className="col-md-6 col-xs-5">
@@ -263,7 +267,7 @@ const launchCashfreeCheckout = (paymentSessionId) => {
                               }
                             </p>
                           </div>
-                        ) : null}
+                        ) : null} */}
                         {/* <div className="d-flex">
                           <p className="col-md-6 col-xs-5">
                             Medical Description:

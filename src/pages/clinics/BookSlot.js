@@ -12,7 +12,10 @@ import {
 
 import classnames from "classnames";
 import { useDispatch, useSelector } from "react-redux";
-import { getClinicSlotById } from "../../store/UserStore/Clinic/action";
+import {
+  addClinicPayment,
+  getClinicSlotById,
+} from "../../store/UserStore/Clinic/action";
 import moment from "moment";
 import PetMedDetailsForm from "./PetMedDetailsForm";
 import { getLocalStorage } from "../../helpers/utils";
@@ -29,6 +32,7 @@ import { resetErrors } from "../../store/UserStore/Login/action";
 
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const BookSlot = ({
   clinicId,
@@ -89,13 +93,24 @@ const BookSlot = ({
   const slot_toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
-
+  const history = useHistory();
   const petMedDetailstoggle = () => {
     setpetMedDetailsModal(!petMedDetailsModal);
   };
   const dispatch = useDispatch();
 
   const id = clinicId;
+  const Clinic = useSelector((state) => state.Clinic);
+  const [serviceIds, setServiceIds] = useState([]);
+  useEffect(() => {
+    if (Clinic?.ServiceData?.clinic_services?.length) {
+      const ids = Clinic.ServiceData.clinic_services.map(
+        (service) => service?.service_id
+      );
+      console.log("Service IDs:", ids); // ✅ Logs service IDs
+      setServiceIds(ids); // ✅ Save to state
+    }
+  }, [Clinic?.ServiceData?.clinic_services]);
   useEffect(() => {
     setSlotDate(da1);
     setSlotVal("");
@@ -144,14 +159,47 @@ const BookSlot = ({
     { id: 4, value: "4" },
     { id: 5, value: "5" },
   ];
-
+  // const auth = getLocalStorage("AUTH_DETAILS");
   const handleSlotSubmit = (e) => {
     if (Internal === false) {
       //If calling from Website Front end clinic page
       e.preventDefault();
       toggle();
-      petMedDetailstoggle();
+      // const data = {
+      //   pet_name: "TBD",
+      //   description: "To be filled",
+      //   pet_type: "Others",
+      //   pet_breed: "Unknown",
+      //   pet_age: 1,
+      //   start_time: slotVal,
+      //   time_slot_id: slotId,
+      //   appointment_date: slotDate,
+      //   slot_price: 250,
+      //   service_id: '5b16c11b-ab1d-4a25-bca5-26d71e7c86ad', // or default/placeholder
+      //   visited_drop: "No", // or default
+      // };
+      const data = {
+        pet_name: "test",
+        description: "test",
+        pet_type: "Dogs",
+        pet_breed: "13",
+        pet_age: "12",
+        appointment_date: slotDate, // dynamic
+        service_id: "5b16c11b-ab1d-4a25-bca5-26d71e7c86ad",
+        slot_price: 250,
+        start_time: slotVal, // dynamic
+        time_slot_id: slotId, // dynamic
+        visited_drop: "0",
+      };
+
       setSlotKey("");
+      dispatch(
+        addClinicPayment({
+          data: data,
+          callback: () => {},
+          history: history,
+        })
+      );
     } else {
       if (blockSlot === true) {
         //Submitted from Clinic Login for Slot Blocking
@@ -189,21 +237,20 @@ const BookSlot = ({
     }
   };
 
-  const auth = getLocalStorage("AUTH_DETAILS");
-
   const toggles = () => {
-    if (Internal === false) {
-      //If not calling from Clinic - Carer Admin
-      if (auth?.user?.role == "pet_owner") {
-        return;
-      } else {
-        toggle();
-        Logintoggle();
-        authToggle();
-        setSlotVal("");
-        setSlotKey("");
-      }
-    }
+    return;
+    // if (Internal === false) {
+    //   //If not calling from Clinic - Carer Admin
+    //   if (auth?.user?.role == "pet_owner") {
+    //     return;
+    //   } else {
+    //     toggle();
+    //     Logintoggle();
+    //     authToggle();
+    //     setSlotVal("");
+    //     setSlotKey("");
+    //   }
+    // }
   };
 
   // console.log("REspDataslot", clinicData.reScheduleMessage);
