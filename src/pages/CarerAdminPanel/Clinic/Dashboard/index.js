@@ -37,7 +37,7 @@ const ClinicDashboard = () => {
     sort: "time_created",
     sort_order: "desc",
     page: 1,
-    page_count: 50,
+    page_count: 10,
   };
 
   const [request, setRequest] = useState({ ...basicRequest });
@@ -84,7 +84,7 @@ const ClinicDashboard = () => {
                     <div className="col-xl-10 col-md-12">
                       <div className="dash-card Recent-Users">
                         <div className="dash-card-header">
-                          <h5> Recent Pending Bookings</h5>
+                          <h5> Recent Bookings</h5>
                         </div>
                         <div className="dash-card-block px-0 py-3">
                           <div className="table-responsive">
@@ -99,7 +99,7 @@ const ClinicDashboard = () => {
                                   )
                                 ) : (
                                   <p className="text-center">
-                                    No Recent Pending Bookings
+                                    No Recent Bookings
                                   </p>
                                 )}
                               </tbody>

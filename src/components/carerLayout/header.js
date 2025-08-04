@@ -44,7 +44,7 @@ const CarerHeader = ({ setNavopen, navopen }) => {
       <div className="header-nav">
         <nav
           id="menuzord-right"
-          className="menuzord  no-bg menuzord-responsive "
+          className="menuzord menuzord2  menuzord-responsive "
         >
           <a
             // href="#"
@@ -70,10 +70,27 @@ const CarerHeader = ({ setNavopen, navopen }) => {
               >
                 <span
                   className="fa fa-user"
-                  style={{ fontSize: "25px", color: "white" }}
+                  style={{ fontSize: "33px", color: "#00419d" }}
                 ></span>
-                <p className="ml-2 mt-2">Hi {auth?.user?.first_name}</p>
-                <span className="indicator mt-2 ml-2">
+                <p
+                  className="ml-2 mt-2"
+                  style={{
+                    fontSize: "15px",
+                    color: "#00419d",
+                    paddingLeft: "10px",
+                    marginBottom: "10px",
+                  }}
+                >
+                  Hi {auth?.user?.first_name}
+                </p>
+                <span
+                  className="indicator mt-2 ml-2"
+                  style={{
+                    fontSize: "20px",
+                    color: "#00419d",
+                    paddingLeft: "10px",
+                  }}
+                >
                   <i className="fa fa-angle-down"></i>
                 </span>
               </a>
@@ -81,7 +98,10 @@ const CarerHeader = ({ setNavopen, navopen }) => {
                 <li>
                   <a
                     className="pt-2 pr-0 lgbtnlnk"
-                    style={{ cursor: "pointer" }}
+                    style={{
+                      cursor: "pointer",
+                      background: "rgb(224, 247, 255)",
+                    }}
                     onClick={() => logout()}
                   >
                     Logout

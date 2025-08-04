@@ -227,7 +227,7 @@ const EditDoctor = () => {
                 className="btn waves-effect waves-light cust_no_shadow cust-save-btn cust-saveButton"
                 disabled={disableSubmit ? true : false}
               >
-                SAVE
+                Save
               </button>
             </div>
           </Card>

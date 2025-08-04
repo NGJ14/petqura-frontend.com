@@ -39,7 +39,7 @@ const Doctors = () => {
     sort: "time_created",
     sort_order: "desc",
     page: 1,
-    page_count: 50,
+    page_count: 10,
   };
 
   const [request, setRequest] = useState({ ...basicRequest });
@@ -208,10 +208,11 @@ const Doctors = () => {
             setRequest={setRequest}
             // searchTerm={productData?.request?.keyword}
             // totalRecords={productData?.data?.total}
+            totalRecords={slot?.Doctor?.total}
             loading={slot?.loading}
             addNewLabel="ADD DOCTOR"
             tableCardClassName={"snoTable"}
-            noPagination
+            // noPagination
           />
         </Row>
       </Container>

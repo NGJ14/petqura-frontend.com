@@ -330,7 +330,7 @@ const Donation = () => {
     sort: "time_created",
     sort_order: "desc",
     page: 1,
-    page_count: 50,
+    page_count: 10,
   };
   const HANDS4PAWSGALERY = useSelector((state) => state.HANDS4PAWSGALERY);
   const [request, setRequest] = useState({ ...basicRequest });

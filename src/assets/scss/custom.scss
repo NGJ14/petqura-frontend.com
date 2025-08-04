@@ -328,6 +328,9 @@ pt-140 pb-30 pl-50 .card-address-cust {
   padding-right: 25px;
   width: 80%;
 }
+.page-content2{
+  width: 100%;
+}
 
 // Pagination
 
@@ -1169,6 +1172,11 @@ pt-140 pb-30 pl-50 .card-address-cust {
   position: absolute;
   top: 20px;
   margin-left: 280px;
+}
+.cust-page2 {
+  position: absolute;
+  top: 20px;
+  margin-left: 0;
 }
 @media only screen and (max-width: 890px) {
   .cust-page {

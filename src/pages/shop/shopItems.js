@@ -44,7 +44,7 @@ const ShopItems = () => {
   const shopContent = useSelector((state) => state.Shop);
   const basicRequest = {
     page: 1,
-    page_count: 12,
+    page_count: 10,
     keyword: "",
     ideal_for: "Dogs",
     sort: "popular",

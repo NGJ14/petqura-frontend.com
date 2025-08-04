@@ -34,7 +34,7 @@ const SalesReport = () => {
     sort: "time_created",
     sort_order: "desc",
     page: 1,
-    page_count: 50,
+    page_count: 10,
   };
 
   const [request, setRequest] = useState({ ...basicRequest });

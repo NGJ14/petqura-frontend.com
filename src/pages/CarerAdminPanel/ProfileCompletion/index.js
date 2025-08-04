@@ -104,7 +104,7 @@ const ProfileCompletion = () => {
     <Redirect to="/carer/seller/dashboard" />
   ) : (
     <div
-      className="page-content cust-page justify-content-center align-items-center"
+      className="page-content page-content2 cust-page cust-page2 justify-content-center align-items-center"
       data-testid="component-faqAddNew"
     >
       <div className="main-content ">
@@ -113,7 +113,7 @@ const ProfileCompletion = () => {
         {/* Header */}
 
         {/* Page content */}
-        <div className="seller-container-fluid mt--7">
+        <div className="seller-container-fluid customCont mt--7">
           <div className="row">
             <div className="col-xl-12 order-xl-1">
               <div className="seller-card bg-secondary shadow">

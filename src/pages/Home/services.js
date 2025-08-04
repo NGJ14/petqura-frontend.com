@@ -143,12 +143,12 @@ const SliderContainer = styled.div`
 
     .slick-prev {
       background-image: url(${config.S3imgHostUrl}/frontend-assets/icons/slickPrev.png);
-      left: -30px;
+      left: -45px;
     }
 
     .slick-next {
       background-image: url(${config.S3imgHostUrl}/frontend-assets/icons/slickNext.png);
-      right: -30px;
+      right: -45px;
     }
 
     .slick-prev:before,

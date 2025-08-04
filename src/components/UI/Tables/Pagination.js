@@ -4,7 +4,7 @@ import Pagination from "react-js-pagination";
 
 const TablePagination = ({ totalRecords, setRequest, request, loading }) => {
   const [activePage, setActivePage] = useState(request?.page || 1);
-  const [perPage, setPerPage] = useState(request?.page_count || 50);
+  const [perPage, setPerPage] = useState(request?.page_count || 10);
   useEffect(() => {
     if (totalRecords <= perPage && request?.page > 1) {
       setActivePage(1);
@@ -28,10 +28,10 @@ const TablePagination = ({ totalRecords, setRequest, request, loading }) => {
             }}
             value={perPage}
           >
+            <option>10</option>
             <option>25</option>
             <option>50</option>
             <option>100</option>
-            <option>500</option>
             <option>1000</option>
           </select>
         </div>

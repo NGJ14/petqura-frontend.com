@@ -49,7 +49,7 @@ const Order = () => {
     sort: "time_created",
     sort_order: "desc",
     page: 1,
-    page_count: 25,
+    page_count: 10,
     status: "placed",
   };
 
