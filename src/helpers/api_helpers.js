@@ -32,10 +32,10 @@ export async function add(url, data, config = {}) {
 
 export async function update(url, data, config = {}) {
   return await axiosApi
-    .put(url, { ...data }, { ...config })
+    .put(url, data , { ...config })
     .then((response) => response.data);
 }
-
+// { ...data }   made this change
 export async function del(url, data, config = {}) {
   return await axiosApi
     .delete(url, { params: { ...data } }, { ...config })

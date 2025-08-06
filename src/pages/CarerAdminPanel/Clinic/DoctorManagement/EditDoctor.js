@@ -26,6 +26,8 @@ import {
 const EditDoctor = () => {
   const [qualification, setQualification] = useState("");
   const [position, setPosition] = useState("");
+  const [photo, setPhoto] = useState(null); // holds the new file
+  const [initialPhoto, setInitialPhoto] = useState(null);
   const [name, setName] = useState("");
   const [modal, setModal] = useState(false);
   const [formChanged, setFormChanged] = useState(false);
@@ -55,19 +57,27 @@ const EditDoctor = () => {
       setQualification(slot?.DoctorDetails?.qualifications);
     slot?.DoctorDetails?.description &&
       setPosition(slot?.DoctorDetails?.description);
+      slot?.DoctorDetails?.profile_photo &&
+      setPhoto(slot?.DoctorDetails?.profile_photo);
+      slot?.DoctorDetails?.profile_photo &&
+      setInitialPhoto(slot?.DoctorDetails?.profile_photo);
   }, [slot?.DoctorDetails]);
 
   const handleValidSubmit = (event, values) => {
     event.preventDefault();
-    const doc = {
-      doctor_name: name,
-      qualification: qualification,
-      description: position,
-      doctor_id: params?.id,
-    };
+    const formData = new FormData();
+    formData.append("doctor_name", name);
+    formData.append("qualification", qualification);
+    formData.append("description", position);
+    formData.append("doctor_id", params?.id);
+    formData.append("icon", photo); 
+    for (let [key, value] of formData.entries()) {
+  console.log(key, value);
+}
+    
     dispatch(
       editDoctorDetails({
-        Doctor: doc,
+        Doctor: formData,
         callback: () => {
           toggle();
           history.push("/carer/clinic/doctors");
@@ -147,6 +157,48 @@ const EditDoctor = () => {
       >
         <Col xl="8">
           <Card className="p-4">
+            <Row className="col-md-8 col-lg-12 photoUploadRow d-flex align-items-center">
+              <div className="col-lg-4 col-md-6">
+                <label className="cust-label text-left">
+                  Upload Photo
+                  <span className="mandatory">*</span>
+                </label>
+
+                {/* Image preview */}
+                <div className="photoPreview mb-2">
+                  {photo ? (
+                    <img
+                      src={photo instanceof File ? URL.createObjectURL(photo) : photo}
+                      alt="Preview"
+                      className="img-thumbnail"
+                      style={{ width: "150px", height: "150px", objectFit: "cover" }}
+                    />
+                  ) : (
+                    <div className="img-thumbnail d-flex justify-content-center align-items-center" style={{ width: "150px", height: "150px", backgroundColor: "#f0f0f0" }}>
+                      <span>No Image</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Input to change photo */}
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                      setFormChanged(true);
+                      setPhoto(file);
+                    }
+                  }}
+                />
+              </div>
+            </Row>
+
+
+
+
+
             <Row className="col-md-8 col-lg-12   addUsernameFieldWrap d-flex">
               <div className="checkAvailabilityWrap col-lg-10 col-md-6">
                 <label className="cust-label text-left">
