@@ -55,6 +55,9 @@ const CarerProfile = () => {
   const [img, setImg] = useState(null);
   const [imageChanged, setImageChange] = useState(false);
   const [phoneError, setPhoneError] = useState("");
+  const [bank_account_number,setBankAccountNumber]=useState("");
+  const [bank_ifsc,setBankIfsc]=useState("");
+  const [beneficiary_name,setBeneficiaryName]=useState("");
 
   useEffect(() => {
     dispatch(getCarerPersonalDetails());
@@ -79,7 +82,12 @@ const CarerProfile = () => {
       setImg(carerDetails?.carer?.clinic_image);
     carerDetails?.carer?.accountid_paytm &&
     setAccountIDPayTM(carerDetails?.carer?.accountid_paytm);
-
+    carerDetails?.carer?.bank_account_number && 
+    setBankAccountNumber(carerDetails?.carer?.bank_account_number);
+    carerDetails?.carer?.bank_ifsc && 
+    setBankIfsc(carerDetails?.carer?.bank_ifsc);
+    carerDetails?.carer?.beneficiary_name && 
+    setBeneficiaryName(carerDetails?.carer?.beneficiary_name);
   }, [carerDetails?.carer?.address_line_1]);
 
   const handleSubmit = (e) => {  
@@ -104,14 +112,14 @@ const CarerProfile = () => {
           city: city,
           state: state,
           pincode: pin,
-          bank_account_number:
-            carerDetails?.carer?.user_details?.bank_account_number,
-          bank_ifsc: carerDetails?.carer?.user_details?.bank_ifsc,
-          beneficiary_name: carerDetails?.carer?.user_details?.beneficiary_name,
+          bank_account_number:bank_account_number,
+          bank_ifsc: bank_ifsc,
+          beneficiary_name: beneficiary_name,
           display_name: name,
           alternative_phone: altPhone,
           // service_description: description,
-          accountid_paytm: AccountIDPayTM,
+          accountid_paytm: "",
+
         },
         image: formData,
         isImage: img == null || img == undefined,
@@ -474,20 +482,56 @@ const CarerProfile = () => {
                             <div className="seller-form-group focused">
                               <label
                                 className="seller-form-control-label h5"
-                                htmlFor="input-state"
+                                htmlFor="input-bank-account"
                               >
-                                AccountID [PayTm]
+                                Bank Account Number
                               </label>
                               <input
                                 type="text"
-                                id="input-accountid"
+                                id="input-bank-account"
                                 className="seller-form-control seller-form-control-alternative"
-                                placeholder="Account ID for PayTm"
-                                value={AccountIDPayTM}
-                                onChange={(e) => setAccountIDPayTM(e.target.value)}
+                                placeholder="Enter Bank Account Number"
+                                value={bank_account_number}
+                                onChange={(e) => setBankAccountNumber(e.target.value)}
+                              />
+                            </div>
+
+                            <div className="seller-form-group focused mt-3">
+                              <label
+                                className="seller-form-control-label h5"
+                                htmlFor="input-ifsc"
+                              >
+                                IFSC Code
+                              </label>
+                              <input
+                                type="text"
+                                id="input-ifsc"
+                                className="seller-form-control seller-form-control-alternative"
+                                placeholder="Enter IFSC Code"
+                                value={bank_ifsc}
+                                onChange={(e) => setBankIfsc(e.target.value)}
+                              />
+                            </div>
+
+                            <div className="seller-form-group focused mt-3">
+                              <label
+                                className="seller-form-control-label h5"
+                                htmlFor="input-beneficiary"
+                              >
+                                Beneficiary Name
+                              </label>
+                              <input
+                              disabled
+                                type="text"
+                                id="input-beneficiary"
+                                className="seller-form-control seller-form-control-alternative"
+                                placeholder="Enter Beneficiary Name"
+                                value={beneficiary_name}
+                                onChange={(e) => setBeneficiaryName(e.target.value)}
                               />
                             </div>
                           </div>
+
                           {/* <div className="seller-col-lg-6">
                             <div className="seller-form-group focused">
                               <label

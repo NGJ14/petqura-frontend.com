@@ -32,38 +32,53 @@ const ProfileCompletion = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const idFormData1 = new FormData();
-    const benificaryFormData = new FormData();
-    idFormData1.append("image1", idProofImage);
-    benificaryFormData.append("image2", benificaryIdProofImage);
-    const auth = getLocalStorage("AUTH_DETAILS");
-    const user = { ...auth?.user };
-    user["profile_completed"] = true;
-    dispatch(
-      addCarer({
-        data: {
-          address_line_1: address1,
-          address_line_2: address2,
-          city: city,
-          state: state,
-          pincode: pin,
-          bank_account_number: accNo,
-          bank_ifsc: accIfscCode,
-          beneficiary_name: beneficiaryName,
-          display_name: name,
-          // service_description: description,
-          gst_number: gstNo,
-        },
-        idImage: idFormData1,
-        // benificaryImage: benificaryFormData,
+    navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      console.log(latitude+" "+longitude);
+      
+      const idFormData1 = new FormData();
+      const benificaryFormData = new FormData();
+      idFormData1.append("image1", idProofImage);
+      benificaryFormData.append("image2", benificaryIdProofImage);
 
-        callback: () => {
-          history.push("/carer/seller/dashboard");
-          setLocalStorage("AUTH_DETAILS", { ...auth, user });
-        },
-      })
-    );
-  };
+      const auth = getLocalStorage("AUTH_DETAILS");
+      const user = { ...auth?.user };
+      user["profile_completed"] = true;
+
+      dispatch(
+        addCarer({
+          data: {
+            address_line_1: address1,
+            address_line_2: address2,
+            city: city,
+            state: state,
+            pincode: pin,
+            bank_account_number: accNo,
+            bank_ifsc: accIfscCode,
+            beneficiary_name: beneficiaryName,
+            display_name: name,
+            gst_number: gstNo,
+            latitude, // added
+            longitude, // added
+          },
+          idImage: idFormData1,
+          // benificaryImage: benificaryFormData,
+
+          callback: () => {
+            history.push("/carer/seller/dashboard");
+            setLocalStorage("AUTH_DETAILS", { ...auth, user });
+          },
+        })
+      );
+    },
+    (error) => {
+      console.error("Error getting location:", error);
+      alert("Location permission is required to complete your profile.");
+    }
+  );
+}
 
   useEffect(() => {
     if (
