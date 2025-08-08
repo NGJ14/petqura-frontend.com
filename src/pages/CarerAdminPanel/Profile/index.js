@@ -16,6 +16,7 @@ import { resetPersonalError } from "../../../store/UserStore/Profile/action";
 import ChangePassword from "../../Profile/ChangePassword";
 import "react-phone-number-input/style.css";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
+import GoogleMapPicker from "../../../components/maps";
 
 const CarerProfile = () => {
   const carerDetails = useSelector((state) => state?.Carer);
@@ -58,6 +59,9 @@ const CarerProfile = () => {
   const [bank_account_number,setBankAccountNumber]=useState("");
   const [bank_ifsc,setBankIfsc]=useState("");
   const [beneficiary_name,setBeneficiaryName]=useState("");
+  const [longitude,setLongitude]=useState();
+  const [latitude,setLatitude]=useState();
+
 
   useEffect(() => {
     dispatch(getCarerPersonalDetails());
@@ -89,7 +93,10 @@ const CarerProfile = () => {
     carerDetails?.carer?.beneficiary_name && 
     setBeneficiaryName(carerDetails?.carer?.beneficiary_name);
   }, [carerDetails?.carer?.address_line_1]);
-
+  const handleMapChange = (newCoords) => {
+    setLatitude(newCoords.lat);
+    setLongitude(newCoords.lng);
+  };
   const handleSubmit = (e) => {  
     e.preventDefault();
     if (
@@ -119,6 +126,8 @@ const CarerProfile = () => {
           alternative_phone: altPhone,
           // service_description: description,
           accountid_paytm: "",
+          longitude:longitude,
+          latitude:latitude
 
         },
         image: formData,
@@ -144,6 +153,7 @@ const CarerProfile = () => {
       setaltPhoneValid(false);
     }
   };
+  
   const auth = getLocalStorage("AUTH_DETAILS");
 
   const fileName =
@@ -478,6 +488,8 @@ const CarerProfile = () => {
                               />
                             </div>
                           </div>
+                          <GoogleMapPicker initialLat={latitude} initialLng={longitude} onChangeLocation={handleMapChange}/>
+
                           <div className="seller-col-lg-4">
                             <div className="seller-form-group focused">
                               <label
