@@ -22,9 +22,17 @@ import PageNotFound from "./pages/utils/404";
 import { useLocation } from "react-router";
 import { useSelector } from "react-redux";
 import { cashfree } from "./file/cashfree/util";
+import { initGA, trackPageView } from "./helpers/analytics";
 const App = () => {
   const data = useSelector((state) => state.HeaderContent);
   const location = useLocation();
+  useEffect(() => {
+    initGA(); // Initialize once on mount
+  }, []);
+
+  useEffect(() => {
+    trackPageView(location.pathname + location.search); // Track on route change
+  }, [location]);
   useEffect(() => {
     if (
       !data?.loading &&
