@@ -5,6 +5,7 @@ import { UncontrolledAlert } from "reactstrap";
 import Loader from "../../../components/UI/Loader";
 import { getLocalStorage, setLocalStorage } from "../../../helpers/utils";
 import { addCarer, getCarerPersonalDetails } from "../../../store/carer/action";
+import GoogleMapPicker from "../../../components/maps";
 
 const ProfileCompletion = () => {
   const dispatch = useDispatch();
@@ -23,62 +24,54 @@ const ProfileCompletion = () => {
   let [gstNo, setGstNo] = useState();
   let [description, setDescription] = useState();
   let [disableSubmit, setDisableSubmit] = useState();
+  let [longitude,setLongitude]=useState();
+  let [latitude,setLatitude]=useState();
 
   const carerDetails = useSelector((state) => state?.Carer);
 
   useEffect(() => {
     dispatch(getCarerPersonalDetails());
   }, []);
-
+const handleMapChange = (newCoords) => {
+    setLatitude(newCoords.lat);
+    setLongitude(newCoords.lng);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigator.geolocation.getCurrentPosition(
-    (position) => {
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-      console.log(latitude+" "+longitude);
-      
-      const idFormData1 = new FormData();
-      const benificaryFormData = new FormData();
-      idFormData1.append("image1", idProofImage);
-      benificaryFormData.append("image2", benificaryIdProofImage);
+        const idFormData1 = new FormData();
+    const benificaryFormData = new FormData();
+    idFormData1.append("image1", idProofImage);
+    benificaryFormData.append("image2", benificaryIdProofImage);
+    const auth = getLocalStorage("AUTH_DETAILS");
+    const user = { ...auth?.user };
+    user["profile_completed"] = true;
+    dispatch(
+      addCarer({
+        data: {
+          address_line_1: address1,
+          address_line_2: address2,
+          city: city,
+          state: state,
+          pincode: pin,
+          bank_account_number: accNo,
+          bank_ifsc: accIfscCode,
+          beneficiary_name: beneficiaryName,
+          display_name: name,
+          // service_description: description,
+          gst_number: gstNo,
+          latitude:latitude,
+          longitude:longitude
+        },
+        idImage: idFormData1,
+        // benificaryImage: benificaryFormData,
 
-      const auth = getLocalStorage("AUTH_DETAILS");
-      const user = { ...auth?.user };
-      user["profile_completed"] = true;
-
-      dispatch(
-        addCarer({
-          data: {
-            address_line_1: address1,
-            address_line_2: address2,
-            city: city,
-            state: state,
-            pincode: pin,
-            bank_account_number: accNo,
-            bank_ifsc: accIfscCode,
-            beneficiary_name: beneficiaryName,
-            display_name: name,
-            gst_number: gstNo,
-            latitude, // added
-            longitude, // added
-          },
-          idImage: idFormData1,
-          // benificaryImage: benificaryFormData,
-
-          callback: () => {
-            history.push("/carer/seller/dashboard");
-            setLocalStorage("AUTH_DETAILS", { ...auth, user });
-          },
-        })
-      );
-    },
-    (error) => {
-      console.error("Error getting location:", error);
-      alert("Location permission is required to complete your profile.");
-    }
-  );
-}
+        callback: () => {
+          history.push("/carer/seller/dashboard");
+          setLocalStorage("AUTH_DETAILS", { ...auth, user });
+        },
+      })
+    );
+  };
 
   useEffect(() => {
     if (
@@ -417,6 +410,7 @@ const ProfileCompletion = () => {
                         </div>
                       </div>
                     </>
+                    <GoogleMapPicker initialLat={latitude} initialLng={longitude} onChangeLocation={handleMapChange}/>
                     <hr className="my-4" />
 
                     <>
