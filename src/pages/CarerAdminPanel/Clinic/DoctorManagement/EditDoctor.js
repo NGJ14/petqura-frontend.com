@@ -70,10 +70,12 @@ const EditDoctor = () => {
     formData.append("qualification", qualification);
     formData.append("description", position);
     formData.append("doctor_id", params?.id);
-    formData.append("icon", photo); 
+    if (photo instanceof File) {
+      formData.append("icon", photo);
+    }
     for (let [key, value] of formData.entries()) {
-  console.log(key, value);
-}
+      console.log(key, value);
+    }
     
     dispatch(
       editDoctorDetails({
