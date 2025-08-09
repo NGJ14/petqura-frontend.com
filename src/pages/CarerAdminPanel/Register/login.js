@@ -82,6 +82,7 @@ const CarerLogin = () => {
               style={{
                 backgroundSize: "contain",
                 width: "75%",
+                marginTop: "25vh",
               }}
             />
           </div>

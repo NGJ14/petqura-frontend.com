@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MultiBarChart from "../../../../components/Charts/Nvd3Chart/MultiBarChart";
 import { useDispatch, useSelector } from "react-redux";
-
 import { Redirect } from "react-router";
 import { getLocalStorage } from "../../../../helpers/utils";
 import { getCarerPersonalDetails } from "../../../../store/carer/action";
@@ -13,17 +12,18 @@ import {
   getClinicDashboardDetails,
 } from "../../../../store/serviceProvider/Clinic/action";
 import { UncontrolledAlert } from "reactstrap";
-
 const ClinicDashboard = () => {
   const dispatch = useDispatch();
   const ClinicDetails = useSelector((state) => state.Slot);
+  const slot = useSelector((state) => state.Slot);
 
   const auth = getLocalStorage("AUTH_DETAILS");
-  const slot = useSelector((state) => state.Slot);
+
+  const [showAllBookings, setShowAllBookings] = useState(false);
 
   useEffect(() => {
     auth &&
-      auth?.user?.role == "clinic" &&
+      auth?.user?.role === "clinic" &&
       auth?.user?.profile_completed &&
       auth?.user?.admin_approved &&
       dispatch(getClinicDashboardDetails());
@@ -43,11 +43,14 @@ const ClinicDashboard = () => {
   const [request, setRequest] = useState({ ...basicRequest });
 
   useEffect(() => {
-    auth?.user?.role == "clinic" &&
+    auth?.user?.role === "clinic" &&
       auth?.user?.profile_completed &&
       auth?.user?.admin_approved &&
       dispatch(getClinicAppointmentDetails(request));
   }, [request]);
+
+  const bookings = slot?.clinicAppointments?.appointments || [];
+  const displayedBookings = showAllBookings ? bookings : bookings.slice(0, 10);
 
   return !auth?.user?.profile_completed ? (
     <Redirect to="/carer/complete-profile" />
@@ -62,17 +65,16 @@ const ClinicDashboard = () => {
               <div className="main-body">
                 <div className="page-wrapper">
                   {ClinicDetails?.error && (
-                    <div>
-                      <UncontrolledAlert
-                        color="danger"
-                        className="alert-dismissible fade show"
-                        role="alert"
-                      >
-                        {ClinicDetails?.error}
-                      </UncontrolledAlert>
-                    </div>
+                    <UncontrolledAlert
+                      color="danger"
+                      className="alert-dismissible fade show"
+                      role="alert"
+                    >
+                      {ClinicDetails?.error}
+                    </UncontrolledAlert>
                   )}
                   <div className="row">
+                    {/* Cards */}
                     {ClinicDetails?.clinicDashboard?.length &&
                       ClinicDetails?.clinicDashboard
                         ?.slice(0, 1)
@@ -90,11 +92,13 @@ const ClinicDashboard = () => {
                           <div className="table-responsive">
                             <table className="table table-hover">
                               <tbody>
-                                {slot?.clinicAppointments?.appointments
-                                  ?.length ? (
-                                  slot?.clinicAppointments?.appointments?.map(
-                                    (appointment) => (
-                                      <DashboardOrders item={appointment} />
+                                {displayedBookings.length ? (
+                                  displayedBookings.map(
+                                    (appointment, index) => (
+                                      <DashboardOrders
+                                        key={index}
+                                        item={appointment}
+                                      />
                                     )
                                   )
                                 ) : (
@@ -105,20 +109,36 @@ const ClinicDashboard = () => {
                               </tbody>
                             </table>
                           </div>
-                          <div className="text-right mr-4">
-                            <a
-                              href="/carer/clinic/appointments"
-                              className="label text-dark  text-white"
-                            >
-                              <button type="button" class="btn btn-primary">
-                                View
+
+                          {/* Show All Button */}
+                          {bookings.length > 10 && !showAllBookings && (
+                            <div className="text-center mt-3">
+                              <button
+                                className="btn btn-outline-primary"
+                                onClick={() => setShowAllBookings(true)}
+                              >
+                                Show All
                               </button>
-                            </a>
-                          </div>
+                            </div>
+                          )}
+
+                          {/* Back to Top Button (optional) */}
+                          {showAllBookings && (
+                            <div className="text-center mt-3">
+                              <button
+                                className="btn btn-outline-secondary"
+                                onClick={() => setShowAllBookings(false)}
+                              >
+                                Show Less
+                              </button>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
                   </div>
+
+                  {/* Appointment Summary */}
                   {ClinicDetails?.clinicDashboard && (
                     <div className="dash-card Recent-Users">
                       <div className="dash-card-header mb-5">

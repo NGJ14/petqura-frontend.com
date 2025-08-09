@@ -41,7 +41,10 @@
 *::after {
   box-sizing: border-box;
 }
-
+.service-provider-login {
+    margin-top: 25vh !important;
+    padding-left: 15px !important;
+  }
 @media (min-width: 500px) {
   html,
   body,

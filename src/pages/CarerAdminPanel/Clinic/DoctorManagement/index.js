@@ -15,23 +15,17 @@ import Loader from "../../../../components/UI/Loader";
 import { getLocalStorage } from "../../../../helpers/utils";
 import {
   deleteDoctorDetails,
-  deleteSlotDetails,
   getDoctorDetails,
-  getSlotDetails,
   publishDoctor,
 } from "../../../../store/serviceProvider/Clinic/action";
-
-// import Loader from "../../components/Common/Loader";
 
 const Doctors = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const slot = useSelector((state) => state.Slot);
+
   const [showPromptPopUp, setShowPromptPopUp] = useState(false);
   const [promptMessage, setPromptMessage] = useState({});
-  const [order, setOrder] = useState();
-  const [changeValue, setChangeValue] = useState(false);
-  const [id, setId] = useState(null);
   const warningAlertRef = useRef(null);
   const pageWrapRef = useRef(null);
 
@@ -44,25 +38,28 @@ const Doctors = () => {
 
   const [request, setRequest] = useState({ ...basicRequest });
 
+  // Fetch doctor list when page or sort changes
   useEffect(() => {
     dispatch(getDoctorDetails({ request }));
   }, [request]);
 
+  // Reset pagination when navigating from another page
   useEffect(() => {
     setRequest({ ...basicRequest });
   }, [history?.location?.state?.from]);
 
   const auth = getLocalStorage("AUTH_DETAILS");
 
+  // Handle delete or enable/disable actions
   const okHandler = () => {
-    if (promptMessage == "delete") {
+    if (promptMessage.type === "delete") {
       dispatch(
         deleteDoctorDetails({
           data: { doctor_id: promptMessage.id },
           callback: () => dispatch(getDoctorDetails(request)),
         })
       );
-    } else {
+    } else if (promptMessage.type === "publish") {
       dispatch(
         publishDoctor({
           data: { doctor_id: promptMessage.id },
@@ -73,48 +70,51 @@ const Doctors = () => {
   };
 
   const deletePromptHandler = (id) => {
-    setShowPromptPopUp(!showPromptPopUp);
+    setShowPromptPopUp(true);
     setPromptMessage({
-      id: id,
+      id,
       title: "",
-      content: "Are you sure you want to delete this Slot",
+      content: "Are you sure you want to delete this doctor?",
       type: "delete",
     });
   };
 
-  const publishromptHandler = (id, active) => {
-    setShowPromptPopUp(!showPromptPopUp);
+  const publishPromptHandler = (id, active) => {
+    setShowPromptPopUp(true);
     setPromptMessage({
-      id: id,
+      id,
       title: "",
       content: `Are you sure you want to ${
         active ? "disable" : "enable"
-      }  this doctor`,
+      } this doctor?`,
       type: "publish",
     });
   };
 
-  const formatslotData =
-    slot?.Doctor?.doctors?.length &&
-    slot?.Doctor?.doctors?.map((doctor, index) => ({
-      no: (request?.page - 1) * request?.page_count + index + 1,
+  // Pagination-aware slicing for frontend limit
+  const formatslotData = slot?.Doctor?.doctors
+    ?.slice(
+      (request.page - 1) * request.page_count,
+      request.page * request.page_count
+    )
+    ?.map((doctor, index) => ({
+      no: (request.page - 1) * request.page_count + index + 1,
 
       name: (
         <div className="flex items-center gap-2" title={doctor.doctor_name}>
           <img
-          src={
-            doctor.profile_photo
-              ? doctor.profile_photo
-              : "https://cdn-icons-png.flaticon.com/512/847/847969.png" // fallback
-          }
-            // src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=1024x1024&w=is&k=20&c=-mUWsTSENkugJ3qs5covpaj-bhYpxXY-v9RDpzsw504="
+            src={
+              doctor.profile_photo
+                ? doctor.profile_photo
+                : "https://cdn-icons-png.flaticon.com/512/847/847969.png"
+            }
             alt="Doctor Avatar"
             style={{
               width: "40px",
               height: "40px",
               borderRadius: "50%",
               objectFit: "cover",
-              marginRight:"10px"
+              marginRight: "10px",
             }}
           />
           <span>{doctor.doctor_name}</span>
@@ -128,7 +128,7 @@ const Doctors = () => {
       actions: (
         <div className="cust-table-actions-wrap">
           <button
-            className=" color-violet action-btn"
+            className="color-violet action-btn"
             title="Edit"
             onClick={() =>
               history.push(`/carer/clinic/doctor-edit/${doctor.doctor_id}`)
@@ -137,19 +137,17 @@ const Doctors = () => {
             <img src={Edit_icon} alt="Edit" />
           </button>
           <button
-            onClick={() =>
-              deletePromptHandler(doctor?.doctor_id, doctor?.active)
-            }
-            className=" color-red action-btn"
+            onClick={() => deletePromptHandler(doctor?.doctor_id)}
+            className="color-red action-btn"
             title="Delete"
           >
             <img src={Delete_icon} alt="Delete" />
           </button>
           <button
             onClick={() =>
-              publishromptHandler(doctor?.doctor_id, doctor?.active)
+              publishPromptHandler(doctor?.doctor_id, doctor?.active)
             }
-            className="  action-btn"
+            className="action-btn"
             title={`${doctor?.active ? "Disable Doctor" : "Enable Doctor"}`}
           >
             <span
@@ -159,7 +157,6 @@ const Doctors = () => {
             >
               {doctor?.active ? "DISABLE" : "ENABLE"}
             </span>
-            {/* <img src={Delete_icon} alt="Delete" /> */}
           </button>
         </div>
       ),
@@ -167,6 +164,14 @@ const Doctors = () => {
 
   const addNewClickHandler = () => {
     history.push("/carer/clinic/add-doctor");
+  };
+
+  // Handle page change instantly without backend reload
+  const handlePageChange = (newPage) => {
+    setRequest((prev) => ({
+      ...prev,
+      page: newPage,
+    }));
   };
 
   return !auth?.user?.profile_completed ? (
@@ -181,7 +186,7 @@ const Doctors = () => {
       ref={pageWrapRef}
     >
       <Container fluid>
-        <Row className="">
+        <Row>
           <Breadcrumbs title="Tables" breadcrumbItem="Doctors" />
           {(slot?.error || slot?.success) && (
             <div>
@@ -206,13 +211,11 @@ const Doctors = () => {
             addNewClickHandler={addNewClickHandler}
             request={request}
             setRequest={setRequest}
-            // searchTerm={productData?.request?.keyword}
-            // totalRecords={productData?.data?.total}
-            totalRecords={slot?.Doctor?.total}
+            totalRecords={slot?.Doctor?.doctors?.length || 0} // total from full dataset
             loading={slot?.loading}
             addNewLabel="ADD DOCTOR"
             tableCardClassName={"snoTable"}
-            // noPagination
+            onPageChange={handlePageChange} // instant pagination
           />
         </Row>
       </Container>
