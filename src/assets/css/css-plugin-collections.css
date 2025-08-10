@@ -6375,7 +6375,7 @@ License: http://codecanyon.net/licenses
   border-radius: 100px;
   display: flex;
   align-items: center;
-  /* height: 2vh; */
+  height: 2vh;
 }
 
 .menuzord a {
