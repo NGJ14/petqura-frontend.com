@@ -210,7 +210,7 @@ const Appointments = () => {
   const formatslotData =
     slot?.clinicAppointments?.appointments?.length &&
     slot?.clinicAppointments?.appointments?.map((appointment, index) => ({
-      no: index + 1,
+      no: (request.page - 1) * request.page_count + index + 1,
       parent_name: (
         <div title={`${appointment?.first_name} ${appointment?.last_name}`}>
           {appointment?.user_details?.first_name}{" "}

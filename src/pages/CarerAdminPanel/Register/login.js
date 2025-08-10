@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Redirect, useHistory } from "react-router";
 import { getLocalStorage } from "../../../helpers/utils";
 import logo from "../../../assets/images/logo.jpg";
-import logoImg from "../../../assets/images/petqura-logo/logo-2.png";
+import logoImg from "../../../assets/images/petqura-logo/PetQuraSQ.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { carerLoginUser } from "../../../store/carer/action";
 import "react-phone-number-input/style.css";
@@ -65,9 +65,10 @@ const CarerLogin = () => {
         <div
           className="col-md-6 col-sm-12 col-12 no-float"
           style={{
-            backgroundColor: "white",
+            background: "linear-gradient(to bottom, white, #b0dcec)",
             display: "table",
             textAlign: "center",
+            height: "100vh",
           }}
         >
           <div
@@ -82,15 +83,14 @@ const CarerLogin = () => {
               style={{
                 backgroundSize: "contain",
                 width: "75%",
-                marginTop: "25vh",
+                marginTop: "1vh",
               }}
             />
           </div>
         </div>
         <div
-          className="col-md-6 col-sm-12 col-12 no-float"
+          className="col-md-6 col-sm-12 col-12 no-float bgColor"
           style={{
-            backgroundColor: "rgb(224, 247, 255)",
             position: "relative",
           }}
         >
