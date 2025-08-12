@@ -41,13 +41,13 @@ export function onResponseError(error) {
   if (status === 401 || status === 403) {
     localStorage.clear();
     if (window.location.href?.includes("/carer")) {
-      window.location.href = "/carer/login";
+      window.location.href = "/partner-login";
     } else {
       window.location.href = "/home";
     }
   }
 
-  if (status == 404 && !window.location.href?.includes("/carer/login")) {
+  if (status == 404 && !window.location.href?.includes("/partner-login")) {
     window.location.href = "/page-not-found";
   }
 

@@ -191,7 +191,7 @@ const CarerLogin = () => {
         setmodal_center={setModal}
         content="Account created successfully"
         toggle={toggle}
-        okHandleClick={() => history.push("/carer/login")}
+        okHandleClick={() => history.push("/partner-login")}
         okHandle
       />
     </>

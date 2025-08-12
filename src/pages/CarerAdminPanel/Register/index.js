@@ -204,7 +204,7 @@ const CarerRegister = () => {
                       <div className="form-group mb-0 mt-20">
                         <h5 className="mt-4">
                           Already have an account?{" "}
-                          <a href="/carer/login" className="text-info">
+                          <a href="/partner-login" className="text-info">
                             Login
                           </a>
                         </h5>
@@ -300,7 +300,7 @@ const CarerRegister = () => {
         setmodal_center={setModal}
         content="Account created successfully"
         toggle={toggle}
-        okHandleClick={() => history.push("/carer/login")}
+        okHandleClick={() => history.push("/partner-login")}
         okHandle
       />
     </>

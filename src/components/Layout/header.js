@@ -245,7 +245,7 @@ const Header = () => {
                           <li>
                             <a
                               className="cursor-pointer dropdown-user"
-                              href="/carer/login"
+                              href="/partner-login"
                               target="_blank"
                             >
                               Partners
@@ -258,7 +258,7 @@ const Header = () => {
                       <li>
                         <a
                           className="cursor-pointer dropdown-user"
-                          href="/carer/login"
+                          href="/partner-login"
                           target="_blank"
                           style={{ color: "#fff" }}
                         >

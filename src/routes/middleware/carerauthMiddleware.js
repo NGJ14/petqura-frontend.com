@@ -20,7 +20,7 @@ const CarerAuthmiddleware = ({
         return (
           <Redirect
             to={{
-              pathname: "/carer/login",
+              pathname: "/partner-login",
               state: { from: props.location },
             }}
           />

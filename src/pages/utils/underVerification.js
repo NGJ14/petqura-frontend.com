@@ -14,7 +14,7 @@ const UnderVerification = () => {
         data: { access_token: auth?.access_token },
         callback: () => {
           removeItem("AUTH_DETAILS");
-          history.push("/carer/login");
+          history.push("/partner-login");
         },
       })
     );

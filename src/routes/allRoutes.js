@@ -147,7 +147,7 @@ const authRoutes = [
 
 const carerNonRoutes = [
   { path: "/carer/register", component: CarerRegister },
-  { path: "/carer/login", component: CarerLogin },
+  { path: "/partner-login", component: CarerLogin },
   { path: "/carer/forgot-password", component: CarerForgotPassword },
 
   { path: "/page-not-found", component: PageNotFound },
