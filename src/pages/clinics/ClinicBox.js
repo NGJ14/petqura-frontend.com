@@ -4,6 +4,7 @@ import { config } from "../../config/config";
 import { Link } from "react-router-dom";
 import avatar from "../../assets/images/user/Fa6SolidHospital.svg";
   import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
+import { trackEvent } from "../../helpers/analytics";
 const ClinicBox = (props) => {
 
 
@@ -21,6 +22,18 @@ const renderStars = (rating) => {
   }
   return stars;
 };
+
+const trackClinicView = (clinicId, clinicName) => {
+  console.log("sending analytics for "+ clinicId+" "+ clinicName);
+  
+  trackEvent({
+    category: 'Clinic',
+    action: 'Viewed',
+    label: `${clinicName} (${clinicId})`,
+    value: 1
+  });
+};
+
   return (
     <ClinicBoxWrap>
       <ClinicMainSec>
@@ -78,7 +91,10 @@ const renderStars = (rating) => {
           </ClinicFooterTopSec>
 
           <ClinicFooterBottomSec>
-            <BookAppoinmentBtn onClick={props.bookAppoinment}>
+            <BookAppoinmentBtn  onClick={() => {
+              trackClinicView(props.clinic_id, props.clinicTitle);
+              props.bookAppoinment();
+            }}>
               Book Your Appointment
             </BookAppoinmentBtn>
           </ClinicFooterBottomSec>
