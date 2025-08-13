@@ -24,14 +24,15 @@ const OtpVerification = ({
   const [otp2, setotp2] = useState("");
   const [otp3, setotp3] = useState("");
   const [otp4, setotp4] = useState("");
-  const [otp5, setotp5] = useState("");
-  const [otp6, setotp6] = useState("");
+  // const [otp5, setotp5] = useState("");
+  // const [otp6, setotp6] = useState("");
   const [disable, setdisable] = useState(true);
   const [modalsuccess, setModalSuccess] = useState(false);
 
   const userData = useSelector((state) => state.Register);
   const Guest = useSelector((state) => state.Guest);
-  const otpData = otp1 + otp2 + otp3 + otp4 + otp5 + otp6;
+  // const otpData = otp1 + otp2 + otp3 + otp4 + otp5 + otp6;
+  const otpData = otp1 + otp2 + otp3 + otp4 ;
   const auth = getLocalStorage("AUTH_DETAILS");
   if (auth) {
     auth["phone_verified"] = true;
@@ -71,7 +72,7 @@ const OtpVerification = ({
       }
     } else {
       const next = elmnt.target.tabIndex;
-      if (next < 6) {
+      if (next < 4) {
         elmnt.target.form.elements[next].focus();
       }
     }
@@ -154,7 +155,7 @@ const OtpVerification = ({
                   onKeyUp={(e) => inputfocus(e)}
                 />
 
-                <input
+                {/* <input
                   name="otp5"
                   type="text"
                   autoComplete="off"
@@ -176,7 +177,7 @@ const OtpVerification = ({
                   tabIndex="6"
                   maxLength="1"
                   onKeyUp={(e) => inputfocus(e)}
-                />
+                /> */}
                 {Guest?.error && (
                   <p className="text-danger mt-3">{Guest?.error}</p>
                 )}

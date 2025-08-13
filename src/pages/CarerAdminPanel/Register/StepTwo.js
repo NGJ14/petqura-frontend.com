@@ -22,7 +22,7 @@ const StepTwo = ({ nextStep, haldleFormDataVal, prevStep, values, toggle }) => {
     values;
 
   useEffect(() => {
-    if (otp?.length == 6) {
+    if (otp?.length == 4) {
       setShowOTPForm(true);
     } else {
       setShowOTPForm(false);

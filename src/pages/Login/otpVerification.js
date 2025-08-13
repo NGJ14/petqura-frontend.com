@@ -19,13 +19,14 @@ const ForgotPasswordOtpVerification = ({
   const [otp2, setotp2] = useState("");
   const [otp3, setotp3] = useState("");
   const [otp4, setotp4] = useState("");
-  const [otp5, setotp5] = useState("");
-  const [otp6, setotp6] = useState("");
+  // const [otp5, setotp5] = useState("");
+  // const [otp6, setotp6] = useState("");
   const [disable, setdisable] = useState(true);
   // const [modalsuccess, setModalSuccess] = useState(false);
   const [modalChangePassword, setChangePasswordModal] = useState(false);
   const Login = useSelector((state) => state.Login);
-  const otpData = otp1 + otp2 + otp3 + otp4 + otp5 + otp6;
+  // const otpData = otp1 + otp2 + otp3 + otp4 + otp5 + otp6;
+  const otpData = otp1 + otp2 + otp3 + otp4;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -44,8 +45,8 @@ const ForgotPasswordOtpVerification = ({
           setotp2("");
           setotp3("");
           setotp4("");
-          setotp5("");
-          setotp6("");
+          // setotp5("");
+          // setotp6("");
         },
       })
     );
@@ -60,7 +61,7 @@ const ForgotPasswordOtpVerification = ({
     } else {
       if (elmnt?.target?.value || typeof elmnt?.target?.value == "number") {
         const next = elmnt.target.tabIndex;
-        if (next < 6) {
+        if (next < 4) {
           elmnt.target.form.elements[next].focus();
         }
       }
@@ -96,8 +97,8 @@ const ForgotPasswordOtpVerification = ({
               setotp2("");
               setotp3("");
               setotp4("");
-              setotp5("");
-              setotp6("");
+              // setotp5("");
+              // setotp6("");
             }}
           >
             <span aria-hidden="true">×</span>
@@ -163,7 +164,7 @@ const ForgotPasswordOtpVerification = ({
                   onKeyUp={(e) => inputfocus(e)}
                 />
 
-                <input
+                {/* <input
                   name="otp5"
                   type="number"
                   autoComplete="off"
@@ -187,7 +188,7 @@ const ForgotPasswordOtpVerification = ({
                   maxLength="1"
                   onKeyDown={handleKeyDown}
                   onKeyUp={(e) => inputfocus(e)}
-                />
+                /> */}
               </div>
 
               {Login?.error && <p className="text-danger">{Login?.error}</p>}
