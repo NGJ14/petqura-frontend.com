@@ -63,7 +63,11 @@ const ClinicDetail = () => {
     setHovered(rating);
   };
 
-  const params = useParams();
+  const paramsFromRouter = useParams();
+  const params = {
+    name: paramsFromRouter.name,
+    id: paramsFromRouter.id
+  };
 
   useEffect(() => {
     dispatch(

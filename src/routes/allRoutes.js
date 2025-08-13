@@ -106,7 +106,7 @@ const userRoutes = [
 
   // Clinic
   { path: "/clinic", exact: true, component: Clinics },
-  { path: "/clinic/:id", component: ClinicDetail },
+  { path: "/clinic/:name/:id", component: ClinicDetail },
 
   { path: "/page-not-found", component: PageNotFound },
 ];
