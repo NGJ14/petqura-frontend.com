@@ -203,18 +203,22 @@ const BookSlot = ({
     } else {
       if (blockSlot === true) {
         //Submitted from Clinic Login for Slot Blocking
-        dispatch(
+          dispatch(
           clinicBlockSlots({
             data: { start_time: slotVal, date: slotDate, timeslot_id: slotId },
-
-            callback: () =>
+            callback: () => {
               dispatch(
                 getClinicAppointmentDetails({
                   data: { status: "all", sort_order: "desc" },
                 })
-              ),
+              );
+              window.location.reload();
+            },
           })
         );
+
+        // window.location.reload();
+
       } else {
         //Submitted from Clinic Login for Reschedule
         dispatch(
