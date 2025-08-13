@@ -8,9 +8,9 @@ REMOTE_USER="ubuntu"
 REMOTE_HOST="ec2-43-204-18-98.ap-south-1.compute.amazonaws.com"
 REMOTE_DIR="/home/ubuntu/pawwalker-fe/new-fe-design"
 
-# Step 1: Build project
-# echo "📦 Building project..."
-# npm run build || { echo "❌ Build failed"; exit 1; }
+Step 1: Build project
+echo "📦 Building project..."
+npm run build || { echo "❌ Build failed"; exit 1; }
 
 # Step 2: Zip only contents of build folder (no full path)
 echo "🗜 Zipping build folder..."
