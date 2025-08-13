@@ -55,6 +55,7 @@ import {
   removeCouponDetails,
 } from "../../store/UserStore/Coupon/action";
 import Login from "../Login";
+import { trackEvent } from "../../helpers/analytics";
 
 const ShopCart = () => {
   const [qty, setQty] = useState(1);
@@ -387,6 +388,7 @@ const ShopCart = () => {
   };
 
   const handleCheckout = () => {
+
     let data;
     if (history?.location?.state?.deliveryMode !== "select") {
       data = {
@@ -402,12 +404,20 @@ const ShopCart = () => {
     }
 
     if (profileDetails.user?.active) {
+      console.log(profileDetails.user);
+      
       // launchCashfreeCheckout('session_cK6tBVnP9ud8Vszz0mRiRVP9A6G8UpoWSrps5QVrIlSuN3k8ljpBDpA9udjrhzxObOz-nr1e7AaYDK12Z88ljZRPM6fdzBVVjjlsD_V55oMZyMQOFWnRG_LQQXV4iApaymentpayment');
-
+      trackEvent({
+                category: 'Checkout',
+                action: 'Initiated',
+                label: `${profileDetails.user.first_name}`,
+                value: 1
+              });
       dispatch(
         getCheckoutPrepaidOrder({
           data,
           callback: (sessionId) => {
+            
             setShowPayment(true);
             setShowRewardCheck(false);
             setShowPlaceOrder(false);
@@ -901,6 +911,7 @@ const ShopCart = () => {
   };
 
   const handleSubmit = () => {
+    // trackEvent
     if (billingaddressId === "") billingaddressId = addressId;
     dispatch(
       checkPincode({

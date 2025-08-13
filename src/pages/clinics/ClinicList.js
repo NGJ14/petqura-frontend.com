@@ -185,6 +185,7 @@ const ClinicList = () => {
           </div>
           */}
                 <ClinicBox
+                clinic_id={clinic?.clinic_id}
                   key={clinic?.clinic_name}
                   clinicLogo={clinic?.clinic_image}
                   clinicTitle={clinic?.clinic_name}

@@ -24,6 +24,7 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import StoreBanner from "./store-banner";
 import { config } from "../../config/config";
+import { trackAddToCart } from "../../helpers/analytics";
 
 // <a target="_blank" href="https://icons8.com/icon/5oZaluNJrRzV/shopping-cart">Shopping Cart</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 
@@ -62,7 +63,9 @@ const ShopItems = () => {
     productId,
     productVariantId,
     loopindex,
-    featureselectedon
+    featureselectedon,
+    productName,
+    price
   ) => {
     console.log("clicked");
     let variant_x = "";
@@ -78,36 +81,43 @@ const ShopItems = () => {
       return setModal(true);
     }
 
-    auth?.user?.role === "pet_owner"
-      ? dispatch(
-          addCartDetails({
-            Cart: {
-              product_id: productId,
-              product_variant_id: variant_x,
-              quantity: 1,
-            },
-            callback: () => {
-              dispatch(getCartDetails());
-              // setShowPopup(true);
-              clientedetail();
-            },
-          })
-        )
-      : dispatch(
-          addCartDetails({
-            Cart: {
-              guest_id: auth?.guest_id,
-              product_id: productId,
-              product_variant_id: variant_x,
-              quantity: 1,
-            },
-            callback: () => {
-              dispatch(getGuestCart({ data: { guest_id: auth?.guest_id } }));
-              // setShowPopup(true);
-              clientedetail();
-            },
-          })
-        );
+   auth?.user?.role === "pet_owner"
+  ? dispatch(
+      addCartDetails({
+        Cart: {
+          product_id: productId,
+          product_variant_id: variant_x,
+          quantity: 1,
+        },
+        callback: () => {
+          // Track analytics event after successful add
+          trackAddToCart(productName, price, 1);
+
+          dispatch(getCartDetails());
+          // setShowPopup(true);
+          clientedetail();
+        },
+      })
+    )
+  : dispatch(
+      addCartDetails({
+        Cart: {
+          guest_id: auth?.guest_id,
+          product_id: productId,
+          product_variant_id: variant_x,
+          quantity: 1,
+        },
+        callback: () => {
+          // Track analytics event after successful add
+          trackAddToCart(productName, price, 1);
+
+          dispatch(getGuestCart({ data: { guest_id: auth?.guest_id } }));
+          // setShowPopup(true);
+          clientedetail();
+        },
+      })
+    );
+
   };
 
   const selectedfeature = (variant, PVindex, i) => {
@@ -516,12 +526,24 @@ const ShopItems = () => {
                                     <div
                                       className="col-sm-3 col-md-3 cartWrapper"
                                       onClick={() => {
+                                        // Extract product name
+                                        const name = product?.product_name?.slice(0, 75);
+
+                                        // Extract price (same logic as your span)
+                                        const price =
+                                          discountpercentage > 0 && productIndex === i
+                                            ? discountedPrice
+                                            : product.variants[0]?.dispaly_discount_percentage > 0
+                                            ? product.variants[0]?.discounted_price
+                                            : product.variants[0]?.price;
+
                                         handleAddToCart(
                                           product?.product_id,
-                                          product?.variants[0]
-                                            .product_variant_id,
+                                          product?.variants[0]?.product_variant_id,
                                           i,
-                                          productIndex
+                                          productIndex,
+                                          name,
+                                          price
                                         );
                                       }}
                                     >
