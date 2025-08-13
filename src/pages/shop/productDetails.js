@@ -38,7 +38,11 @@ import UserSelectionAlert from "./UserSelection";
 import ImageMagnifier from "../../components/ImageMagnifier";
 const ProductDetails = () => {
   const dispatch = useDispatch();
-  const params = useParams();
+  const paramsFromRouter = useParams();
+  const params = {
+    name: paramsFromRouter.name,
+    id: paramsFromRouter.id
+  };
   const ShopDetails = useSelector((state) => state.Shop);
   const Reviews = useSelector((state) => state.Reviews);
   const [qty, setQty] = useState(1);
@@ -712,7 +716,7 @@ const ProductDetails = () => {
                                         className="p-3"
                                       >
                                         <a
-                                          href={`/product/${product?.product_id}`}
+                                          href={`/product/${product?.product_name?.trim().replace(/\s+/g, "-")}/${product?.product_id}`}
                                           style={{ textDecoration: "none" }}
                                         >
                                           <div

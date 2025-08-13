@@ -768,7 +768,7 @@ const ProductDetails = () => {
                             product?.product_id == params?.id ? null : (
                               <div className=" col-sm-4 col-md-4 col-lg-3 mb-30 col-xs-6 pl-0">
                                 <a
-                                  href={`/product/${product?.product_id}`}
+                                  href={`/product/${product?.product_name?.trim().replace(/\s+/g, "-")}/${product?.product_id}`}
                                   style={{ textDecoration: "none" }}
                                 >
                                   <div className="product col-lg-7">

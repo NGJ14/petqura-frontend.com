@@ -102,7 +102,7 @@ const userRoutes = [
   // Shop
   { path: "/store", exact: true, component: Shop },
   { path: "/store-cart", exact: true, component: ShopCart },
-  { path: "/product/:id", exact: true, component: ProductDetails },
+  { path: "/product/:name/:id", exact: true, component: ProductDetails },
 
   // Clinic
   { path: "/clinic", exact: true, component: Clinics },
