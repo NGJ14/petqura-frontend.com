@@ -37,7 +37,7 @@ const Clinics = () => {
         </title>
         <meta
           name="description"
-          content="Discover the best pet store in Bangalore, PawWalker, for all your pet care needs. From premium pet supplies to top-notch pet grooming service near you."
+          content="Discover the best pet store in Bangalore, PetQura, for all your pet care needs. From premium pet supplies to top-notch pet grooming service near you."
         />
         <meta
           name="keywords"

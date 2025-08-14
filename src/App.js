@@ -39,48 +39,48 @@ const App = () => {
       location.pathname === `/home` &&
       document.title === ""
     ) {
-      document.title = "Home | PawWalker";
+      document.title = "Home | PetQura";
     } else if (
       !data?.loading &&
       location.pathname === `/store` &&
       document.title === ""
     ) {
-      document.title = "Store | PawWalker";
+      document.title = "Store | PetQura";
     } else if (!data?.loading && location.pathname === `/product`) {
-      document.title = "Store | PawWalker";
+      document.title = "Store | PetQura";
     } else if (
       !data?.loading &&
       location.pathname === `/clinic` &&
       document.title === ""
     ) {
-      document.title = "Clinic | PawWalker";
+      document.title = "Clinic | PetQura";
     } else if (!data?.loading && location.pathname === `/cookie-policy`) {
-      document.title = "Cookie Policy | PawWalker";
+      document.title = "Cookie Policy | PetQura";
     } else if (
       !data?.loading &&
       location.pathname === `/about-us` &&
       document.title === ""
     ) {
-      document.title = "About us | PawWalker";
+      document.title = "About us | PetQura";
     } else if (!data?.loading && location.pathname === `/terms-of-service`) {
-      document.title = "Terms of Service | PawWalker";
+      document.title = "Terms of Service | PetQura";
     } else if (!data?.loading && location.pathname === `/cart`) {
-      document.title = "Cart | PawWalker";
+      document.title = "Cart | PetQura";
     } else if (
       !data?.loading &&
       location.pathname === `/refund-and-cancellation`
     ) {
-      document.title = "Refund & Cancellation | PawWalker";
+      document.title = "Refund & Cancellation | PetQura";
     } else if (window.location.href.indexOf("product") > -1) {
-      document.title = "Store | PawWalker";
+      document.title = "Store | PetQura";
     } else if (window.location.href.indexOf("clinic") > -1) {
-      document.title = "Clinic | PawWalker";
+      document.title = "Clinic | PetQura";
     } else if (window.location.href.indexOf("home") > -1) {
-      document.title = "Home | PawWalker";
+      document.title = "Home | PetQura";
     } else if (window.location.href.indexOf("summary") > -1) {
-      document.title = "Checkout Summary | PawWalker";
+      document.title = "Checkout Summary | PetQura";
     } else if (window.location.href.indexOf("address") > -1) {
-      document.title = "Shipping Address | PawWalker";
+      document.title = "Shipping Address | PetQura";
     }
   }, [location.pathname, data?.loading]);
   return (

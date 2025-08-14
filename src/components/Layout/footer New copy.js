@@ -12,10 +12,10 @@ const Footer = () => {
             <div className="col-xs-12 col-sm-6 col-md-3">
               <div className="widget  no-box">
                 <h5 className="widget-title">
-                  PawWalker<span></span>
+                  PetQura<span></span>
                 </h5>
                 <p>
-                  PawWalker is an organization that aims to bring all that your
+                  PetQura is an organization that aims to bring all that your
                   Pet requires in a single platform.
                 </p>
               </div>
