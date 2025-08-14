@@ -39,7 +39,7 @@ const Products = () => {
                             ?.map((product, i) => (
                               <div className=" col-sm-4 col-md-4 col-lg-3 mb-30 col-xs-6 ">
                                 <a
-                                  href={`/product/${product?.product_name?.trim().replace(/\s+/g, "-")}/${product?.product_id}`}
+                                  href={`/product/${product?.category_name?.trim().replace(/\s+/g, "-")}/${product?.product_name?.trim().replace(/\s+/g, "-")}/${product?.product_id}`}
                                   style={{ textDecoration: "none" }}
                                 >
                                   <div className="product ">

@@ -40,6 +40,7 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
   const paramsFromRouter = useParams();
   const params = {
+    category:paramsFromRouter.category,
     name: paramsFromRouter.name,
     id: paramsFromRouter.id
   };
@@ -716,7 +717,7 @@ const ProductDetails = () => {
                                         className="p-3"
                                       >
                                         <a
-                                          href={`/product/${product?.product_name?.trim().replace(/\s+/g, "-")}/${product?.product_id}`}
+                                          href={`/product/${product?.category_name?.trim().replace(/\s+/g, "-")}/${product?.product_name?.trim().replace(/\s+/g, "-")}/${product?.product_id}`}
                                           style={{ textDecoration: "none" }}
                                         >
                                           <div

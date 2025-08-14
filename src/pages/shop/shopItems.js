@@ -364,7 +364,7 @@ const ShopItems = () => {
                                 <span className="tag-sale">Trending!</span>
                               )} */}
                                 <a
-                                  href={`/product/${product?.product_name?.trim().replace(/\s+/g, "-")}/${product?.product_id}`}
+                                  href={`/product/${product?.category_name?.trim().replace(/\s+/g, "-")}/${product?.product_name?.trim().replace(/\s+/g, "-")}/${product?.product_id}`}
                                   style={{ textDecoration: "none" }}
                                 >
                                   <div className="product-thumb product-img">
@@ -387,8 +387,9 @@ const ShopItems = () => {
                                   </div>
                                 </a>
                                 <div className="product-details pr-lg-10 pl-lg-10">
-                                  <a
-                                    href={`/product/${product?.product_name?.trim().replace(/\s+/g, "-")}/${product?.product_id}`}
+                                  <a 
+
+                                    href={`/product/${product?.category_name?.trim().replace(/\s+/g, "-")}/${product?.product_name?.trim().replace(/\s+/g, "-")}/${product?.product_id}`}
                                     style={{ textDecoration: "none" }}
                                   >
                                     <h4 className="product-name">
