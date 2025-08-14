@@ -204,18 +204,31 @@ const BookSlot = ({
       if (blockSlot === true) {
         //Submitted from Clinic Login for Slot Blocking
           dispatch(
-          clinicBlockSlots({
-            data: { start_time: slotVal, date: slotDate, timeslot_id: slotId },
-            callback: () => {
-              dispatch(
-                getClinicAppointmentDetails({
-                  data: { status: "all", sort_order: "desc" },
-                })
-              );
-              window.location.reload();
-            },
-          })
-        );
+            clinicBlockSlots({
+              data: { start_time: slotVal, date: slotDate, timeslot_id: slotId },
+              callback: () => {
+                // refresh the slot list for the same date & clinic
+                dispatch(
+                  getClinicSlotById({
+                    data: {
+                      clinic_id: id,
+                      day: activeTab === "1" ? "d1" : `d${activeTab}`,
+                      action: "slots",
+                      internal: Internal,
+                    },
+                  })
+                );
+
+                // refresh appointment list
+                dispatch(
+                  getClinicAppointmentDetails({
+                    data: { status: "all", sort_order: "desc" },
+                  })
+                );
+              },
+            })
+          );
+                
 
         // window.location.reload();
 
