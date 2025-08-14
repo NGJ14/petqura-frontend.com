@@ -207,6 +207,9 @@ const BookSlot = ({
             clinicBlockSlots({
               data: { start_time: slotVal, date: slotDate, timeslot_id: slotId },
               callback: () => {
+                setSlotKey(null);
+                setSlotVal(null);
+                setSlotId(null);
                 // refresh the slot list for the same date & clinic
                 dispatch(
                   getClinicSlotById({
