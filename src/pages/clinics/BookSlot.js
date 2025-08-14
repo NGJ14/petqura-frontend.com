@@ -225,9 +225,10 @@ const BookSlot = ({
                 // refresh appointment list
                 dispatch(
                   getClinicAppointmentDetails({
-                    data: { status: "all", sort_order: "desc" },
+                    data: { status: "all", sort_order: "desc",page: 1, page_count: 10, },
                   })
                 );
+                
               },
             })
           );

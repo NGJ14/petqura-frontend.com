@@ -8,7 +8,7 @@ REMOTE_USER="ubuntu"
 REMOTE_HOST="ec2-43-204-18-98.ap-south-1.compute.amazonaws.com"
 REMOTE_DIR="/home/ubuntu/pawwalker-fe/new-fe-design"
 
-Step 1: Build project
+# Step 1: Build project
 echo "📦 Building project..."
 npm run build || { echo "❌ Build failed"; exit 1; }
 
