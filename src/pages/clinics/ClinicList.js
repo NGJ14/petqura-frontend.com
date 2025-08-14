@@ -202,7 +202,7 @@ const ClinicList = () => {
                         ))
                       : null
                   }
-                  redirectLink={`/clinic/${clinic?.clinic_name?.trim().replace(/\s+/g, "-")}/${clinic?.clinic_id}`}
+                  redirectLink={`/clinic/bangalore/${clinic?.clinic_name?.trim().replace(/\s+/g, "-")}/${clinic?.clinic_id}`}
                   clinicPrice={"Starts at 500/-"}
                   bookAppoinment={() => HandleBookAppoinment(clinic?.clinic_id)}
                 />

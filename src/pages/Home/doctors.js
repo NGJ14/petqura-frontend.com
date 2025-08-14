@@ -40,7 +40,7 @@ const Doctors = () => {
                   ? clinicData?.Clinic?.clinics?.slice(0, 4)?.map((clinic) => (
                       <div className=" col-sm-4 col-md-4 col-lg-3 mb-30 col-xs-6 ">
                         <a
-                          href={`/clinic/${clinic?.clinic_name?.trim().replace(/\s+/g, "-")}/${clinic?.clinic_id}`}
+                          href={`/clinic/bangalore/${clinic?.clinic_name?.trim().replace(/\s+/g, "-")}/${clinic?.clinic_id}`}
                           style={{ textDecoration: "none" }}
                         >
                           <div className="product ">
